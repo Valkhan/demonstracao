@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setrax – Saúde e Segurança Ocupacional</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #1a2c4e;
+    --navy-deep:  #0f1c33;
+    --navy-light: #243f6a;
+    --green:      #4a7c59;
+    --green-soft: #5c9870;
+    --green-pale: #d6e9db;
+    --green-ultra:#edf5ef;
+    --gold:       #c8a96e;
+    --cream:      #f7f5f0;
+    --off:        #eeebe3;
+    --border:     #ddd9d0;
+    --text:       #1a1e1c;
+    --muted:      #6b7280;
+    --white:      #ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--navy-deep);
+    height: 68px;
+    display: flex; align-items: center;
+    padding: 0 56px;
+    justify-content: space-between;
+  }
+  .n-brand { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .n-hex { width:34px; height:34px; }
+  .n-name { font-family:'Jost',sans-serif; font-size:15px; font-weight:600; letter-spacing:4px; color:var(--white); }
+  .n-links { display:flex; align-items:center; gap:36px; list-style:none; }
+  .n-links a { font-size:12px; font-weight:500; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,.6); text-decoration:none; transition:color .2s; }
+  .n-links a:hover { color:var(--white); }
+  .n-cta { background:var(--green) !important; color:var(--white) !important; padding:10px 24px; border-radius:2px; }
+  .n-cta:hover { background:var(--green-soft) !important; }
+
+  /* ── HERO — Hatch Vida style ── */
+  /* Full-height split com caixa de serviços sobrepostos na base */
+  .hero {
+    padding-top: 68px;
+    position: relative;
+    background: var(--navy-deep);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-inner {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+
+  /* Lado esquerdo: texto hero */
+  .hero-left {
+    padding: 80px 56px 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-badge {
+    display: inline-flex; align-items:center; gap:10px;
+    background: rgba(74,124,89,.15);
+    border: 1px solid rgba(74,124,89,.35);
+    color: var(--green-soft);
+    font-size:11px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase;
+    padding: 8px 16px; border-radius:2px; margin-bottom:28px; width:fit-content;
+  }
+  .hero-badge::before { content:''; width:6px; height:6px; background:var(--green-soft); border-radius:50%; }
+  .hero-h1 {
+    font-family:'Cormorant Garamond',serif;
+    font-size: clamp(44px, 4.5vw, 76px);
+    font-weight:700; line-height:1.05; color:var(--white); margin-bottom:24px;
+  }
+  .hero-h1 em { font-style:italic; color:var(--green-soft); }
+  .hero-sub {
+    font-size:18px; line-height:1.75; color:rgba(255,255,255,.65);
+    max-width:460px; margin-bottom:44px; font-weight:300;
+  }
+  .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+  .btn-p {
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--green); color:var(--white);
+    font-size:13px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+    padding:15px 30px; border-radius:2px; text-decoration:none;
+    border:none; cursor:pointer; transition:background .25s, transform .2s;
+  }
+  .btn-p:hover { background:var(--green-soft); transform:translateY(-1px); }
+  .btn-s {
+    display:inline-flex; align-items:center; gap:10px;
+    background:transparent; color:rgba(255,255,255,.75);
+    font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+    padding:13px 26px; border-radius:2px; text-decoration:none;
+    border:1px solid rgba(255,255,255,.2); cursor:pointer; transition:border-color .25s, color .25s;
+  }
+  .btn-s:hover { border-color:rgba(255,255,255,.5); color:var(--white); }
+
+  /* Lado direito: foto/visual */
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  @keyframes pulse-glow-bg {
+    0%, 100% { 
+      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-deep) 100%);
+    }
+    50% { 
+      background: linear-gradient(135deg, #2a4d75 0%, var(--navy-deep) 100%);
+    }
+  }
+  .hero-right-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-deep) 100%);
+    animation: pulse-glow-bg 6s ease-in-out infinite;
+  }
+  .hero-right-bg::after {
+    content: ''; position: absolute;
+    top: 20%; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(74,124,89,.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-radial 4s ease-in-out infinite;
+  }
+  @keyframes pulse-radial {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.5; }
+    50% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
+  }
+  /* Grade de linhas decorativas */
+  .hero-right-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(74,124,89,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74,124,89,.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 48px 48px; }
+  }
+  /* Círculos decorativos */
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse-circle {
+    0%, 100% { border-color: rgba(74,124,89,.18); }
+    50% { border-color: rgba(74,124,89,.35); }
+  }
+  .hero-circle-1 {
+    position: absolute; top: 10%; right: 15%;
+    width: 280px; height: 280px;
+    border: 1px solid rgba(74,124,89,.18); border-radius: 50%;
+    animation: rotate-slow 25s linear infinite, pulse-circle 3s ease-in-out infinite;
+  }
+  .hero-circle-1::before {
+    content: ''; position: absolute; top: 50%; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(74,124,89,.3), transparent);
+  }
+  .hero-circle-2 {
+    position: absolute; top: 20%; right: 22%;
+    width: 160px; height: 160px;
+    border: 1px solid rgba(74,124,89,.12); border-radius: 50%;
+    animation: rotate-slow 20s linear infinite reverse;
+  }
+  .hero-circle-2::before {
+    content: ''; position: absolute; top: 0; left: 50%;
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg, transparent, rgba(74,124,89,.25), transparent);
+  }
+  /* Bloco de estatísticas flutuante - NOVO DESIGN */
+  .hero-stat-float {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    width: 60%; min-width: 50%;
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translate(-50%, -40%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(74,124,89,.15), 0 8px 32px rgba(0,0,0,.2); }
+    50% { box-shadow: 0 0 35px rgba(74,124,89,.35), 0 12px 40px rgba(0,0,0,.25); }
+  }
+  .stat-chip {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(74,124,89,.25);
+    border-radius: 8px;
+    padding: 24px 22px;
+    backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+    transition: all .4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .stat-chip::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--green-soft));
+    opacity: 0.8;
+  }
+  .stat-chip::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at top right, rgba(74,124,89,.1), transparent 60%);
+    opacity: 0; transition: opacity .4s;
+  }
+  .stat-chip:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,.12);
+    border-color: rgba(74,124,89,.45);
+    box-shadow: 0 0 40px rgba(74,124,89,.3), 0 16px 48px rgba(0,0,0,.3);
+  }
+  .stat-chip:hover::after { opacity: 1; }
+  .stat-chip:nth-child(1) { animation: float 4s ease-in-out infinite; }
+  .stat-chip:nth-child(2) { animation: float 4s ease-in-out 0.5s infinite; }
+  .stat-chip:nth-child(3) { animation: float 4s ease-in-out 1s infinite; }
+  .stat-chip:nth-child(4) { animation: float 4s ease-in-out 1.5s infinite; }
+  
+  .stat-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--green), var(--green-soft));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 12px rgba(74,124,89,.3);
+  }
+  .stat-icon svg { width: 22px; height: 22px; stroke: white; fill: none; stroke-width: 2.5; stroke-linecap: round; }
+  
+  .stat-val { 
+    font-family:'Cormorant Garamond',serif; 
+    font-size:38px; font-weight:700; 
+    color:var(--white); line-height:1; 
+    margin-bottom: 6px;
+    text-shadow: 0 2px 8px rgba(0,0,0,.2);
+  }
+  .stat-lbl { 
+    font-size:12px; 
+    color:rgba(255,255,255,.6); 
+    letter-spacing:0.5px; 
+    font-weight: 500;
+  }
+
+  /* Hexágonos flutuantes decorativos */
+  @keyframes float-hex {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.15; }
+    25% { transform: translate(10px, -20px) rotate(45deg); opacity: 0.25; }
+    50% { transform: translate(-10px, -40px) rotate(90deg); opacity: 0.15; }
+    75% { transform: translate(15px, -20px) rotate(135deg); opacity: 0.2; }
+  }
+  .hero-hex {
+    position: absolute;
+    width: 40px; height: 40px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .hero-hex svg {
+    width: 100%; height: 100%;
+    stroke: var(--green-soft); fill: none; stroke-width: 1.5;
+  }
+  .hero-hex-1 { top: 15%; left: 20%; animation: float-hex 8s ease-in-out infinite; }
+  .hero-hex-2 { top: 70%; left: 15%; animation: float-hex 10s ease-in-out 1s infinite; }
+  .hero-hex-3 { top: 25%; right: 10%; animation: float-hex 12s ease-in-out 2s infinite; }
+  .hero-hex-4 { bottom: 20%; right: 25%; animation: float-hex 9s ease-in-out 3s infinite; }
+
+  /* ── CAIXAS SOBREPOSTAS — à la Hatch Vida ── */
+  /* 3 cartões que ficam sobrepostos ao hero, metade saindo do fundo */
+  .hero-services-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    z-index: 10;
+    padding: 0 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    transform: translateY(50%);
+  }
+  .hs-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--green);
+    padding: 28px 28px 24px;
+    box-shadow: 0 16px 48px rgba(0,0,0,.12);
+    transition: transform .25s, box-shadow .25s;
+    cursor: default;
+  }
+  .hs-card:hover { transform: translateY(-4px); box-shadow: 0 24px 64px rgba(0,0,0,.18); }
+  .hs-icon {
+    width: 40px; height: 40px;
+    background: var(--green-ultra); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .hs-icon svg { width:20px; height:20px; stroke: var(--green); fill:none; stroke-width:2; stroke-linecap:round; }
+  .hs-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; color:var(--navy); margin-bottom:8px; }
+  .hs-desc { font-size:13px; line-height:1.6; color:var(--muted); }
+  .hs-link { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--green); text-decoration:none; margin-top:12px; letter-spacing:.5px; }
+  .hs-link svg { width:12px; height:12px; transition:transform .2s; }
+  .hs-card:hover .hs-link svg { transform:translateX(3px); }
+
+  /* ── SPACER para compensar o overlap ── */
+  .hero-spacer { height: 90px; background: var(--cream); }
+
+  /* ── CREDENCIAIS ── */
+  .cred-bar {
+    background: var(--cream);
+    padding: 28px 56px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cred-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    gap: 48px; flex-wrap: wrap;
+  }
+  .cred-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 600; letter-spacing:.5px; color: var(--muted); white-space:nowrap;
+  }
+  .cred-dot { width:8px; height:8px; background:var(--green); border-radius:50%; flex-shrink:0; }
+  .cred-sep { width:1px; height:28px; background:var(--border); }
+
+  /* ── SOBRE / INTRO ── */
+  .sobre {
+    background: var(--white);
+    padding: 100px 56px;
+  }
+  .sobre-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .eyebrow {
+    font-size:10px; font-weight:600; letter-spacing:3px; text-transform:uppercase;
+    color:var(--green); margin-bottom:14px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before { content:''; width:20px; height:2px; background:var(--green); }
+  .sec-h2 {
+    font-family:'Cormorant Garamond',serif;
+    font-size: clamp(30px, 3vw, 46px);
+    font-weight:700; color:var(--navy); line-height:1.12; margin-bottom:20px;
+  }
+  .sec-h2 em { font-style:italic; color:var(--green); }
+  .sec-p { font-size:15px; line-height:1.8; color:var(--muted); font-weight:300; }
+  .sobre-nums {
+    display:grid; grid-template-columns:1fr 1fr; gap:2px;
+    border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-top:32px;
+  }
+  .sn {
+    padding:24px 28px; background:var(--cream);
+    border-right:1px solid var(--border); border-bottom:1px solid var(--border);
+  }
+  .sn:nth-child(2n) { border-right:none; }
+  .sn:nth-child(3), .sn:nth-child(4) { border-bottom:none; }
+  .sn-val { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:700; color:var(--green); line-height:1; margin-bottom:4px; }
+  .sn-lbl { font-size:12px; color:var(--muted); letter-spacing:.5px; }
+  /* Sobre direita: visual */
+  .sobre-right { position:relative; }
+  .sobre-img-mock {
+    width:100%; aspect-ratio:4/5; background:var(--navy);
+    border-radius:4px; overflow:hidden; position:relative;
+  }
+  .sobre-img-inner {
+    position:absolute; inset:0;
+    background: linear-gradient(160deg, var(--navy-light) 0%, var(--navy-deep) 100%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .sobre-img-inner svg { width:120px; height:120px; opacity:.12; }
+  .sobre-badge-float {
+    position:absolute; bottom:-20px; left:-20px;
+    background:var(--green); color:var(--white);
+    padding:20px 24px; border-radius:3px;
+    box-shadow: 0 12px 32px rgba(0,0,0,.15);
+  }
+  .sbf-val { font-family:'Cormorant Garamond',serif; font-size:40px; font-weight:700; line-height:1; }
+  .sbf-lbl { font-size:11px; letter-spacing:1px; opacity:.8; margin-top:2px; }
+
+  /* ── SERVIÇOS COMPLETOS ── */
+  .servicos { background:var(--cream); padding:100px 56px; }
+  .servicos-inner { max-width:1100px; margin:0 auto; }
+  .sec-header { margin-bottom:60px; }
+  .services-grid {
+    display:grid; grid-template-columns: repeat(3, 1fr); gap:20px;
+  }
+  .sv {
+    background:var(--white); border:1px solid var(--border);
+    border-top:3px solid transparent; border-radius:3px;
+    padding:32px 28px;
+    transition: border-top-color .25s, transform .25s, box-shadow .25s;
+    cursor:default;
+  }
+  .sv:hover { border-top-color:var(--green); transform:translateY(-3px); box-shadow:0 12px 40px rgba(26,44,78,.08); }
+  .sv-icon { width:44px; height:44px; background:var(--navy); border-radius:3px; display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+  .sv-icon svg { width:22px; height:22px; stroke:var(--green-soft); fill:none; stroke-width:2; stroke-linecap:round; }
+  .sv-title { font-family:'Cormorant Garamond',serif; font-size:19px; font-weight:700; color:var(--navy); margin-bottom:10px; }
+  .sv-desc { font-size:13px; line-height:1.65; color:var(--muted); }
+
+  /* ── TIMELINE — diferenciais ── */
+  .diferenciais { background:var(--white); padding:100px 56px; }
+  .diff-inner {
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:1fr 1.4fr; gap:80px; align-items:start;
+  }
+  .diff-left { position:sticky; top:100px; }
+  .diff-left .sec-h2 { margin-bottom:16px; }
+  .diff-left .sec-p { margin-bottom:32px; }
+  .diff-cta-link {
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--navy); color:var(--white);
+    font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+    padding:14px 24px; border-radius:2px; text-decoration:none;
+    transition:background .25s;
+  }
+  .diff-cta-link:hover { background:var(--navy-light); }
+
+  /* Timeline vertical */
+  .timeline { position:relative; padding-left:0; }
+  .timeline::before {
+    content:''; position:absolute;
+    left: 18px; top:0; bottom:0; width:2px;
+    background: linear-gradient(to bottom, var(--green), rgba(74,124,89,.1));
+  }
+  .tl-item {
+    position:relative; padding-left:56px; padding-bottom:48px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .tl-item:last-child { padding-bottom:0; }
+  /* Bolinha da timeline */
+  .tl-dot {
+    position:absolute; left:6px; top:4px;
+    width:24px; height:24px;
+    background:var(--white); border:2px solid var(--green);
+    border-radius:50%; display:flex; align-items:center; justify-content:center;
+    transition: background .25s;
+  }
+  .tl-item:hover .tl-dot { background:var(--green); }
+  .tl-dot-inner { width:8px; height:8px; background:var(--green); border-radius:50%; }
+  .tl-item:hover .tl-dot-inner { background:var(--white); }
+  /* Conteúdo */
+  .tl-label {
+    font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+    color:var(--green);
+  }
+  .tl-title {
+    font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:700;
+    color:var(--navy); line-height:1.2;
+  }
+  /* Card com imagem ao lado */
+  .tl-card {
+    background:var(--cream); border:1px solid var(--border);
+    border-radius:3px; padding:20px 20px; margin-top:6px;
+    display:grid; grid-template-columns:64px 1fr; gap:16px; align-items:start;
+    transition:box-shadow .25s;
+  }
+  .tl-item:hover .tl-card { box-shadow:0 6px 24px rgba(26,44,78,.07); }
+  .tl-card-icon {
+    width:64px; height:64px; background:var(--navy); border-radius:3px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .tl-card-icon svg { width:30px; height:30px; stroke:var(--green-soft); fill:none; stroke-width:1.5; stroke-linecap:round; }
+  .tl-card-text { font-size:13px; line-height:1.65; color:var(--muted); }
+  .tl-card-text strong { color:var(--text); display:block; margin-bottom:4px; font-weight:600; font-size:14px; }
+
+  /* ── MÉDICO ── */
+  .medico { background:var(--cream); padding:100px 56px; }
+  .medico-inner {
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:320px 1fr; gap:60px; align-items:center;
+  }
+  .med-card {
+    background:var(--white); border:1px solid var(--border);
+    border-radius:4px; overflow:hidden;
+    box-shadow:0 8px 32px rgba(26,44,78,.07);
+  }
+  .med-card-top {
+    background:var(--navy); padding:36px 32px; text-align:center;
+  }
+  .med-av {
+    width:80px; height:80px; border-radius:50%;
+    background:rgba(74,124,89,.2); border:3px solid var(--green);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 14px;
+  }
+  .med-av svg { width:40px; height:40px; stroke:var(--green-soft); fill:none; stroke-width:1.5; }
+  .med-nome { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:700; color:var(--white); }
+  .med-cargo { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--green-soft); margin-top:4px; }
+  .med-card-body { padding:24px 32px; }
+  .med-crm {
+    display:flex; align-items:center; gap:8px;
+    background:var(--cream); padding:10px 14px; border-radius:2px;
+    font-size:12px; font-weight:600; color:var(--muted); margin-bottom:16px;
+  }
+  .med-crm-dot { width:6px; height:6px; background:var(--green); border-radius:50%; flex-shrink:0; }
+  .med-bio { font-size:13px; line-height:1.65; color:var(--muted); }
+  /* Texto direita */
+  .med-txt .eyebrow { margin-bottom:12px; }
+  .med-txt .sec-h2 { margin-bottom:16px; }
+  .med-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+  .chip {
+    display:flex; align-items:center; gap:7px;
+    background:var(--green-ultra); border:1px solid var(--green-pale);
+    color:var(--green); font-size:12px; font-weight:600; padding:8px 14px; border-radius:100px;
+  }
+  .chip-dot { width:5px; height:5px; background:var(--green); border-radius:50%; }
+
+  /* ── CONTATO ── */
+  .contato { background:var(--white); padding:100px 56px; }
+  .contato-inner {
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:80px; align-items:start;
+  }
+  .form-wrap {
+    background:var(--cream); border:1px solid var(--border);
+    border-top:3px solid var(--green); padding:44px 40px; border-radius:3px;
+  }
+  .form-wrap h3 {
+    font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700;
+    color:var(--navy); margin-bottom:28px;
+  }
+  .fg { margin-bottom:18px; }
+  .fl { display:block; font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:7px; }
+  .fi {
+    width:100%; padding:12px 15px;
+    font-family:'Jost',sans-serif; font-size:14px; color:var(--text);
+    background:var(--white); border:1px solid var(--border); border-radius:2px;
+    outline:none; transition:border-color .2s; appearance:none;
+  }
+  .fi:focus { border-color:var(--green); }
+  textarea.fi { resize:vertical; min-height:90px; }
+  .fsub {
+    width:100%; background:var(--navy); color:var(--white);
+    font-family:'Jost',sans-serif; font-size:13px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+    padding:15px; border:none; border-radius:2px; cursor:pointer;
+    transition:background .25s; margin-top:6px;
+  }
+  .fsub:hover { background:var(--navy-light); }
+  .frow { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  /* Info direita */
+  .info-right { padding-top:8px; }
+  .info-right .sec-h2 { margin-bottom:8px; }
+  .info-right .sec-p { margin-bottom:36px; }
+  .ib { display:flex; align-items:flex-start; gap:16px; padding:20px 0; border-bottom:1px solid var(--border); }
+  .ib:last-child { border-bottom:none; }
+  .ib-icon { width:40px; height:40px; background:var(--navy); border-radius:3px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .ib-icon svg { width:18px; height:18px; stroke:var(--green-soft); fill:none; stroke-width:2; stroke-linecap:round; }
+  .ib-lbl { font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+  .ib-val { font-size:14px; color:var(--text); line-height:1.5; }
+  .ib-val a { color:var(--navy); text-decoration:none; }
+  .ib-val a:hover { color:var(--green); }
+
+  /* ── FOOTER ── */
+  footer {
+    background:var(--navy-deep); border-top:2px solid var(--green);
+    padding:40px 56px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;
+  }
+  .f-brand { font-size:14px; font-weight:600; letter-spacing:4px; color:var(--white); }
+  .f-sub { font-size:11px; color:rgba(255,255,255,.3); margin-top:3px; }
+  .f-right { font-size:12px; color:rgba(255,255,255,.25); text-align:right; line-height:1.8; }
+
+  /* ── ANIMAÇÕES ── */
+  .fade { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .fade.in { opacity:1; transform:none; }
+  .fade:nth-child(2) { transition-delay:.08s; }
+  .fade:nth-child(3) { transition-delay:.16s; }
+  .fade:nth-child(4) { transition-delay:.24s; }
+  .fade:nth-child(5) { transition-delay:.32s; }
+  .fade:nth-child(6) { transition-delay:.40s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="n-brand" href="#">
+    <svg class="n-hex" viewBox="0 0 34 34" fill="none">
+      <polygon points="17,2 30,9.5 30,24.5 17,32 4,24.5 4,9.5" stroke="#4a7c59" stroke-width="1.5" fill="none"/>
+      <circle cx="17" cy="17" r="5.5" stroke="#4a7c59" stroke-width="1.5" fill="none"/>
+      <line x1="17" y1="2" x2="17" y2="9.5" stroke="#4a7c59" stroke-width="1.5"/>
+      <line x1="17" y1="24.5" x2="17" y2="32" stroke="#4a7c59" stroke-width="1.5"/>
+    </svg>
+    <span class="n-name">SETRAX</span>
+  </a>
+  <ul class="n-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#diferenciais">Por que Setrax</a></li>
+    <li><a href="#medico">Equipe</a></li>
+    <li><a href="#contato" class="n-cta">Solicitar Orçamento</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <!-- Esquerda -->
+    <div class="hero-left">
+      <div class="hero-badge">Medicina Ocupacional · Guarujá, SP</div>
+      <h1 class="hero-h1">
+        Sua empresa<br><em>protegida</em> por<br>quem faz, não<br>terceiriza
+      </h1>
+      <p class="hero-sub">
+        Medicina do trabalho e segurança ocupacional com equipe própria — padronização, controle de qualidade e custos competitivos para a sua operação.
+      </p>
+      <div class="hero-btns">
+        <a href="#contato" class="btn-p">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.44 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 8.4a16 16 0 006.29 6.29l.77-.77a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          Solicitar Orçamento Gratuito
+        </a>
+        <a href="#servicos" class="btn-s">Nossos Serviços</a>
+      </div>
+    </div>
+    <!-- Direita -->
+    <div class="hero-right">
+      <div class="hero-right-bg"></div>
+      <div class="hero-right-grid"></div>
+      <div class="hero-circle-1"></div>
+      <div class="hero-circle-2"></div>
+      <!-- Hexágonos flutuantes -->
+      <div class="hero-hex hero-hex-1">
+        <svg viewBox="0 0 40 40">
+          <polygon points="20,2 35,11 35,29 20,38 5,29 5,11"/>
+        </svg>
+      </div>
+      <div class="hero-hex hero-hex-2">
+        <svg viewBox="0 0 40 40">
+          <polygon points="20,2 35,11 35,29 20,38 5,29 5,11"/>
+          <circle cx="20" cy="20" r="6"/>
+        </svg>
+      </div>
+      <div class="hero-hex hero-hex-3">
+        <svg viewBox="0 0 40 40">
+          <polygon points="20,2 35,11 35,29 20,38 5,29 5,11"/>
+        </svg>
+      </div>
+      <div class="hero-hex hero-hex-4">
+        <svg viewBox="0 0 40 40">
+          <polygon points="20,2 35,11 35,29 20,38 5,29 5,11"/>
+          <line x1="20" y1="2" x2="20" y2="38"/>
+        </svg>
+      </div>
+      <div class="hero-stat-float">
+        <div class="stat-chip">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="stat-val">2013</div>
+          <div class="stat-lbl">Fundação da Clínica</div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="stat-val">100%</div>
+          <div class="stat-lbl">Execução Interna</div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="stat-val">8+</div>
+          <div class="stat-lbl">Exames Complementares</div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div class="stat-val">NR-7</div>
+          <div class="stat-lbl">Conformidade Total</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cartões sobrepostos à la Hatch Vida -->
+  <div class="hero-services-strip">
+    <div class="hs-card">
+      <div class="hs-icon">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="hs-title">Exames Ocupacionais</div>
+      <div class="hs-desc">Admissional, periódico, demissional, retorno ao trabalho e mudança de função com emissão de ASO.</div>
+      <a href="#servicos" class="hs-link">Ver mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="hs-card">
+      <div class="hs-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
+      <div class="hs-title">PCMSO · PGR · LTCAT</div>
+      <div class="hs-desc">Programas obrigatórios elaborados por equipe especializada, com integração total ao e-Social.</div>
+      <a href="#servicos" class="hs-link">Ver mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="hs-card">
+      <div class="hs-icon">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="hs-title">Exames Complementares</div>
+      <div class="hs-desc">Audiometria, espirometria, ECG, EEG, acuidade visual, glicemia e avaliação psicossocial.</div>
+      <a href="#servicos" class="hs-link">Ver mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+  </div>
+</div>
+<div class="hero-spacer"></div>
+
+<!-- CREDENCIAIS -->
+<div class="cred-bar">
+  <div class="cred-inner">
+    <div class="cred-item"><div class="cred-dot"></div>Equipe Própria · Sem Terceirização</div>
+    <div class="cred-sep"></div>
+    <div class="cred-item"><div class="cred-dot"></div>CRM-SP 65040 · Diretor Técnico</div>
+    <div class="cred-sep"></div>
+    <div class="cred-item"><div class="cred-dot"></div>PCMSO · PGR · LTCAT · PPP</div>
+    <div class="cred-sep"></div>
+    <div class="cred-item"><div class="cred-dot"></div>e-Social Integrado</div>
+    <div class="cred-sep"></div>
+    <div class="cred-item"><div class="cred-dot"></div>Rede Credenciada na Baixada Santista</div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section class="sobre">
+  <div class="sobre-inner">
+    <div>
+      <div class="eyebrow fade">Sobre a Setrax</div>
+      <h2 class="sec-h2 fade">Sua empresa protegida<br>por <em>equipe própria</em></h2>
+      <p class="sec-p fade">
+        A Setrax é uma clínica de medicina do trabalho que se diferencia pela execução interna de todos os serviços técnicos — sem terceirização. Isso garante à sua empresa padronização, controle de qualidade e custos competitivos desde 2013, em Guarujá e na Baixada Santista.
+      </p>
+      <div class="sobre-nums fade">
+        <div class="sn"><div class="sn-val">2013</div><div class="sn-lbl">Ano de fundação</div></div>
+        <div class="sn"><div class="sn-val">5+</div><div class="sn-lbl">Tipos de exame</div></div>
+        <div class="sn"><div class="sn-val">8+</div><div class="sn-lbl">Exames complementares</div></div>
+        <div class="sn"><div class="sn-val">100%</div><div class="sn-lbl">e-Social integrado</div></div>
+      </div>
+    </div>
+    <div class="sobre-right fade">
+      <div class="sobre-img-mock">
+        <div class="sobre-img-inner">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <polygon points="40,5 70,22 70,58 40,75 10,58 10,22" stroke-width="1.5"/>
+            <circle cx="40" cy="40" r="14"/>
+            <line x1="40" y1="5" x2="40" y2="24"/>
+            <line x1="40" y1="56" x2="40" y2="75"/>
+            <path d="M33 37h4v4h6v-4h4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="sobre-badge-float">
+        <div class="sbf-val">+10</div>
+        <div class="sbf-lbl">Anos de experiência</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="servicos-inner">
+    <div class="sec-header">
+      <div class="eyebrow fade">Nossos Serviços</div>
+      <h2 class="sec-h2 fade">Soluções completas em<br>saúde e segurança do trabalho</h2>
+    </div>
+    <div class="services-grid">
+      <div class="sv fade">
+        <div class="sv-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="sv-title">Exame Admissional</div>
+        <p class="sv-desc">Avaliação médica pré-contratação com emissão do ASO, garantindo aptidão do colaborador e conformidade com a NR-7.</p>
+      </div>
+      <div class="sv fade">
+        <div class="sv-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="sv-title">Exame Periódico</div>
+        <p class="sv-desc">Monitoramento contínuo da saúde do trabalhador conforme intervalos definidos no PCMSO e a função exercida.</p>
+      </div>
+      <div class="sv fade">
+        <div class="sv-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="sv-title">Exame Demissional</div>
+        <p class="sv-desc">Avaliação na rescisão do contrato, registrando o estado de saúde do colaborador e protegendo legalmente a empresa.</p>
+      </div>
+      <div class="sv fade">
+        <div class="sv-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div class="sv-title">Retorno ao Trabalho</div>
+        <p class="sv-desc">Exame obrigatório após afastamento superior a 30 dias, assegurando aptidão para o retorno às atividades.</p>
+      </div>
+      <div class="sv fade">
+        <div class="sv-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+        <div class="sv-title">PCMSO · PGR · LTCAT</div>
+        <p class="sv-desc">Elaboração completa dos programas obrigatórios: Controle Médico, Gerenciamento de Riscos e Condições Ambientais.</p>
+      </div>
+      <div class="sv fade">
+        <div class="sv-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="sv-title">Exames Complementares</div>
+        <p class="sv-desc">Audiometria, espirometria, ECG, EEG, acuidade visual, glicemia e avaliação psicossocial conforme o cargo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS — TIMELINE -->
+<section class="diferenciais" id="diferenciais">
+  <div class="diff-inner">
+    <div class="diff-left fade">
+      <div class="eyebrow">Por que escolher a Setrax</div>
+      <h2 class="sec-h2">Compromisso com<br>excelência em<br><em>cada etapa</em></h2>
+      <p class="sec-p">Nossa atuação vai além do exame. Oferecemos suporte técnico completo, desde a elaboração de programas obrigatórios até a integração com o e-Social.</p>
+      <a href="#contato" class="diff-cta-link" style="margin-top:28px;">
+        Solicitar Orçamento
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="timeline">
+      <div class="tl-item fade">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-label">Principal Diferencial</div>
+        <div class="tl-title">Execução 100% interna — sem terceirização</div>
+        <div class="tl-card">
+          <div class="tl-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div class="tl-card-text"><strong>Sua empresa com padrão garantido</strong>Todos os serviços técnicos são realizados por equipe própria. Isso elimina intermediários e garante padronização, controle de qualidade e rastreabilidade em cada exame e documento emitido para a sua operação.</div>
+        </div>
+      </div>
+      <div class="tl-item fade">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-label">Conformidade Legal</div>
+        <div class="tl-title">e-Social integrado — seu RH sem retrabalho</div>
+        <div class="tl-card">
+          <div class="tl-card-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div>
+          <div class="tl-card-text"><strong>Transmissão direta ao e-Social</strong>Gestão completa das obrigações trabalhistas no sistema federal — sua empresa em conformidade total, eliminando risco de multa e liberando seu RH.</div>
+        </div>
+      </div>
+      <div class="tl-item fade">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-label">Política Comercial</div>
+        <div class="tl-title">Custos competitivos — sem intermediários</div>
+        <div class="tl-card">
+          <div class="tl-card-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <div class="tl-card-text"><strong>Operação interna = orçamento enxuto</strong>A ausência de terceirização se traduz em preços competitivos para a sua empresa. Apresente sua proposta — trabalhamos para viabilizar a melhor solução.</div>
+        </div>
+      </div>
+      <div class="tl-item fade">
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-label">Cobertura Regional</div>
+        <div class="tl-title">Rede credenciada na Baixada Santista</div>
+        <div class="tl-card">
+          <div class="tl-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg></div>
+          <div class="tl-card-text"><strong>Parceiros para exames complementares</strong>Ampla rede credenciada para os serviços que complementam sua demanda, com agilidade e cobertura para empresas de todos os portes na região.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉDICO -->
+<section class="medico" id="medico">
+  <div class="medico-inner">
+    <div class="med-card fade">
+      <div class="med-card-top">
+        <div class="med-av">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="med-nome">Dr. Ahmad Ali Abdul Rahim</div>
+        <div class="med-cargo">Diretor Técnico</div>
+      </div>
+      <div class="med-card-body">
+        <div class="med-crm"><div class="med-crm-dot"></div>CRM-SP: 65040 · Medicina do Trabalho</div>
+        <p class="med-bio">Médico especialista responsável técnico pela Setrax desde sua fundação. Responsável pela qualidade e conformidade legal de todos os serviços prestados pela clínica.</p>
+      </div>
+    </div>
+    <div class="med-txt fade">
+      <div class="eyebrow">Liderança Técnica</div>
+      <h2 class="sec-h2">Direção médica<br>com experiência e<br><em>registro ativo</em></h2>
+      <p class="sec-p">A Setrax é dirigida por médico especialista devidamente registrado no CRM-SP, garantindo a mais alta qualidade técnica em todos os serviços — do exame admissional à emissão do PPP.</p>
+      <div class="med-chips">
+        <div class="chip"><span class="chip-dot"></span>Medicina do Trabalho</div>
+        <div class="chip"><span class="chip-dot"></span>Responsável pelo PCMSO</div>
+        <div class="chip"><span class="chip-dot"></span>Supervisão de PGR e LTCAT</div>
+        <div class="chip"><span class="chip-dot"></span>Perícias Técnicas</div>
+        <div class="chip"><span class="chip-dot"></span>e-Social</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SETORES ATENDIDOS -->
+<div class="cred-bar" style="background:var(--navy-deep);border-top:2px solid var(--green);border-bottom:none;">
+  <div class="cred-inner" style="flex-direction:column;gap:20px;">
+    <div style="font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);">Setores que confiam na Setrax</div>
+    <div class="cred-inner" style="gap:48px;">
+      <div class="cred-item" style="color:rgba(255,255,255,.5);flex-direction:column;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><rect x="1" y="6" width="22" height="15" rx="2"/><path d="M1 13h22"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg><span>Portuário</span></div>
+      <div class="cred-item" style="color:rgba(255,255,255,.5);flex-direction:column;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><rect x="9" y="12" width="6" height="8"/></svg><span>Industrial</span></div>
+      <div class="cred-item" style="color:rgba(255,255,255,.5);flex-direction:column;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M3 21h18M9 21V6l-6 6v9M9 3h6v18M21 21V12l-6-6"/></svg><span>Construção</span></div>
+      <div class="cred-item" style="color:rgba(255,255,255,.5);flex-direction:column;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg><span>Comércio</span></div>
+      <div class="cred-item" style="color:rgba(255,255,255,.5);flex-direction:column;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 3 20 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span>Logística</span></div>
+      <div class="cred-item" style="color:rgba(255,255,255,.5);flex-direction:column;gap:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="24" height="24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg><span>Serviços</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="contato-inner">
+    <div class="form-wrap fade">
+      <h3>Solicite um orçamento gratuito</h3>
+      <div class="frow">
+        <div class="fg"><label class="fl">Nome</label><input type="text" class="fi" placeholder="Seu nome"></div>
+        <div class="fg"><label class="fl">Empresa</label><input type="text" class="fi" placeholder="Razão social ou nome fantasia"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Telefone / WhatsApp</label><input type="tel" class="fi" placeholder="(13) 9 0000-0000"></div>
+        <div class="fg">
+          <label class="fl">Nº de Funcionários</label>
+          <select class="fi">
+            <option value="">Selecione…</option>
+            <option>1 a 10</option>
+            <option>11 a 50</option>
+            <option>51 a 200</option>
+            <option>Mais de 200</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg">
+          <label class="fl">Serviço de Interesse</label>
+          <select class="fi">
+            <option value="">Selecione…</option>
+            <option>Exames Ocupacionais</option>
+            <option>PCMSO</option>
+            <option>PGR / LTCAT</option>
+            <option>Exames Complementares</option>
+            <option>Pacote Completo</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">Setor da Empresa</label>
+          <select class="fi">
+            <option value="">Selecione…</option>
+            <option>Portuário / Marítimo</option>
+            <option>Industrial</option>
+            <option>Construção Civil</option>
+            <option>Comércio / Varejo</option>
+            <option>Logística / Transporte</option>
+            <option>Serviços</option>
+            <option>Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Mensagem</label><textarea class="fi" placeholder="Descreva brevemente a necessidade da sua empresa…"></textarea></div>
+      <button class="fsub">Solicitar Orçamento Gratuito</button>
+    </div>
+    <div class="info-right fade">
+      <div class="eyebrow">Localização</div>
+      <h2 class="sec-h2">Onde<br>nos encontrar</h2>
+      <p class="sec-p">Atendemos empresas de todos os segmentos em Guarujá e região. Retornamos em até 24 horas.</p>
+      <div class="ib">
+        <div class="ib-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="ib-lbl">Endereço</div><div class="ib-val">Rua Buenos Aires, 40 – Pitangueiras<br>Guarujá – SP · CEP 11410-010</div></div>
+      </div>
+      <div class="ib">
+        <div class="ib-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.44 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 8.4a16 16 0 006.29 6.29l.77-.77a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="ib-lbl">Telefone</div><div class="ib-val"><a href="tel:1333556079">(13) 3355-6079</a></div></div>
+      </div>
+      <div class="ib">
+        <div class="ib-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="ib-lbl">E-mail</div><div class="ib-val"><a href="mailto:eliana.camargo@setrax.com.br">eliana.camargo@setrax.com.br</a></div></div>
+      </div>
+      <div class="ib">
+        <div class="ib-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><div class="ib-lbl">Horário</div><div class="ib-val">Seg–Sex: 8h às 18h · Sáb: 8h às 12h</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-brand">SETRAX</div>
+    <div class="f-sub">Saúde e Segurança Ocupacional · Guarujá, SP</div>
+  </div>
+  <div class="f-right">CNPJ 17.405.500/0001-06 · setrax.com.br<br>© 2026 Setrax. Todos os direitos reservados.</div>
+</footer>
+
+<script>
+  const o = new IntersectionObserver(e => e.forEach(i => { if(i.isIntersecting) i.target.classList.add('in'); }), { threshold: 0.1 });
+  document.querySelectorAll('.fade').forEach(el => o.observe(el));
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => { nav.style.boxShadow = scrollY > 40 ? '0 4px 24px rgba(0,0,0,.3)' : 'none'; });
+</script>
+</body>
+</html>

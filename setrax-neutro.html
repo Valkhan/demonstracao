@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setrax — Medicina Ocupacional</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f2f0e8;
+    --cream-dark: #e8e5d8;
+    --white: #ffffff;
+    --green: #3a5e42;
+    --green-mid: #4a7855;
+    --green-bright: #5fa06d;
+    --green-pale: #c8dece;
+    --green-ultra: #e0ede3;
+    --charcoal: #181f1a;
+    --mid: #3d4840;
+    --muted: #8a9e90;
+    --border: #d0cfc5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Instrument Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 60px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-right a {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-right a:hover { color: var(--green); }
+
+  .nav-btn {
+    background: var(--green) !important;
+    color: var(--white) !important;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.2s !important;
+  }
+
+  .nav-btn:hover { background: var(--green-mid) !important; }
+
+  /* ── HERO — DISRUPTIVO ── */
+  /* Full-bleed split: giant rotated number bg, off-axis headline */
+  .hero {
+    padding-top: 60px;
+    min-height: 100vh;
+    max-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* The oversized background word */
+  .hero-watermark {
+    position: absolute;
+    top: -20px;
+    left: -60px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(100px, 14vw, 200px);
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--green-pale);
+    text-stroke: 1.5px var(--green-pale);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  .hero-main {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    grid-template-rows: 1fr auto;
+    gap: 0;
+    padding: 0;
+    flex: 1;
+    height: calc(100vh - 60px);
+  }
+
+  /* Vertical label on the left */
+  .hero-vertical-label {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+    padding: 40px 0;
+  }
+
+  /* Big headline block */
+  .hero-headline {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 36px 48px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-kicker::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--green-mid);
+  }
+
+  .hero-h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(32px, 4.5vw, 68px);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--charcoal);
+    letter-spacing: -2px;
+    max-width: 600px;
+  }
+
+  .hero-h1 .accent {
+    color: var(--green);
+    display: block;
+  }
+
+  /* Right panel — stacked info */
+  .hero-right-panel {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    width: 300px;
+    background: var(--green);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 32px;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right-panel::before {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  }
+
+  .rp-top {
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .rp-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+  }
+
+  .rp-big {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .rp-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  .rp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+  }
+
+  .rp-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+  }
+
+  .rp-item-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--green-bright);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .rp-cta {
+    position: relative;
+    z-index: 1;
+    margin-top: 24px;
+  }
+
+  .rp-btn {
+    display: block;
+    background: var(--white);
+    color: var(--green);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 16px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .rp-btn:hover { background: var(--cream); }
+
+  /* Bottom bar of hero */
+  .hero-bottom {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 24px 48px 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-tagline {
+    font-size: clamp(15px, 1.5vw, 18px);
+    font-style: italic;
+    color: var(--mid);
+    max-width: 400px;
+    line-height: 1.6;
+  }
+
+  .hero-scroll-hint {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .scroll-line {
+    width: 48px;
+    height: 1px;
+    background: var(--muted);
+    animation: scroll-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0%, 100% { width: 48px; opacity: 1; }
+    50% { width: 28px; opacity: 0.5; }
+  }
+
+  /* ── MARQUEE STRIP ── */
+  .strip {
+    background: var(--charcoal);
+    padding: 18px 0;
+    overflow: hidden;
+  }
+
+  .strip-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    animation: slide 20s linear infinite;
+    width: max-content;
+  }
+
+  @keyframes slide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .strip-item {
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+    gap: 16px;
+  }
+
+  .strip-item span {
+    color: var(--green-bright);
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* ── SERVIÇOS — broken grid ── */
+  .servicos {
+    padding: 0;
+    position: relative;
+  }
+
+  /* Section with giant number */
+  .sec-label {
+    position: absolute;
+    top: -20px;
+    left: 80px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--green-pale);
+    text-stroke: 1px var(--green-pale);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .servicos-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header spans full width */
+  .svc-header {
+    padding: 80px 80px 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .svc-head-left {}
+
+  .sec-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sec-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--green-mid);
+  }
+
+  .sec-h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(28px, 3.5vw, 52px);
+    font-weight: 900;
+    color: var(--charcoal);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    max-width: 400px;
+  }
+
+  .svc-head-right {
+    max-width: 360px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--mid);
+    font-style: italic;
+  }
+
+  /* Service cells — new layout */
+  .svc-row {
+    display: grid;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .svc-row-1 {
+    grid-template-columns: 70fr 30fr;
+    min-height: 400px;
+  }
+
+  .svc-row-2 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .svc-row-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .svc-cell {
+    padding: 48px 44px;
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .svc-cell:last-child { border-right: none; }
+  .svc-cell:hover { background: var(--green-ultra); }
+
+  /* Featured cell com gradiente */
+  .svc-cell.featured {
+    background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+    border-right: 1px solid var(--border);
+  }
+
+  .svc-cell.featured:hover { 
+    background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-bright) 100%);
+  }
+
+  /* Célula de imagem */
+  .svc-cell-image {
+    padding: 0;
+    background: var(--green-ultra);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: none;
+  }
+
+  .svc-cell-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .svc-cell-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(58,94,66,0.2) 0%, rgba(95,160,109,0.2) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .svc-cell-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .svc-cell.featured .svc-cell-num { color: rgba(255,255,255,0.4); }
+
+  .svc-cell-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(16px, 1.8vw, 22px);
+    font-weight: 700;
+    color: var(--charcoal);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+
+  .svc-cell.featured .svc-cell-title { color: var(--white); font-size: clamp(22px, 2.5vw, 32px); }
+
+  .svc-cell-desc {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--mid);
+    flex: 1;
+  }
+
+  .svc-cell.featured .svc-cell-desc { color: rgba(255,255,255,0.6); }
+
+  .svc-cell-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-pale);
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 100px;
+    align-self: flex-start;
+  }
+
+  .svc-cell.featured .svc-cell-tag {
+    background: rgba(255,255,255,0.15);
+    color: var(--white);
+  }
+
+  /* Células intercaladas 05-06 */
+  .svc-cell-split {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .svc-cell-split-reverse {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* ── MANIFESTO — full width text block ── */
+  .manifesto {
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .manifesto-left {
+    position: sticky;
+    top: 80px;
+  }
+
+  .manifesto-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .manifesto-tag::before { content:''; width:20px; height:2px; background:var(--green-mid); }
+
+  .manifesto-h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 900;
+    color: var(--charcoal);
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  .manifesto-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .diff-item-dis {
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    align-items: start;
+    transition: padding-left 0.3s;
+    cursor: default;
+  }
+
+  .diff-item-dis:first-child { border-top: 1px solid var(--border); }
+  .diff-item-dis:hover { padding-left: 16px; }
+
+  .diff-num-dis {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--green-pale);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .diff-title-dis {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+
+  .diff-text-dis {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--mid);
+    font-style: italic;
+  }
+
+  /* ── MÉDICO — off-axis ── */
+  .medico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 60vh;
+  }
+
+  .medico-left {
+    background: var(--green-ultra);
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .medico-left::before {
+    content: 'CRM';
+    font-family: 'Unbounded', sans-serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--green-pale);
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .med-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .med-eyebrow::before { content:''; width:20px; height:2px; background:var(--green-mid); }
+
+  .med-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(26px, 3vw, 44px);
+    font-weight: 900;
+    color: var(--charcoal);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .med-crm {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 9px 18px;
+    border-radius: 4px;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+    align-self: flex-start;
+  }
+
+  .med-bio {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--mid);
+    font-style: italic;
+    max-width: 420px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .medico-right {
+    background: var(--charcoal);
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .med-r-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .med-r-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .med-r-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .med-r-item:hover { color: var(--white); }
+
+  .med-r-item::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--green-bright);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── CONTATO — full break ── */
+  .contato {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Oversized background label */
+  .contato-bg-word {
+    position: absolute;
+    bottom: -60px;
+    right: -40px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 220px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--green-pale);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .contato-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contato-left-dis {
+    padding: 80px;
+    border-right: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  .form-title-dis {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(24px, 2.5vw, 38px);
+    font-weight: 900;
+    color: var(--charcoal);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 40px;
+  }
+
+  .form-title-dis .line-green { color: var(--green); display: block; }
+
+  .fgroup { margin-bottom: 20px; }
+
+  label.flabel {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  input.finput, select.finput, textarea.finput {
+    width: 100%;
+    padding: 14px 18px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 15px;
+    color: var(--charcoal);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  input.finput:focus, select.finput:focus, textarea.finput:focus {
+    border-color: var(--green);
+    background: var(--white);
+  }
+
+  textarea.finput { resize: vertical; min-height: 90px; }
+
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .fsub {
+    background: var(--charcoal);
+    color: var(--white);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: background 0.25s;
+  }
+
+  .fsub:hover { background: var(--green); }
+
+  .contato-right-dis {
+    padding: 80px;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-big-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 900;
+    color: var(--charcoal);
+    letter-spacing: -0.5px;
+    margin-bottom: 48px;
+    line-height: 1.1;
+  }
+
+  .contact-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cib {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s;
+    cursor: default;
+  }
+
+  .cib:first-child { border-top: 1px solid var(--border); }
+  .cib:hover { padding-left: 12px; }
+
+  .cib-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--green);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .cib-icon svg { width: 18px; height: 18px; stroke: white; }
+
+  .cib-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .cib-value {
+    font-size: 15px;
+    color: var(--charcoal);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .cib-value a { color: var(--charcoal); text-decoration: none; }
+  .cib-value a:hover { color: var(--green); }
+
+  /* ── SETORES ATENDIDOS ── */
+  .setores {
+    background: var(--charcoal);
+    padding: 48px 80px;
+  }
+  .setores-inner { max-width: 1200px; margin: 0 auto; }
+  .setores-label {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(255,255,255,.35);
+    text-align: center; margin-bottom: 28px;
+  }
+  .setores-grid {
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+  }
+  .setor-item {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,.45);
+    font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    transition: color .25s;
+  }
+  .setor-item:hover { color: var(--green-bright); }
+  .setor-item svg { stroke: currentColor; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    padding: 40px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .f-brand {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .f-info {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ── ANIMATIONS ── */
+  .revel {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .revel.show { opacity: 1; transform: none; }
+  .revel:nth-child(2) { transition-delay: 0.1s; }
+  .revel:nth-child(3) { transition-delay: 0.2s; }
+  .revel:nth-child(4) { transition-delay: 0.3s; }
+  .revel:nth-child(5) { transition-delay: 0.4s; }
+  .revel:nth-child(6) { transition-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">SETRAX</a>
+  <div class="nav-right">
+    <a href="#servicos">Serviços</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#medico">Equipe</a>
+    <a href="#contato" class="nav-btn">Orçamento</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-watermark">SEGURANÇA</div>
+  <div class="hero-main">
+    <div class="hero-vertical-label">Guarujá · São Paulo · Desde 2013</div>
+
+    <div class="hero-headline">
+      <div class="hero-kicker">Medicina Ocupacional · Segurança do Trabalho</div>
+      <h1 class="hero-h1">
+        Equipe<br>
+        <span class="accent">própria.</span><br>
+        Sua empresa<br>
+        protegida.
+      </h1>
+    </div>
+
+    <div class="hero-right-panel">
+      <div class="rp-top">
+        <div class="rp-eyebrow">Fundação</div>
+        <div class="rp-big">2013</div>
+        <div class="rp-desc">Execução interna, sem terceirização — padrão, controle e custo competitivo para sua operação.</div>
+      </div>
+      <div class="rp-list">
+        <div class="rp-item"><span class="rp-item-dot"></span>Equipe técnica própria — sem terceirização</div>
+        <div class="rp-item"><span class="rp-item-dot"></span>Exames admissional e demissional</div>
+        <div class="rp-item"><span class="rp-item-dot"></span>Exame periódico e retorno</div>
+        <div class="rp-item"><span class="rp-item-dot"></span>PCMSO · PGR · LTCAT · PPP</div>
+        <div class="rp-item"><span class="rp-item-dot"></span>Audiometria e espirometria</div>
+        <div class="rp-item"><span class="rp-item-dot"></span>Integração e-Social</div>
+        <div class="rp-item"><span class="rp-item-dot"></span>Rede credenciada ampla</div>
+      </div>
+      <div class="rp-cta">
+        <a href="#contato" class="rp-btn">Solicitar Orçamento →</a>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-tagline">
+        Medicina do trabalho com execução interna e equipe própria — padronização, controle de qualidade e custos competitivos para sua empresa.
+      </p>
+      <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        Rolar para descobrir
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <div class="strip-item"><span>→</span> Admissional</div>
+    <div class="strip-item"><span>→</span> Periódico</div>
+    <div class="strip-item"><span>→</span> Demissional</div>
+    <div class="strip-item"><span>→</span> PCMSO</div>
+    <div class="strip-item"><span>→</span> PGR</div>
+    <div class="strip-item"><span>→</span> LTCAT</div>
+    <div class="strip-item"><span>→</span> PPP</div>
+    <div class="strip-item"><span>→</span> Audiometria</div>
+    <div class="strip-item"><span>→</span> e-Social</div>
+    <div class="strip-item"><span>→</span> Espirometria</div>
+    <div class="strip-item"><span>→</span> Admissional</div>
+    <div class="strip-item"><span>→</span> Periódico</div>
+    <div class="strip-item"><span>→</span> Demissional</div>
+    <div class="strip-item"><span>→</span> PCMSO</div>
+    <div class="strip-item"><span>→</span> PGR</div>
+    <div class="strip-item"><span>→</span> LTCAT</div>
+    <div class="strip-item"><span>→</span> PPP</div>
+    <div class="strip-item"><span>→</span> Audiometria</div>
+    <div class="strip-item"><span>→</span> e-Social</div>
+    <div class="strip-item"><span>→</span> Espirometria</div>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="servicos-inner">
+    <div class="svc-header">
+      <div class="svc-head-left revel">
+        <div class="sec-eyebrow">Nossos Serviços</div>
+        <h2 class="sec-h2">O que<br>entregamos</h2>
+      </div>
+      <p class="svc-head-right revel">
+        Cobertura completa em saúde e segurança do trabalho, do exame médico à documentação legal obrigatória. Sua empresa protegida, seus colaboradores cuidados.
+      </p>
+    </div>
+
+    <!-- Linha 1: Item 01 com gradiente verde (70%) + imagem (30%) -->
+    <div class="svc-row svc-row-1">
+      <div class="svc-cell featured revel">
+        <span class="svc-cell-num">01</span>
+        <h3 class="svc-cell-title">Exames Ocupacionais Completos</h3>
+        <p class="svc-cell-desc">Admissional, periódico, demissional, retorno ao trabalho e mudança de função — realizados por equipe própria, com emissão do ASO e transmissão direta ao e-Social. Sua empresa conforme, seu RH sem retrabalho.</p>
+        <span class="svc-cell-tag">Exames ASO · e-Social</span>
+      </div>
+      <div class="svc-cell-image revel">
+        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80" alt="Exames ocupacionais">
+      </div>
+    </div>
+
+    <!-- Linha 2: Itens 02, 03, 04 em linha -->
+    <div class="svc-row svc-row-2">
+      <div class="svc-cell revel">
+        <span class="svc-cell-num">02</span>
+        <h3 class="svc-cell-title">PCMSO</h3>
+        <p class="svc-cell-desc">Programa de Controle Médico de Saúde Ocupacional completo, elaborado por médico especialista, com cronograma e gestão de exames.</p>
+        <span class="svc-cell-tag">Obrigatório NR-7</span>
+      </div>
+
+      <div class="svc-cell revel">
+        <span class="svc-cell-num">03</span>
+        <h3 class="svc-cell-title">PGR · LTCAT</h3>
+        <p class="svc-cell-desc">Programa de Gerenciamento de Riscos e Laudo Técnico das Condições Ambientais de Trabalho com equipe técnica especializada.</p>
+        <span class="svc-cell-tag">Obrigatório NR-1</span>
+      </div>
+
+      <div class="svc-cell revel">
+        <span class="svc-cell-num">04</span>
+        <h3 class="svc-cell-title">Audiometria e Espirometria</h3>
+        <p class="svc-cell-desc">Exames complementares realizados com equipamentos modernos e laudos técnicos precisos para monitoramento da saúde auditiva e pulmonar.</p>
+        <span class="svc-cell-tag">Complementar</span>
+      </div>
+    </div>
+
+    <!-- Linha 3: Item 05 (texto) + Imagem (50/50) -->
+    <div class="svc-row svc-row-3">
+      <div class="svc-cell svc-cell-split revel">
+        <span class="svc-cell-num">05</span>
+        <h3 class="svc-cell-title">ECG · EEG · Visão</h3>
+        <p class="svc-cell-desc">Eletrocardiograma, eletroencefalograma, acuidade visual, glicemia e avaliação psicossocial conforme exigência do cargo.</p>
+        <span class="svc-cell-tag">Complementar</span>
+      </div>
+      <div class="svc-cell-image revel">
+        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=800&q=80" alt="Equipamentos médicos">
+      </div>
+    </div>
+
+    <!-- Linha 4: Imagem + Item 06 (texto) (50/50) -->
+    <div class="svc-row svc-row-3">
+      <div class="svc-cell-image revel">
+        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Documentação e análises">
+      </div>
+      <div class="svc-cell svc-cell-split-reverse revel">
+        <span class="svc-cell-num">06</span>
+        <h3 class="svc-cell-title">PPP e Perícias Técnicas</h3>
+        <p class="svc-cell-desc">Perfil Profissiográfico Previdenciário e acompanhamento de perícias técnicas e médicas com suporte jurídico especializado.</p>
+        <span class="svc-cell-tag">Documentação</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SETORES ATENDIDOS -->
+<div class="setores">
+  <div class="setores-inner">
+    <div class="setores-label revel">Setores que confiam na Setrax</div>
+    <div class="setores-grid">
+      <div class="setor-item revel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="28" height="28"><rect x="1" y="6" width="22" height="15" rx="2"/><path d="M1 13h22"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+        <span>Portuário</span>
+      </div>
+      <div class="setor-item revel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="28" height="28"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><rect x="9" y="12" width="6" height="8"/><line x1="9" y1="8" x2="9" y2="8.01"/><line x1="15" y1="8" x2="15" y2="8.01"/></svg>
+        <span>Industrial</span>
+      </div>
+      <div class="setor-item revel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="28" height="28"><path d="M3 21h18M9 21V6l-6 6v9M9 3h6v18M21 21V12l-6-6"/></svg>
+        <span>Construção</span>
+      </div>
+      <div class="setor-item revel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="28" height="28"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+        <span>Comércio</span>
+      </div>
+      <div class="setor-item revel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="28" height="28"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 3 20 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Logística</span>
+      </div>
+      <div class="setor-item revel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="28" height="28"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Serviços</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIFERENCIAIS — MANIFESTO -->
+<section class="manifesto" id="diferenciais">
+  <div class="manifesto-left revel">
+    <div class="manifesto-tag">Diferenciais</div>
+    <h2 class="manifesto-h2">Por que<br>a Setrax?</h2>
+  </div>
+  <div class="manifesto-right">
+    <div class="diff-item-dis revel">
+      <div class="diff-num-dis">01</div>
+      <div>
+        <div class="diff-title-dis">Execução 100% interna</div>
+        <p class="diff-text-dis">Todos os serviços técnicos são realizados por equipe própria — sem terceirização. Isso garante à sua empresa padronização, controle de qualidade e rastreabilidade em cada exame e documento emitido.</p>
+      </div>
+    </div>
+    <div class="diff-item-dis revel">
+      <div class="diff-num-dis">02</div>
+      <div>
+        <div class="diff-title-dis">Custos competitivos sem surpresa</div>
+        <p class="diff-text-dis">A operação interna elimina intermediários e repasses. Sua empresa recebe orçamento transparente — apresente sua proposta e trabalhamos para viabilizar.</p>
+      </div>
+    </div>
+    <div class="diff-item-dis revel">
+      <div class="diff-num-dis">03</div>
+      <div>
+        <div class="diff-title-dis">e-Social sem complicação para o RH</div>
+        <p class="diff-text-dis">Transmissão e gestão das obrigações trabalhistas diretamente no e-Social — sua empresa em conformidade total, seu RH livre de retrabalho.</p>
+      </div>
+    </div>
+    <div class="diff-item-dis revel">
+      <div class="diff-num-dis">04</div>
+      <div>
+        <div class="diff-title-dis">Rede credenciada na Baixada Santista</div>
+        <p class="diff-text-dis">Parceiros para exames complementares e treinamentos, com cobertura para operações de qualquer porte na região de Guarujá e litoral.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉDICO -->
+<section class="medico" id="medico">
+  <div class="medico-left revel">
+    <div class="med-eyebrow">Direção Técnica</div>
+    <h2 class="med-name">Dr. Ahmad<br>Ali Abdul<br>Rahim</h2>
+    <span class="med-crm">CRM-SP 65040</span>
+    <p class="med-bio">Médico especialista em medicina do trabalho e responsável técnico da Setrax desde 2013, garantindo a qualidade e conformidade legal de todos os serviços da clínica.</p>
+  </div>
+  <div class="medico-right revel">
+    <div class="med-r-title">Atribuições Técnicas</div>
+    <ul class="med-r-list">
+      <li class="med-r-item">Responsável por todos os exames ocupacionais emitidos</li>
+      <li class="med-r-item">Supervisão e assinatura dos programas PCMSO e PGR</li>
+      <li class="med-r-item">Elaboração de laudos LTCAT e emissão do PPP</li>
+      <li class="med-r-item">Acompanhamento de perícias técnicas e médicas</li>
+      <li class="med-r-item">Gestão da rede credenciada e padrões de atendimento</li>
+      <li class="med-r-item">Integração e conformidade com e-Social</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="contato-bg-word">FALE</div>
+  <div class="contato-inner">
+    <div class="contato-left-dis revel">
+      <h2 class="form-title-dis">
+        Solicite um<br>
+        <span class="line-green">orçamento gratuito.</span>
+      </h2>
+      <div class="frow">
+        <div class="fgroup">
+          <label class="flabel">Nome</label>
+          <input type="text" class="finput" placeholder="Seu nome">
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Empresa</label>
+          <input type="text" class="finput" placeholder="Razão social ou nome fantasia">
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fgroup">
+          <label class="flabel">Telefone / WhatsApp</label>
+          <input type="tel" class="finput" placeholder="(13) 9 0000-0000">
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Nº de Funcionários</label>
+          <select class="finput">
+            <option value="">Selecione…</option>
+            <option>1 a 10</option>
+            <option>11 a 50</option>
+            <option>51 a 200</option>
+            <option>Mais de 200</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fgroup">
+          <label class="flabel">Serviço de Interesse</label>
+          <select class="finput">
+            <option value="">Selecione…</option>
+            <option>Exames Ocupacionais</option>
+            <option>PCMSO</option>
+            <option>PGR / LTCAT</option>
+            <option>Exames Complementares</option>
+            <option>PPP</option>
+            <option>Pacote Completo</option>
+          </select>
+        </div>
+        <div class="fgroup">
+          <label class="flabel">Setor da Empresa</label>
+          <select class="finput">
+            <option value="">Selecione…</option>
+            <option>Portuário / Marítimo</option>
+            <option>Industrial</option>
+            <option>Construção Civil</option>
+            <option>Comércio / Varejo</option>
+            <option>Logística / Transporte</option>
+            <option>Serviços</option>
+            <option>Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Mensagem</label>
+        <textarea class="finput" placeholder="Descreva brevemente a necessidade da sua empresa…"></textarea>
+      </div>
+      <button class="fsub">
+        Solicitar Orçamento Gratuito
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="contato-right-dis revel">
+      <h3 class="contact-big-title">Onde<br>nos encontrar</h3>
+      <div class="contact-info-block">
+        <div class="cib">
+          <div class="cib-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="cib-label">Endereço</div>
+            <div class="cib-value">Rua Buenos Aires, 40 – Pitangueiras<br>Guarujá – SP · CEP 11410-010</div>
+          </div>
+        </div>
+        <div class="cib">
+          <div class="cib-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.44 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 8.4a16 16 0 006.29 6.29l.77-.77a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="cib-label">Telefone</div>
+            <div class="cib-value"><a href="tel:1333556079">(13) 3355-6079</a></div>
+          </div>
+        </div>
+        <div class="cib">
+          <div class="cib-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="cib-label">E-mail</div>
+            <div class="cib-value"><a href="mailto:eliana.camargo@setrax.com.br">eliana.camargo@setrax.com.br</a></div>
+          </div>
+        </div>
+        <div class="cib">
+          <div class="cib-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="cib-label">Horário</div>
+            <div class="cib-value">Seg–Sex: 8h às 18h<br>Sábado: 8h às 12h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">SETRAX</div>
+  <div class="f-info">
+    CNPJ 17.405.500/0001-06 · setrax.com.br<br>
+    Rua Buenos Aires, 40 – Guarujá/SP<br>
+    © 2026 Setrax Saúde e Segurança Ocupacional.
+  </div>
+</footer>
+
+<script>
+  const o = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); }),
+    { threshold: 0.08 }
+  );
+  document.querySelectorAll('.revel').forEach(el => o.observe(el));
+</script>
+</body>
+</html>

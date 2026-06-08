@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setrax – Medicina Ocupacional</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --g1: #1e3d28;
+    --g2: #2d5a3d;
+    --g3: #3a7052;
+    --g4: #5a9e6f;
+    --g5: #8cc49e;
+    --g-pale: #c5dfc9;
+    --g-ultra: #e8f3eb;
+    --g-foam: #f2f8f3;
+    --cream: #faf8f4;
+    --warm:  #f3ede3;
+    --stone: #e5dfd5;
+    --text:  #14201a;
+    --mid:   #3d5044;
+    --muted: #7a9080;
+    --white: #ffffff;
+    --border:#d0dbd2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV — flutuante com blur ── */
+  nav {
+    position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 200;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.6);
+    border-radius: 100px;
+    height: 56px;
+    display: flex; align-items: center;
+    padding: 0 8px 0 24px;
+    gap: 32px;
+    box-shadow: 0 4px 32px rgba(30,61,40,.1);
+    width: auto;
+    min-width: 700px;
+    justify-content: space-between;
+  }
+  .n-brand {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 700; letter-spacing: 3px;
+    color: var(--g1); text-decoration: none;
+  }
+  .n-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .n-links a { font-size: 13px; font-weight: 500; color: var(--mid); text-decoration: none; transition: color .2s; }
+  .n-links a:hover { color: var(--g1); }
+  .n-cta {
+    background: var(--g1); color: var(--white);
+    font-size: 13px; font-weight: 600; padding: 11px 22px;
+    border-radius: 100px; text-decoration: none; transition: background .2s;
+    white-space: nowrap;
+  }
+  .n-cta:hover { background: var(--g2); }
+
+  /* ── HERO — orgânico, blob, imagem full ── */
+  .hero {
+    padding-top: 88px;
+    min-height: 100vh;
+    background: var(--g-foam);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Blob orgânico de fundo */
+  .hero-blob {
+    position: absolute;
+    top: -10%; right: -8%;
+    width: 65vw; height: 65vw;
+    background: radial-gradient(ellipse at 60% 40%,
+      rgba(90,158,111,.22) 0%,
+      rgba(61,112,82,.1) 40%,
+      transparent 70%);
+    border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    animation: blob-drift 14s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .hero-blob-2 {
+    position: absolute;
+    bottom: -15%; left: -5%;
+    width: 40vw; height: 40vw;
+    background: radial-gradient(ellipse,
+      rgba(140,196,158,.18) 0%,
+      transparent 65%);
+    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+    animation: blob-drift 18s ease-in-out infinite alternate-reverse;
+    pointer-events: none;
+  }
+  @keyframes blob-drift {
+    from { transform: scale(1) rotate(0deg); }
+    to   { transform: scale(1.08) rotate(6deg); }
+  }
+
+  /* Círculos de textura */
+  .hero-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(90,158,111,.15);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1280px; margin: 0 auto;
+    padding: 0 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-text { }
+
+  .h-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--g-ultra); border: 1px solid var(--g-pale);
+    color: var(--g2); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 8px 16px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .h-pill-dot { width: 6px; height: 6px; background: var(--g4); border-radius: 50%; }
+
+  .hero-h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 4.8vw, 72px);
+    font-weight: 900; line-height: 1.02;
+    color: var(--g1);
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  .hero-h1 em { font-style: italic; color: var(--g3); }
+
+  .hero-sub {
+    font-size: 16px; line-height: 1.75; color: var(--mid);
+    font-weight: 300; margin-bottom: 40px; max-width: 460px;
+  }
+
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+
+  .btn-fill {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--g1); color: var(--white);
+    font-size: 14px; font-weight: 600;
+    padding: 15px 30px; border-radius: 100px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background .25s, transform .2s;
+  }
+  .btn-fill:hover { background: var(--g2); transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: transparent; color: var(--g1);
+    font-size: 14px; font-weight: 600;
+    padding: 14px 28px; border-radius: 100px;
+    text-decoration: none; border: 1.5px solid var(--g-pale);
+    cursor: pointer; transition: border-color .25s, background .25s;
+  }
+  .btn-outline:hover { border-color: var(--g3); background: var(--g-ultra); }
+
+  /* Mini-stats abaixo dos botões */
+  .hero-mini-stats {
+    display: flex; gap: 32px; align-items: center;
+    padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .hms-item { }
+  .hms-val { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--g1); line-height: 1; }
+  .hms-lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .hms-sep { width: 1px; height: 40px; background: var(--border); }
+
+  /* Lado direito: foto clínica com badges flutuantes */
+  .hero-visual {
+    position: relative;
+  }
+  .hero-img-wrap {
+    width: 100%; aspect-ratio: 4/5;
+    border-radius: 32px; overflow: hidden;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(30,61,40,.18);
+  }
+  .hero-img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    transition: transform 6s ease;
+  }
+  .hero-img:hover { transform: scale(1.03); }
+  /* Overlay suave */
+  .hero-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(30,61,40,.35) 100%);
+  }
+
+  /* Badge flutuante — esquerda */
+  .hero-badge-l {
+    position: absolute; left: -24px; bottom: 80px;
+    background: var(--white); border-radius: 16px; padding: 16px 20px;
+    box-shadow: 0 8px 32px rgba(30,61,40,.14);
+    display: flex; align-items: center; gap: 12px;
+    animation: float-a 4s ease-in-out infinite;
+  }
+  /* Badge flutuante — topo direita */
+  .hero-badge-r {
+    position: absolute; right: -20px; top: 60px;
+    background: var(--g1); color: var(--white); border-radius: 16px; padding: 16px 20px;
+    box-shadow: 0 8px 32px rgba(30,61,40,.25);
+    animation: float-b 5s ease-in-out infinite;
+  }
+  @keyframes float-a {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes float-b {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+  .badge-icon {
+    width: 40px; height: 40px; background: var(--g-ultra); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .badge-icon svg { width: 20px; height: 20px; stroke: var(--g1); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .badge-lbl { font-size: 11px; color: var(--muted); }
+  .badge-val { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--text); line-height: 1; }
+  .badge-r-lbl { font-size: 10px; color: rgba(255,255,255,.6); letter-spacing: 1px; text-transform: uppercase; }
+  .badge-r-val { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--white); line-height: 1; margin-top: 2px; }
+
+  /* Círculo deco atrás da foto */
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    bottom: -30px; right: -30px;
+    width: 200px; height: 200px;
+    background: var(--g-pale);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  /* ── STRIP MARQUEE ── */
+  .strip {
+    background: var(--g1); padding: 16px 0; overflow: hidden;
+    margin-top: -1px;
+  }
+  .strip-track {
+    display: flex; animation: marquee 22s linear infinite; width: max-content;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .s-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 36px; border-right: 1px solid rgba(255,255,255,.1);
+    font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.55); white-space: nowrap;
+  }
+  .s-leaf { color: var(--g5); font-size: 14px; }
+
+  /* ── SERVIÇOS — com fotos ── */
+  .servicos { padding: 110px 64px; background: var(--white); }
+  .servicos-inner { max-width: 1280px; margin: 0 auto; }
+
+  .sec-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--g3); margin-bottom: 14px;
+  }
+  .sec-tag::before { content: ''; width: 20px; height: 2px; background: var(--g3); }
+
+  .sec-h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(30px, 3.2vw, 50px);
+    font-weight: 900; color: var(--g1); line-height: 1.08; margin-bottom: 14px;
+    letter-spacing: -.5px;
+  }
+  .sec-h2 em { font-style: italic; color: var(--g3); }
+
+  .sec-p { font-size: 15px; line-height: 1.75; color: var(--mid); font-weight: 300; }
+
+  .sec-hdr {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: end; margin-bottom: 56px;
+  }
+
+  /* Grid de serviços com fotos */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .svc-card {
+    background: var(--cream); border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform .3s, box-shadow .3s;
+    cursor: default;
+  }
+  .svc-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(30,61,40,.12); }
+  .svc-img {
+    width: 100%; height: 200px; object-fit: cover; display: block;
+    filter: saturate(.8);
+    transition: filter .3s, transform .3s;
+  }
+  .svc-card:hover .svc-img { filter: saturate(1); transform: scale(1.03); }
+  .svc-img-wrap { overflow: hidden; }
+  .svc-body { padding: 24px 24px 28px; }
+  .svc-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--g-ultra); color: var(--g3);
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 100px; margin-bottom: 12px;
+  }
+  .svc-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--g1); margin-bottom: 10px; line-height: 1.2; }
+  .svc-desc { font-size: 13px; line-height: 1.65; color: var(--mid); font-weight: 300; }
+
+  /* ── CARRO-CHEFE: Exame Admissional ── */
+  .carro-chefe {
+    background: var(--g-foam);
+    padding: 110px 64px;
+  }
+  .cc-inner {
+    max-width: 1280px; margin: 0 auto;
+  }
+  .cc-header { margin-bottom: 56px; }
+  .cc-hero-card {
+    background: var(--g1);
+    border-radius: 28px; overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+    box-shadow: 0 32px 80px rgba(30,61,40,.2);
+  }
+  .cc-left {
+    padding: 64px 56px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .cc-left::before {
+    content: '';
+    position: absolute; bottom: -80px; left: -80px;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(90,158,111,.18) 0%, transparent 70%);
+  }
+  .cc-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--g5); margin-bottom: 20px; display: flex; align-items: center; gap: 8px;
+    position: relative; z-index: 1;
+  }
+  .cc-eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--g5); }
+  .cc-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(30px, 3vw, 48px);
+    font-weight: 900; color: var(--white); line-height: 1.05;
+    margin-bottom: 20px; letter-spacing: -.5px;
+    position: relative; z-index: 1;
+  }
+  .cc-title em { font-style: italic; color: var(--g5); }
+  .cc-desc {
+    font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.6);
+    margin-bottom: 36px; font-weight: 300;
+    position: relative; z-index: 1;
+  }
+  .cc-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--g5); color: var(--g1);
+    font-size: 14px; font-weight: 700;
+    padding: 15px 30px; border-radius: 100px;
+    text-decoration: none; transition: background .25s; width: fit-content;
+    position: relative; z-index: 1;
+  }
+  .cc-cta:hover { background: var(--g-pale); }
+
+  .cc-right {
+    padding: 56px 48px;
+    display: flex; flex-direction: column; justify-content: center;
+    background: rgba(255,255,255,.05);
+    border-left: 1px solid rgba(255,255,255,.08);
+    gap: 0;
+  }
+  .cc-right-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,.4); margin-bottom: 28px;
+  }
+  .cc-step {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,.07);
+    position: relative;
+  }
+  .cc-step:last-child { border-bottom: none; }
+  .cc-step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 13px; font-weight: 700; color: var(--g5);
+    min-width: 24px; padding-top: 2px;
+  }
+  .cc-step-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .cc-step-desc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.55; font-weight: 300; }
+
+  /* Cards de benefícios abaixo */
+  .cc-benefits {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px; margin-top: 24px;
+  }
+  .cc-ben {
+    background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px 20px;
+    transition: transform .25s, box-shadow .25s;
+    cursor: default;
+  }
+  .cc-ben:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(30,61,40,.08); }
+  .cc-ben-icon {
+    width: 44px; height: 44px; background: var(--g-ultra); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
+  }
+  .cc-ben-icon svg { width: 20px; height: 20px; stroke: var(--g2); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .cc-ben-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; color: var(--g1); margin-bottom: 6px; }
+  .cc-ben-desc { font-size: 12px; line-height: 1.6; color: var(--muted); }
+
+  /* ── DIFERENCIAIS — visual orgânico ── */
+  .diferenciais {
+    background: var(--cream); padding: 110px 64px;
+  }
+  .diff-inner { max-width: 1280px; margin: 0 auto; }
+  .diff-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  /* Lado esquerdo: imagem com badge */
+  .diff-visual { position: relative; }
+  .diff-img-wrap {
+    width: 100%; aspect-ratio: 3/4; border-radius: 28px; overflow: hidden;
+    position: relative;
+    box-shadow: 0 24px 64px rgba(30,61,40,.15);
+  }
+  .diff-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .diff-badge-float {
+    position: absolute; bottom: -20px; right: -20px;
+    background: var(--g1); color: var(--white);
+    border-radius: 20px; padding: 24px 28px;
+    box-shadow: 0 12px 40px rgba(30,61,40,.2);
+  }
+  .dbf-val { font-family: 'Fraunces', serif; font-size: 48px; font-weight: 900; line-height: 1; color: var(--g5); }
+  .dbf-lbl { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; }
+  .diff-visual::before {
+    content: '';
+    position: absolute; top: -24px; left: -24px;
+    width: 150px; height: 150px;
+    background: var(--g-pale); border-radius: 50%; z-index: -1;
+  }
+
+  /* Lado direito: lista */
+  .diff-list { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+  .diff-row {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 24px 0; border-bottom: 1px solid var(--border);
+    transition: padding-left .25s; cursor: default;
+  }
+  .diff-row:first-child { border-top: 1px solid var(--border); }
+  .diff-row:hover { padding-left: 8px; }
+  .diff-num {
+    font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700;
+    color: var(--g-pale); min-width: 32px; padding-top: 2px;
+  }
+  .diff-row-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--g1); margin-bottom: 5px; }
+  .diff-row-text { font-size: 13px; line-height: 1.65; color: var(--mid); font-weight: 300; }
+
+  /* ── MÉDICO ── */
+  .medico { background: var(--g1); padding: 110px 64px; }
+  .medico-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .med-txt { }
+  .med-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--g5); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .med-tag::before { content: ''; width: 18px; height: 1px; background: var(--g5); }
+  .med-h { font-family: 'Fraunces', serif; font-size: clamp(28px, 3vw, 44px); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 16px; }
+  .med-p { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.55); font-weight: 300; margin-bottom: 28px; }
+  .med-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .mchip {
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.7); font-size: 12px; font-weight: 500;
+    padding: 8px 16px; border-radius: 100px;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .mchip-dot { width: 5px; height: 5px; background: var(--g5); border-radius: 50%; }
+  /* Card do médico */
+  .med-card-v2 {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 24px; overflow: hidden;
+  }
+  .med-card-img {
+    width: 100%; height: 260px;
+    background: linear-gradient(135deg, rgba(90,158,111,.25), rgba(30,61,40,.4));
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .med-card-img::after {
+    content: 'CRM';
+    font-family: 'Fraunces', serif; font-size: 80px; font-weight: 900;
+    color: rgba(255,255,255,.06); position: absolute; right: 16px; bottom: -10px; line-height: 1;
+  }
+  .med-card-body { padding: 28px 32px; }
+  .med-nome { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .med-crm-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--g3); color: var(--white);
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 7px 14px; border-radius: 100px; margin-bottom: 14px;
+  }
+  .med-bio { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,.5); font-weight: 300; }
+
+  /* ── CONTATO — dois painéis orgânicos ── */
+  .contato { background: var(--cream); padding: 110px 64px; }
+  .contato-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: start;
+  }
+  .form-card {
+    background: var(--white); border-radius: 28px;
+    border: 1px solid var(--border); padding: 48px 44px;
+    box-shadow: 0 12px 48px rgba(30,61,40,.06);
+  }
+  .form-card h3 { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 900; color: var(--g1); margin-bottom: 28px; }
+  .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fg { margin-bottom: 16px; }
+  .fl { display: block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+  .fi {
+    width: 100%; padding: 13px 16px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--text);
+    background: var(--cream); border: 1px solid var(--border); border-radius: 12px;
+    outline: none; transition: border-color .2s, background .2s; appearance: none;
+  }
+  .fi:focus { border-color: var(--g3); background: var(--white); }
+  textarea.fi { resize: vertical; min-height: 90px; }
+  .fsub {
+    width: 100%; background: var(--g1); color: var(--white);
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700;
+    padding: 16px; border: none; border-radius: 100px; cursor: pointer;
+    transition: background .25s; margin-top: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .fsub:hover { background: var(--g2); }
+
+  /* Info lado direito */
+  .info-side { padding-top: 12px; }
+  .info-side .sec-tag { margin-bottom: 12px; }
+  .info-side .sec-h2 { margin-bottom: 12px; }
+  .info-side .sec-p { margin-bottom: 40px; }
+  .icard {
+    background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+    padding: 18px 20px; display: flex; align-items: center; gap: 16px;
+    margin-bottom: 12px; transition: transform .25s;
+  }
+  .icard:hover { transform: translateX(4px); }
+  .icard-icon {
+    width: 40px; height: 40px; background: var(--g-ultra); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .icard-icon svg { width: 18px; height: 18px; stroke: var(--g2); fill: none; stroke-width: 2; stroke-linecap: round; }
+  .icard-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .icard-val { font-size: 14px; color: var(--text); line-height: 1.4; }
+  .icard-val a { color: var(--text); text-decoration: none; }
+  .icard-val a:hover { color: var(--g2); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--text); padding: 40px 64px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  .f-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+  .f-sub { font-size: 11px; color: rgba(255,255,255,.3); margin-top: 3px; }
+  .f-copy { font-size: 12px; color: rgba(255,255,255,.25); text-align: right; line-height: 1.8; }
+
+  /* ── REVEAL ── */
+  .rv { opacity:0; transform:translateY(28px); transition:opacity .75s ease, transform .75s ease; }
+  .rv.in { opacity:1; transform:none; }
+  .rv:nth-child(2) { transition-delay:.1s; }
+  .rv:nth-child(3) { transition-delay:.2s; }
+  .rv:nth-child(4) { transition-delay:.3s; }
+  .rv:nth-child(5) { transition-delay:.4s; }
+  .rv:nth-child(6) { transition-delay:.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="n-brand" href="#">SETRAX</a>
+  <ul class="n-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#admissional">Admissional</a></li>
+    <li><a href="#diferenciais">Diferenciais</a></li>
+    <li><a href="#medico">Equipe</a></li>
+  </ul>
+  <a href="#contato" class="n-cta">Solicitar Orçamento</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob-2"></div>
+  <div class="hero-ring" style="width:500px;height:500px;top:-100px;right:-100px;"></div>
+  <div class="hero-ring" style="width:280px;height:280px;top:50px;right:50px;"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="h-pill"><div class="h-pill-dot"></div>Medicina Ocupacional · Guarujá, SP</div>
+      <h1 class="hero-h1">
+        Sua empresa<br><em>segura,</em><br>seus times<br>protegidos
+      </h1>
+      <p class="hero-sub">
+        Medicina do trabalho com equipe própria, sem terceirização — padronização, controle de qualidade e custos competitivos para a sua operação.
+      </p>
+      <div class="hero-btns">
+        <a href="#contato" class="btn-fill">
+          Solicitar Orçamento Gratuito
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#servicos" class="btn-outline">Nossos Serviços</a>
+      </div>
+      <div class="hero-mini-stats">
+        <div class="hms-item"><div class="hms-val">100%</div><div class="hms-lbl">Execução Interna</div></div>
+        <div class="hms-sep"></div>
+        <div class="hms-item"><div class="hms-val">2013</div><div class="hms-lbl">Fundação</div></div>
+        <div class="hms-sep"></div>
+        <div class="hms-item"><div class="hms-val">8+</div><div class="hms-lbl">Exames Complementares</div></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <img class="hero-img"
+          src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&fit=crop"
+          alt="Médico em consulta ocupacional" loading="lazy">
+        <div class="hero-img-overlay"></div>
+      </div>
+      <div class="hero-badge-l">
+        <div class="badge-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        </div>
+        <div>
+          <div class="badge-lbl">Diferencial</div>
+          <div class="badge-val">Equipe Própria ✓</div>
+        </div>
+      </div>
+      <div class="hero-badge-r">
+        <div class="badge-r-lbl">Fundada em</div>
+        <div class="badge-r-val">2013</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <div class="s-item"><span class="s-leaf">✦</span>Admissional</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Periódico</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Demissional</div>
+    <div class="s-item"><span class="s-leaf">✦</span>PCMSO</div>
+    <div class="s-item"><span class="s-leaf">✦</span>PGR</div>
+    <div class="s-item"><span class="s-leaf">✦</span>LTCAT · PPP</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Audiometria</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Espirometria</div>
+    <div class="s-item"><span class="s-leaf">✦</span>e-Social</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Guarujá, SP</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Admissional</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Periódico</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Demissional</div>
+    <div class="s-item"><span class="s-leaf">✦</span>PCMSO</div>
+    <div class="s-item"><span class="s-leaf">✦</span>PGR</div>
+    <div class="s-item"><span class="s-leaf">✦</span>LTCAT · PPP</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Audiometria</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Espirometria</div>
+    <div class="s-item"><span class="s-leaf">✦</span>e-Social</div>
+    <div class="s-item"><span class="s-leaf">✦</span>Guarujá, SP</div>
+  </div>
+</div>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="servicos-inner">
+    <div class="sec-hdr">
+      <div class="rv">
+        <div class="sec-tag">Nossos Serviços</div>
+        <h2 class="sec-h2">Cuidado <em>completo</em><br>do início ao fim</h2>
+      </div>
+      <p class="sec-p rv">De exames médicos obrigatórios a programas de gestão de saúde — cobertura total para sua empresa, com agilidade e qualidade.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card rv">
+        <div class="svc-img-wrap">
+          <img class="svc-img" src="https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?w=600&q=75&fit=crop" alt="Exame médico ocupacional" loading="lazy">
+        </div>
+        <div class="svc-body">
+          <div class="svc-tag">Obrigatório</div>
+          <div class="svc-title">Exames Ocupacionais</div>
+          <p class="svc-desc">Admissional, periódico, demissional, retorno e mudança de função — com emissão do ASO e integração e-Social.</p>
+        </div>
+      </div>
+      <div class="svc-card rv">
+        <div class="svc-img-wrap">
+          <img class="svc-img" src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?w=600&q=75&fit=crop" alt="Documentação PCMSO" loading="lazy">
+        </div>
+        <div class="svc-body">
+          <div class="svc-tag">Documentação</div>
+          <div class="svc-title">PCMSO · PGR · LTCAT · PPP</div>
+          <p class="svc-desc">Programas e laudos obrigatórios elaborados por equipe especializada, com prazo e conformidade garantidos.</p>
+        </div>
+      </div>
+      <div class="svc-card rv">
+        <div class="svc-img-wrap">
+          <img class="svc-img" src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=75&fit=crop" alt="Exames complementares" loading="lazy">
+        </div>
+        <div class="svc-body">
+          <div class="svc-tag">Complementar</div>
+          <div class="svc-title">Exames Complementares</div>
+          <p class="svc-desc">Audiometria, espirometria, ECG, EEG, acuidade visual, glicemia e avaliação psicossocial conforme o cargo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARRO-CHEFE: EXAME ADMISSIONAL -->
+<section class="carro-chefe" id="admissional">
+  <div class="cc-inner">
+    <div class="cc-header rv">
+      <div class="sec-tag">Serviço em Destaque</div>
+      <h2 class="sec-h2">O primeiro passo<br>para uma <em>contratação segura</em></h2>
+    </div>
+    <div class="cc-hero-card rv">
+      <div class="cc-left">
+        <div class="cc-eyebrow">Exame Admissional</div>
+        <h3 class="cc-title">Contrate com<br><em>segurança</em> e<br>conformidade total</h3>
+        <p class="cc-desc">
+          O exame admissional é obrigatório antes do primeiro dia de trabalho e protege sua empresa de passivos trabalhistas. Na Setrax, é realizado por equipe própria — sem terceirização — com emissão do ASO e transmissão direta ao e-Social.
+        </p>
+        <a href="#contato" class="cc-cta">
+          Agendar Exame
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="cc-right">
+        <div class="cc-right-title">Como funciona</div>
+        <div class="cc-step">
+          <div class="cc-step-num">01</div>
+          <div>
+            <div class="cc-step-title">Agendamento imediato</div>
+            <div class="cc-step-desc">Contate a Setrax e agende o exame para o candidato com rapidez — sem burocracia, sem fila de espera.</div>
+          </div>
+        </div>
+        <div class="cc-step">
+          <div class="cc-step-num">02</div>
+          <div>
+            <div class="cc-step-title">Avaliação médica completa</div>
+            <div class="cc-step-desc">Anamnese, exame físico direcionado à função e solicitação dos exames complementares obrigatórios conforme o cargo.</div>
+          </div>
+        </div>
+        <div class="cc-step">
+          <div class="cc-step-num">03</div>
+          <div>
+            <div class="cc-step-title">Emissão do ASO</div>
+            <div class="cc-step-desc">Atestado de Saúde Ocupacional emitido pelo médico responsável, com resultado Apto ou Inapto para a função.</div>
+          </div>
+        </div>
+        <div class="cc-step">
+          <div class="cc-step-num">04</div>
+          <div>
+            <div class="cc-step-title">Transmissão ao e-Social</div>
+            <div class="cc-step-desc">Registro do exame no sistema federal de obrigações trabalhistas, garantindo conformidade total e sem risco de autuação.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cc-benefits">
+      <div class="cc-ben rv">
+        <div class="cc-ben-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div>
+        <div class="cc-ben-title">Conformidade NR-7</div>
+        <p class="cc-ben-desc">Exame realizado conforme exigências da Norma Regulamentadora 7 do MTE.</p>
+      </div>
+      <div class="cc-ben rv">
+        <div class="cc-ben-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="cc-ben-title">Proteção Legal</div>
+        <p class="cc-ben-desc">Elimina passivos trabalhistas e previdenciários decorrentes de doenças pré-existentes.</p>
+      </div>
+      <div class="cc-ben rv">
+        <div class="cc-ben-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div class="cc-ben-title">Agilidade no Prazo</div>
+        <p class="cc-ben-desc">Atendimento rápido para não atrasar o início das atividades do novo colaborador.</p>
+      </div>
+      <div class="cc-ben rv">
+        <div class="cc-ben-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="cc-ben-title">e-Social Integrado</div>
+        <p class="cc-ben-desc">Transmissão automática do ASO ao e-Social, sem ação manual da sua equipe de RH.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="diferenciais" id="diferenciais">
+  <div class="diff-inner">
+    <div class="rv">
+      <div class="sec-tag">Por que a Setrax</div>
+      <h2 class="sec-h2" style="margin-bottom:16px;">O que nos faz<br><em>diferentes</em></h2>
+    </div>
+    <div class="diff-layout">
+      <div class="diff-visual rv">
+        <div class="diff-img-wrap">
+          <img class="diff-img" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=700&q=80&fit=crop" alt="Médico especialista em saúde ocupacional" loading="lazy">
+        </div>
+        <div class="diff-badge-float">
+          <div class="dbf-val">+10</div>
+          <div class="dbf-lbl">anos de experiência</div>
+        </div>
+      </div>
+      <div>
+        <p class="sec-p rv" style="margin-bottom:0">Execução interna, equipe própria e gestão completa — o que sua empresa precisa para operar com conformidade, agilidade e custo controlado.</p>
+        <div class="diff-list">
+          <div class="diff-row rv">
+            <div class="diff-num">01</div>
+            <div>
+              <div class="diff-row-title">Execução 100% interna</div>
+              <p class="diff-row-text">Todos os serviços técnicos são realizados por equipe própria, sem terceirização — garantindo à sua empresa padronização, controle de qualidade e rastreabilidade.</p>
+            </div>
+          </div>
+          <div class="diff-row rv">
+            <div class="diff-num">02</div>
+            <div>
+              <div class="diff-row-title">Custos competitivos para sua operação</div>
+              <p class="diff-row-text">Sem intermediários, o orçamento fica enxuto. Apresente sua proposta e viabilizamos a solução ideal para o porte da sua empresa.</p>
+            </div>
+          </div>
+          <div class="diff-row rv">
+            <div class="diff-num">03</div>
+            <div>
+              <div class="diff-row-title">e-Social integrado — RH liberado</div>
+              <p class="diff-row-text">Transmissão direta das obrigações trabalhistas ao sistema federal. Sua empresa em conformidade total, sem retrabalho para o seu RH.</p>
+            </div>
+          </div>
+          <div class="diff-row rv">
+            <div class="diff-num">04</div>
+            <div>
+              <div class="diff-row-title">Direção médica com CRM-SP ativo</div>
+              <p class="diff-row-text">Responsabilidade técnica do Dr. Ahmad Ali Abdul Rahim, CRM-SP 65040, em todos os exames e documentos emitidos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉDICO -->
+<section class="medico" id="medico">
+  <div class="medico-inner">
+    <div class="med-txt rv">
+      <div class="med-tag">Direção Técnica</div>
+      <h2 class="med-h">Liderança médica<br>com experiência<br>comprovada</h2>
+      <p class="med-p">A Setrax é dirigida por médico especialista em medicina do trabalho, garantindo qualidade técnica e conformidade legal em todos os serviços — do exame admissional ao PPP.</p>
+      <div class="med-chips">
+        <div class="mchip"><span class="mchip-dot"></span>Medicina do Trabalho</div>
+        <div class="mchip"><span class="mchip-dot"></span>Responsável PCMSO</div>
+        <div class="mchip"><span class="mchip-dot"></span>PGR e LTCAT</div>
+        <div class="mchip"><span class="mchip-dot"></span>Perícias Técnicas</div>
+        <div class="mchip"><span class="mchip-dot"></span>e-Social</div>
+      </div>
+    </div>
+    <div class="med-card-v2 rv">
+      <div class="med-card-img">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5">
+          <circle cx="40" cy="28" r="18"/>
+          <path d="M10 72a30 30 0 0160 0"/>
+          <line x1="40" y1="10" x2="40" y2="16"/>
+          <path d="M32 24h6v6h4v-6h6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="med-card-body">
+        <div class="med-nome">Dr. Ahmad Ali Abdul Rahim</div>
+        <div class="med-crm-tag">CRM-SP 65040 · Diretor Técnico</div>
+        <p class="med-bio">Médico especialista em saúde ocupacional e responsável técnico da Setrax desde sua fundação em 2013. Supervisiona todos os exames, programas e laudos emitidos pela clínica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SETORES ATENDIDOS -->
+<div style="background:var(--g1);padding:48px 64px;">
+  <div style="max-width:1280px;margin:0 auto;text-align:center;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:24px;">Setores que confiam na Setrax</div>
+    <div style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="26" height="26"><rect x="1" y="6" width="22" height="15" rx="2"/><path d="M1 13h22"/><path d="M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>Portuário</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="26" height="26"><path d="M2 20h20M5 20V8l7-5 7 5v12"/><rect x="9" y="12" width="6" height="8"/></svg>Industrial</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="26" height="26"><path d="M3 21h18M9 21V6l-6 6v9M9 3h6v18M21 21V12l-6-6"/></svg>Construção</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="26" height="26"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>Comércio</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="26" height="26"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 3 20 16 16 16"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Logística</div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="26" height="26"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Serviços</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="contato-inner">
+    <div class="form-card rv">
+      <h3>Solicite um<br>orçamento gratuito</h3>
+      <div class="frow">
+        <div class="fg"><label class="fl">Nome</label><input type="text" class="fi" placeholder="Seu nome"></div>
+        <div class="fg"><label class="fl">Empresa</label><input type="text" class="fi" placeholder="Razão social ou nome fantasia"></div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Telefone / WhatsApp</label><input type="tel" class="fi" placeholder="(13) 9 0000-0000"></div>
+        <div class="fg">
+          <label class="fl">Nº de Funcionários</label>
+          <select class="fi">
+            <option value="">Selecione…</option>
+            <option>1 a 10</option>
+            <option>11 a 50</option>
+            <option>51 a 200</option>
+            <option>Mais de 200</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg">
+          <label class="fl">Serviço de Interesse</label>
+          <select class="fi">
+            <option value="">Selecione…</option>
+            <option>Exame Admissional</option>
+            <option>Exames Ocupacionais</option>
+            <option>PCMSO</option>
+            <option>PGR / LTCAT</option>
+            <option>Exames Complementares</option>
+            <option>Pacote Completo</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">Setor da Empresa</label>
+          <select class="fi">
+            <option value="">Selecione…</option>
+            <option>Portuário / Marítimo</option>
+            <option>Industrial</option>
+            <option>Construção Civil</option>
+            <option>Comércio / Varejo</option>
+            <option>Logística / Transporte</option>
+            <option>Serviços</option>
+            <option>Outro</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Mensagem</label><textarea class="fi" placeholder="Descreva brevemente a necessidade da sua empresa…"></textarea></div>
+      <button class="fsub">
+        Solicitar Orçamento Gratuito
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <div class="info-side rv">
+      <div class="sec-tag">Localização</div>
+      <h2 class="sec-h2">Onde<br>nos encontrar</h2>
+      <p class="sec-p">Atendemos em Guarujá e região. Retornamos em até 24h.</p>
+      <div class="icard">
+        <div class="icard-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="icard-lbl">Endereço</div><div class="icard-val">Rua Buenos Aires, 40 – Pitangueiras<br>Guarujá – SP · CEP 11410-010</div></div>
+      </div>
+      <div class="icard">
+        <div class="icard-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.5 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.44 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 8.4a16 16 0 006.29 6.29l.77-.77a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="icard-lbl">Telefone</div><div class="icard-val"><a href="tel:1333556079">(13) 3355-6079</a></div></div>
+      </div>
+      <div class="icard">
+        <div class="icard-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="icard-lbl">E-mail</div><div class="icard-val"><a href="mailto:eliana.camargo@setrax.com.br">eliana.camargo@setrax.com.br</a></div></div>
+      </div>
+      <div class="icard">
+        <div class="icard-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><div class="icard-lbl">Horário</div><div class="icard-val">Seg–Sex: 8h às 18h · Sáb: 8h às 12h</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-name">Setrax</div>
+    <div class="f-sub">Saúde e Segurança Ocupacional · Guarujá, SP</div>
+  </div>
+  <div class="f-copy">CNPJ 17.405.500/0001-06 · setrax.com.br<br>© 2026 Setrax. Todos os direitos reservados.</div>
+</footer>
+
+<script>
+  const o = new IntersectionObserver(e => e.forEach(i => { if(i.isIntersecting) i.target.classList.add('in'); }), { threshold: 0.08 });
+  document.querySelectorAll('.rv').forEach(el => o.observe(el));
+  // Nav scroll shadow
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = scrollY > 60
+      ? '0 8px 40px rgba(30,61,40,.18)'
+      : '0 4px 32px rgba(30,61,40,.10)';
+  });
+</script>
+</body>
+</html>
