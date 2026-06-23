@@ -678,61 +678,63 @@
 <section class="contato" id="contato" aria-labelledby="titulo-contato">
   <div class="contato-inner">
     <div class="form-card rv">
-      <h3>Solicite um<br>orçamento gratuito</h3>
-      <div class="frow">
-        <div class="fg"><label class="fl" for="f-nome">Nome</label><input id="f-nome" type="text" class="fi" placeholder="Seu nome" autocomplete="name"></div>
-        <div class="fg"><label class="fl" for="f-empresa">Empresa</label><input id="f-empresa" type="text" class="fi" placeholder="Razão social ou nome fantasia" autocomplete="organization"></div>
-      </div>
-      <div class="frow">
-        <div class="fg"><label class="fl" for="f-telefone">Telefone / WhatsApp</label><input id="f-telefone" type="tel" class="fi" placeholder="(13) 9 0000-0000" autocomplete="tel"></div>
-        <div class="fg">
-          <label class="fl" for="f-funcionarios">Nº de Funcionários</label>
-          <select id="f-funcionarios" class="fi">
-            <option value="">Selecione…</option>
-            <option>1 a 10</option>
-            <option>11 a 50</option>
-            <option>51 a 200</option>
-            <option>Mais de 200</option>
-          </select>
+      <h3 id="form-title">Solicite um<br>orçamento gratuito</h3>
+      <div id="form-body">
+        <div class="frow">
+          <div class="fg"><label class="fl" for="f-nome">Nome</label><input id="f-nome" type="text" class="fi" placeholder="Seu nome" autocomplete="name"></div>
+          <div class="fg"><label class="fl" for="f-empresa">Empresa</label><input id="f-empresa" type="text" class="fi" placeholder="Razão social ou nome fantasia" autocomplete="organization"></div>
         </div>
-      </div>
-      <div class="frow">
-        <div class="fg">
-          <label class="fl" for="f-servico">Serviço de Interesse</label>
-          <select id="f-servico" class="fi">
-            <option value="">Selecione…</option>
-            <option>Exame Admissional</option>
-            <option>Exame Periódico / Demissional / Retorno</option>
-            <option>Avaliação Psicossocial (NR 01)</option>
-            <option>PCMSO</option>
-            <option>PGR</option>
-            <option>LTCAT / LTIP</option>
-            <option>Ergonomia (AET / AEP)</option>
-            <option>PPP</option>
-            <option>eSocial</option>
-            <option>Treinamentos SST</option>
-            <option>Pacote Completo</option>
-          </select>
+        <div class="frow">
+          <div class="fg"><label class="fl" for="f-telefone">Telefone / WhatsApp</label><input id="f-telefone" type="tel" class="fi" placeholder="(13) 9 0000-0000" autocomplete="tel"></div>
+          <div class="fg">
+            <label class="fl" for="f-funcionarios">Nº de Funcionários</label>
+            <select id="f-funcionarios" class="fi">
+              <option value="">Selecione…</option>
+              <option>1 a 10</option>
+              <option>11 a 50</option>
+              <option>51 a 200</option>
+              <option>Mais de 200</option>
+            </select>
+          </div>
         </div>
-        <div class="fg">
-          <label class="fl" for="f-setor">Setor da Empresa</label>
-          <select id="f-setor" class="fi">
-            <option value="">Selecione…</option>
-            <option>Portuário / Marítimo</option>
-            <option>Industrial</option>
-            <option>Construção Civil</option>
-            <option>Comércio / Varejo</option>
-            <option>Logística / Transporte</option>
-            <option>Serviços</option>
-            <option>Outro</option>
-          </select>
+        <div class="frow">
+          <div class="fg">
+            <label class="fl" for="f-servico">Serviço de Interesse</label>
+            <select id="f-servico" class="fi">
+              <option value="">Selecione…</option>
+              <option>Exame Admissional</option>
+              <option>Exame Periódico / Demissional / Retorno</option>
+              <option>Avaliação Psicossocial (NR 01)</option>
+              <option>PCMSO</option>
+              <option>PGR</option>
+              <option>LTCAT / LTIP</option>
+              <option>Ergonomia (AET / AEP)</option>
+              <option>PPP</option>
+              <option>eSocial</option>
+              <option>Treinamentos SST</option>
+              <option>Pacote Completo</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="fl" for="f-setor">Setor da Empresa</label>
+            <select id="f-setor" class="fi">
+              <option value="">Selecione…</option>
+              <option>Portuário / Marítimo</option>
+              <option>Industrial</option>
+              <option>Construção Civil</option>
+              <option>Comércio / Varejo</option>
+              <option>Logística / Transporte</option>
+              <option>Serviços</option>
+              <option>Outro</option>
+            </select>
+          </div>
         </div>
+        <div class="fg"><label class="fl" for="f-mensagem">Mensagem</label><textarea id="f-mensagem" class="fi" placeholder="Descreva brevemente a necessidade da sua empresa…"></textarea></div>
+        <button type="button" id="btn-orcamento" class="fsub">
+          Solicitar orçamento
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
       </div>
-      <div class="fg"><label class="fl" for="f-mensagem">Mensagem</label><textarea id="f-mensagem" class="fi" placeholder="Descreva brevemente a necessidade da sua empresa…"></textarea></div>
-      <button type="button" id="btn-orcamento" class="fsub">
-        Solicitar Orçamento pelo WhatsApp
-        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
     </div>
 
     <div class="info-side rv">
