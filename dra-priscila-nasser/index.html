@@ -683,7 +683,7 @@
   async function saveDraft(){
     try{
       const data = collectAnswers();
-      await window.storage.set(STORAGE_KEY, JSON.stringify(data), false);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       document.getElementById('statusLabel').textContent = 'Rascunho salvo';
     }catch(err){
       document.getElementById('statusLabel').textContent = 'Não foi possível salvar';
@@ -700,9 +700,9 @@
 
   async function loadDraft(){
     try{
-      const result = await window.storage.get(STORAGE_KEY, false);
-      if(result && result.value){
-        applyAnswers(JSON.parse(result.value));
+      const value = localStorage.getItem(STORAGE_KEY);
+      if(value){
+        applyAnswers(JSON.parse(value));
         document.getElementById('statusLabel').textContent = 'Rascunho carregado';
         showToast('Rascunho anterior carregado');
       }
@@ -725,7 +725,7 @@
       toggleOptClass(el);
     });
     try{
-      await window.storage.delete(STORAGE_KEY, false);
+      localStorage.removeItem(STORAGE_KEY);
     }catch(err){ /* ok se a chave não existir */ }
     document.getElementById('statusLabel').textContent = 'Respostas apagadas';
     document.getElementById('previewBox').classList.remove('show');
