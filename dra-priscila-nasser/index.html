@@ -174,6 +174,38 @@
   .font-combo .font-preview span:first-child{display:block;font-family:'Fraunces',serif;font-weight:600;}
   .font-combo .font-preview span:last-child{display:block;font-family:'Inter',sans-serif;font-size:14px;color:#555;margin-top:4px;}
 
+  /* estilo visual — referências de sites por estilo */
+  .style-refs{
+    margin-top:14px;
+    padding:16px;
+    border:1px dashed var(--line);
+    border-radius:8px;
+    background:#FBFAF8;
+  }
+  .style-refs-title{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--sage);margin-bottom:10px;}
+  .style-refs-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+  .style-ref-card{
+    position:relative;
+    width:100%;
+    border-radius:8px;
+    overflow:hidden;
+    cursor:pointer;
+    border:3px solid transparent;
+    box-sizing:border-box;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .style-ref-card.selected{border-color:var(--wine);box-shadow:0 0 0 1px var(--wine);}
+  .style-ref-img{width:100%;height:auto;display:block;background:#EEE;}
+  .style-ref-name{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:10px 14px;
+    font-size:14px;
+    font-weight:600;
+    color:#fff;
+    background:linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,0));
+  }
+
   /* checkbox pill list (aplicações) */
   .pill-list{display:flex;flex-wrap:wrap;gap:8px;}
   .pill{
@@ -317,12 +349,16 @@
     <div class="q-item">
       <label class="qtext">Qual estilo mais combina com você?</label>
       <div class="opt-grid narrow" data-group="estilo" data-radio="true">
-        <label class="opt"><input type="radio" name="estilo" value="Clean/minimalista"><span>Clean/minimalista</span></label>
-        <label class="opt"><input type="radio" name="estilo" value="Clássico/elegante"><span>Clássico/elegante (serifado, tradicional)</span></label>
-        <label class="opt"><input type="radio" name="estilo" value="Moderno/geométrico"><span>Moderno/geométrico</span></label>
-        <label class="opt"><input type="radio" name="estilo" value="Orgânico/humano"><span>Orgânico/humano (formas suaves)</span></label>
-        <label class="opt"><input type="radio" name="estilo" value="Editorial/sofisticado"><span>Editorial/sofisticado</span></label>
-        <label class="opt"><input type="radio" name="estilo" value="Tech/inovador"><span>Tech/inovador</span></label>
+        <label class="opt" data-style="clean"><input type="radio" name="estilo" value="Clean/minimalista"><span>Clean/minimalista</span></label>
+        <label class="opt" data-style="classico"><input type="radio" name="estilo" value="Clássico"><span>Clássico (tradicional)</span></label>
+        <label class="opt" data-style="moderno"><input type="radio" name="estilo" value="Moderno/geométrico"><span>Moderno/geométrico</span></label>
+        <label class="opt" data-style="organico"><input type="radio" name="estilo" value="Orgânico/humano"><span>Orgânico/humano (formas suaves)</span></label>
+        <label class="opt" data-style="editorial"><input type="radio" name="estilo" value="Editorial/sofisticado"><span>Editorial/sofisticado</span></label>
+      </div>
+
+      <div class="style-refs" id="styleRefs">
+        <p class="style-refs-title">Referências visuais do estilo selecionado</p>
+        <div class="style-refs-grid" id="styleRefsGrid"></div>
       </div>
     </div>
 
@@ -337,7 +373,7 @@
 
     <div class="q-item">
       <label class="qtext" for="s23">Se houver um símbolo, há alguma referência que faça sentido para cardiologia (coração, ECG, formas abstratas) — ou prefere fugir do óbvio?</label>
-      <textarea id="s23" data-field="s23" placeholder="Ex: prefiro evitar coração literal e batimento cardíaco clichê"></textarea>
+      <textarea id="s23" data-field="s23" placeholder="Ex: prefiro evitar coração literal e batimento cardíaco"></textarea>
     </div>
   </section>
 
@@ -372,16 +408,22 @@
           <div class="palette-desc">Acolhedor, humano, premium</div>
         </label>
         <label class="opt palette-opt">
-          <input type="radio" name="paleta" value="Preto/branco/grafite com dourado">
-          <div class="swatch-row"><span style="background:#1A1A1A"></span><span style="background:#A9834D"></span><span style="background:#F5F5F2"></span></div>
-          <div class="palette-name">Grafite + dourado</div>
-          <div class="palette-desc">Sofisticado, alto padrão</div>
+          <input type="radio" name="paleta" value="Vinho profundo com creme">
+          <div class="swatch-row"><span style="background:#5C1A2B"></span><span style="background:#E8DED2"></span><span style="background:#3A3A3A"></span></div>
+          <div class="palette-name">Vinho + creme</div>
+          <div class="palette-desc">Sofisticado, alto padrão, remete à cardiologia</div>
         </label>
         <label class="opt palette-opt">
           <input type="radio" name="paleta" value="Cor vibrante de destaque + neutros">
           <div class="swatch-row"><span style="background:#7A2E3A"></span><span style="background:#EAE2D0"></span><span style="background:#2B2F33"></span></div>
           <div class="palette-name">Destaque + neutros</div>
           <div class="palette-desc">Moderno, memorável</div>
+        </label>
+        <label class="opt palette-opt">
+          <input type="radio" name="paleta" value="Petróleo com coral">
+          <div class="swatch-row"><span style="background:#12454B"></span><span style="background:#E8785A"></span><span style="background:#F4EDE6"></span></div>
+          <div class="palette-name">Petróleo + coral</div>
+          <div class="palette-desc">Contemporâneo, energia e confiança em contraste</div>
         </label>
         <label class="opt palette-opt">
           <input type="radio" name="paleta" value="Sem preferência definida, quero ver as opções">
@@ -461,20 +503,6 @@
     <div class="q-item">
       <label class="qtext" for="a61">Como você descreveria seu paciente ideal (perfil, faixa etária, expectativas)?</label>
       <textarea id="a61" data-field="a61"></textarea>
-    </div>
-
-    <div class="q-item">
-      <label class="qtext">Onde essa marca vai aparecer com mais frequência?
-        <span class="hint">Selecione todas que se aplicam</span>
-      </label>
-      <div class="pill-list" data-group="aplicacao">
-        <label class="pill"><input type="checkbox" value="Instagram"><span>Instagram</span></label>
-        <label class="pill"><input type="checkbox" value="Cartão de visita"><span>Cartão de visita</span></label>
-        <label class="pill"><input type="checkbox" value="Jaleco"><span>Jaleco</span></label>
-        <label class="pill"><input type="checkbox" value="Fachada do consultório"><span>Fachada do consultório</span></label>
-        <label class="pill"><input type="checkbox" value="Prontuário/receituário"><span>Prontuário/receituário</span></label>
-        <label class="pill"><input type="checkbox" value="Site"><span>Site</span></label>
-      </div>
     </div>
 
     <div class="q-item">
@@ -562,6 +590,10 @@
         toggleOptClass(input);
       });
     });
+    if(data.estilo){
+      const checkedStyleOpt = document.querySelector('.opt[data-style] input[name="estilo"]:checked');
+      if(checkedStyleOpt) renderStyleRefs(checkedStyleOpt.closest('.opt').dataset.style);
+    }
     updateProgress();
   }
 
@@ -594,6 +626,35 @@
 
   document.querySelectorAll('.opt input, .pill input').forEach(input=>{
     input.addEventListener('change', ()=>toggleOptClass(input));
+  });
+
+  // estilo visual — referências reais (imagens salvas localmente em assets/estilo)
+  const STYLE_REFS = {
+    clean: { name: 'Clean/minimalista', img: 'assets/estilo/clean.png' },
+    classico: { name: 'Clássico/elegante', img: 'assets/estilo/classico.png' },
+    moderno: { name: 'Moderno/geométrico', img: 'assets/estilo/moderno.png' },
+    organico: { name: 'Orgânico/humano', img: 'assets/estilo/organico.avif' },
+    editorial: { name: 'Editorial/sofisticado', img: 'assets/estilo/editorial.avif' }
+  };
+
+  const styleRefsGrid = document.getElementById('styleRefsGrid');
+
+  function renderStyleRefs(selectedKey){
+    const ref = STYLE_REFS[selectedKey];
+    if(!ref){ styleRefsGrid.innerHTML = ''; return; }
+    styleRefsGrid.innerHTML =
+      '<div class="style-ref-card selected">' +
+        '<img class="style-ref-img" src="'+ref.img+'" alt="Referência visual: '+ref.name+'" loading="lazy">' +
+        '<div class="style-ref-name">'+ref.name+'</div>' +
+      '</div>';
+  }
+
+  renderStyleRefs(null);
+
+  document.querySelectorAll('.opt[data-style] input[name="estilo"]').forEach(input=>{
+    input.addEventListener('change', ()=>{
+      if(input.checked) renderStyleRefs(input.closest('.opt').dataset.style);
+    });
   });
 
   function totalFieldCount(){
@@ -703,7 +764,6 @@
     lines.push('');
     lines.push('*6. Público e posicionamento*');
     lines.push('Paciente ideal: ' + (d.a61 || '—'));
-    lines.push('Aplicações: ' + (d.aplicacao.length ? d.aplicacao.join(', ') : '—'));
     lines.push('Diferenciação de concorrentes: ' + (d.a63 || '—'));
     lines.push('');
     lines.push('*7. Restrições e observações*');
