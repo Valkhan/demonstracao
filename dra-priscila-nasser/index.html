@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing de Marca — Dra. Priscila Nasser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,500;9..144,600&family=Sora:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@400;600;700&family=Parisienne&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1F2A34;
+    --linen:#F1EBDD;
+    --linen-2:#EAE2D0;
+    --wine:#7A2E3A;
+    --wine-dark:#5E2029;
+    --gold:#A9834D;
+    --sage:#6B7B6E;
+    --line:#D8CFBF;
+    --white:#FBF9F4;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--linen);
+    color:var(--ink);
+    font-family:'Sora',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px 120px;}
+
+  /* ---- Header ---- */
+  header{padding:64px 0 32px;position:relative;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--wine);
+    margin:0 0 18px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(32px,5vw,46px);
+    line-height:1.08;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  h1 em{font-style:italic;font-weight:340;color:var(--wine);}
+  .sub{
+    font-size:15.5px;
+    color:#4A5158;
+    max-width:56ch;
+    margin:0 0 30px;
+  }
+  .ecg{width:100%;height:46px;display:block;margin-bottom:8px;}
+  .ecg path{
+    fill:none;
+    stroke:var(--wine);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-dasharray:600;
+    stroke-dashoffset:600;
+    animation:draw 2.1s ease-out forwards .3s;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @media (prefers-reduced-motion: reduce){
+    .ecg path{animation:none;stroke-dashoffset:0;}
+  }
+
+  /* ---- Progress ---- */
+  .progress-bar{
+    position:sticky;top:0;z-index:20;
+    background:rgba(241,235,221,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    padding:12px 24px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .progress-bar .track{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+  .progress-bar .fill{height:100%;background:var(--wine);width:0%;transition:width .3s ease;}
+  .progress-bar .pct{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--wine);min-width:34px;text-align:right;}
+  .progress-bar .status{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--sage);white-space:nowrap;}
+
+  /* ---- Sections ---- */
+  section.q{
+    padding:44px 0;
+    border-top:1px solid var(--line);
+  }
+  .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--gold);
+    letter-spacing:.08em;
+    margin-bottom:8px;
+  }
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:24px;
+    margin:0 0 22px;
+    color:var(--ink);
+  }
+  .q-item{margin-bottom:26px;}
+  .q-item:last-child{margin-bottom:0;}
+  label.qtext{
+    display:block;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .hint{font-weight:400;color:#6A7078;font-size:13px;display:block;margin-top:2px;}
+
+  textarea, input[type="text"]{
+    width:100%;
+    font-family:'Sora',sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:12px 14px;
+    resize:vertical;
+    transition:border-color .15s ease;
+  }
+  textarea:focus, input[type="text"]:focus{
+    outline:none;
+    border-color:var(--wine);
+  }
+  textarea{min-height:78px;}
+
+  /* option grids */
+  .opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+  .opt-grid.narrow{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+  .opt{
+    position:relative;
+    border:1px solid var(--line);
+    background:var(--white);
+    border-radius:8px;
+    padding:12px 14px;
+    cursor:pointer;
+    font-size:13.5px;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .opt input{position:absolute;opacity:0;pointer-events:none;}
+  .opt:hover{border-color:var(--gold);}
+  .opt.checked{border-color:var(--wine);background:#FBF3F0;}
+  .opt.checked::after{
+    content:"✓";
+    position:absolute;top:8px;right:10px;
+    font-size:11px;color:var(--wine);font-weight:700;
+  }
+
+  /* color palette swatches */
+  .palette-opt{padding:14px;}
+  .swatch-row{display:flex;gap:6px;margin-bottom:10px;height:26px;}
+  .swatch-row span{flex:1;border-radius:4px;}
+  .palette-name{font-weight:600;font-size:13.5px;}
+  .palette-desc{font-size:12px;color:#6A7078;margin-top:3px;}
+
+  /* font preview cards */
+  .font-opt{padding:18px 16px;}
+  .font-preview{
+    font-size:26px;
+    margin-bottom:8px;
+    color:var(--ink);
+    line-height:1.1;
+  }
+  .font-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);}
+  .font-combo .font-preview span:first-child{display:block;font-family:'Fraunces',serif;font-weight:600;}
+  .font-combo .font-preview span:last-child{display:block;font-family:'Inter',sans-serif;font-size:14px;color:#555;margin-top:4px;}
+
+  /* checkbox pill list (aplicações) */
+  .pill-list{display:flex;flex-wrap:wrap;gap:8px;}
+  .pill{
+    border:1px solid var(--line);
+    background:var(--white);
+    border-radius:20px;
+    padding:8px 14px;
+    font-size:13px;
+    cursor:pointer;
+  }
+  .pill input{position:absolute;opacity:0;pointer-events:none;}
+  .pill.checked{background:var(--wine);border-color:var(--wine);color:#fff;}
+
+  /* footer / submit */
+  .submit-zone{
+    margin-top:50px;
+    padding-top:40px;
+    border-top:1px solid var(--line);
+  }
+  .btn{
+    font-family:'Sora',sans-serif;
+    font-weight:600;
+    font-size:14.5px;
+    border:none;
+    border-radius:7px;
+    padding:14px 26px;
+    cursor:pointer;
+    transition:transform .1s ease, opacity .15s ease;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--wine);color:#fff;}
+  .btn-primary:hover{background:var(--wine-dark);}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:10px;}
+  .btn-ghost:hover{border-color:var(--gold);}
+  .btn-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;}
+
+  .autosave-note{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--sage);
+    margin-top:14px;
+  }
+
+  .preview-box{
+    margin-top:24px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:18px 20px;
+    display:none;
+  }
+  .preview-box.show{display:block;}
+  .preview-box pre{
+    white-space:pre-wrap;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    line-height:1.6;
+    color:var(--ink);
+    margin:0;
+  }
+  .preview-title{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--wine);margin-bottom:12px;}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--ink);color:var(--linen);
+    padding:12px 20px;border-radius:8px;
+    font-size:13.5px;font-family:'Sora',sans-serif;
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:50;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width:600px){
+    header{padding:44px 0 24px;}
+    .opt-grid, .opt-grid.narrow{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar">
+  <span class="status" id="statusLabel">Rascunho não salvo</span>
+  <div class="track"><div class="fill" id="progressFill"></div></div>
+  <span class="pct" id="progressPct">0%</span>
+</div>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Briefing · Identidade de marca</p>
+    <svg class="ecg" viewBox="0 0 700 46" preserveAspectRatio="none">
+      <path d="M0,23 L180,23 L205,23 L218,6 L232,40 L248,14 L262,23 L290,23 L700,23"/>
+    </svg>
+    <h1>Dra. Priscila Nasser<br><em>Cardiologista</em></h1>
+    <p class="sub">Suas respostas vão orientar a criação de até 3 propostas de logotipo, paleta de cores e tipografia para o manual de marca. Não existe resposta errada — quanto mais sincera e específica, melhor o resultado.</p>
+  </header>
+
+  <!-- 1. Personalidade -->
+  <section class="q" id="sec1">
+    <p class="num">01</p>
+    <h2>Personalidade da marca</h2>
+
+    <div class="q-item">
+      <label class="qtext">Se sua marca fosse uma pessoa, como ela se comportaria?
+        <span class="hint">Escolha até 3</span>
+      </label>
+      <div class="opt-grid" data-group="persona" data-limit="3">
+        <label class="opt"><input type="checkbox" value="Séria"><span>Séria</span></label>
+        <label class="opt"><input type="checkbox" value="Acolhedora"><span>Acolhedora</span></label>
+        <label class="opt"><input type="checkbox" value="Moderna"><span>Moderna</span></label>
+        <label class="opt"><input type="checkbox" value="Clássica/Tradicional"><span>Clássica/Tradicional</span></label>
+        <label class="opt"><input type="checkbox" value="Minimalista"><span>Minimalista</span></label>
+        <label class="opt"><input type="checkbox" value="Sofisticada"><span>Sofisticada</span></label>
+        <label class="opt"><input type="checkbox" value="Acessível"><span>Acessível</span></label>
+        <label class="opt"><input type="checkbox" value="Tecnológica"><span>Tecnológica</span></label>
+        <label class="opt"><input type="checkbox" value="Humana/Calorosa"><span>Humana/Calorosa</span></label>
+        <label class="opt"><input type="checkbox" value="Premium"><span>Premium</span></label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext" for="p12">Em uma frase: como você gostaria que um paciente descrevesse a experiência de ser atendido por você?</label>
+      <textarea id="p12" data-field="p12"></textarea>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext">Você prefere passar a imagem de...</label>
+      <div class="opt-grid narrow" data-group="posicionamento" data-radio="true">
+        <label class="opt"><input type="radio" name="posicionamento" value="Clínica de referência, alto padrão"><span>Clínica de referência, alto padrão</span></label>
+        <label class="opt"><input type="radio" name="posicionamento" value="Atendimento próximo e acessível"><span>Atendimento próximo e acessível</span></label>
+        <label class="opt"><input type="radio" name="posicionamento" value="Equilíbrio entre as duas"><span>Equilíbrio entre as duas</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Estilo visual -->
+  <section class="q" id="sec2">
+    <p class="num">02</p>
+    <h2>Estilo visual</h2>
+
+    <div class="q-item">
+      <label class="qtext">Qual estilo mais combina com você?</label>
+      <div class="opt-grid narrow" data-group="estilo" data-radio="true">
+        <label class="opt"><input type="radio" name="estilo" value="Clean/minimalista"><span>Clean/minimalista</span></label>
+        <label class="opt"><input type="radio" name="estilo" value="Clássico/elegante"><span>Clássico/elegante (serifado, tradicional)</span></label>
+        <label class="opt"><input type="radio" name="estilo" value="Moderno/geométrico"><span>Moderno/geométrico</span></label>
+        <label class="opt"><input type="radio" name="estilo" value="Orgânico/humano"><span>Orgânico/humano (formas suaves)</span></label>
+        <label class="opt"><input type="radio" name="estilo" value="Editorial/sofisticado"><span>Editorial/sofisticado</span></label>
+        <label class="opt"><input type="radio" name="estilo" value="Tech/inovador"><span>Tech/inovador</span></label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext">Prefere um símbolo/ícone junto ao nome, ou só a tipografia bem trabalhada?</label>
+      <div class="opt-grid narrow" data-group="simbolo" data-radio="true">
+        <label class="opt"><input type="radio" name="simbolo" value="Símbolo + nome"><span>Símbolo + nome</span></label>
+        <label class="opt"><input type="radio" name="simbolo" value="Somente tipografia (logotipo textual)"><span>Somente tipografia (logotipo textual)</span></label>
+        <label class="opt"><input type="radio" name="simbolo" value="Sem preferência, quero ver as duas opções"><span>Sem preferência, quero ver as duas opções</span></label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext" for="s23">Se houver um símbolo, há alguma referência que faça sentido para cardiologia (coração, ECG, formas abstratas) — ou prefere fugir do óbvio?</label>
+      <textarea id="s23" data-field="s23" placeholder="Ex: prefiro evitar coração literal e batimento cardíaco clichê"></textarea>
+    </div>
+  </section>
+
+  <!-- 3. Cores -->
+  <section class="q" id="sec3">
+    <p class="num">03</p>
+    <h2>Cores</h2>
+
+    <div class="q-item">
+      <label class="qtext" for="c31">Existe alguma cor que você já associa a si mesma ou gostaria que fizesse parte da marca?</label>
+      <input type="text" id="c31" data-field="c31">
+    </div>
+
+    <div class="q-item">
+      <label class="qtext" for="c32">Existe alguma cor que você <strong>não quer</strong> de jeito nenhum?</label>
+      <input type="text" id="c32" data-field="c32">
+    </div>
+
+    <div class="q-item">
+      <label class="qtext">Qual paleta te agrada mais?</label>
+      <div class="opt-grid narrow" data-group="paleta" data-radio="true">
+        <label class="opt palette-opt">
+          <input type="radio" name="paleta" value="Azul/verde clássico da área médica">
+          <div class="swatch-row"><span style="background:#1E3A5F"></span><span style="background:#3E6E58"></span><span style="background:#DDE7E2"></span></div>
+          <div class="palette-name">Azul/verde clássico</div>
+          <div class="palette-desc">Confiança, calma, tradição médica</div>
+        </label>
+        <label class="opt palette-opt">
+          <input type="radio" name="paleta" value="Terrosos/nude">
+          <div class="swatch-row"><span style="background:#B08D6B"></span><span style="background:#E4D2BC"></span><span style="background:#F3EAE0"></span></div>
+          <div class="palette-name">Terrosos/nude</div>
+          <div class="palette-desc">Acolhedor, humano, premium</div>
+        </label>
+        <label class="opt palette-opt">
+          <input type="radio" name="paleta" value="Preto/branco/grafite com dourado">
+          <div class="swatch-row"><span style="background:#1A1A1A"></span><span style="background:#A9834D"></span><span style="background:#F5F5F2"></span></div>
+          <div class="palette-name">Grafite + dourado</div>
+          <div class="palette-desc">Sofisticado, alto padrão</div>
+        </label>
+        <label class="opt palette-opt">
+          <input type="radio" name="paleta" value="Cor vibrante de destaque + neutros">
+          <div class="swatch-row"><span style="background:#7A2E3A"></span><span style="background:#EAE2D0"></span><span style="background:#2B2F33"></span></div>
+          <div class="palette-name">Destaque + neutros</div>
+          <div class="palette-desc">Moderno, memorável</div>
+        </label>
+        <label class="opt palette-opt">
+          <input type="radio" name="paleta" value="Sem preferência definida, quero ver as opções">
+          <div class="swatch-row"><span style="background:repeating-linear-gradient(45deg,#ccc,#ccc 4px,#eee 4px,#eee 8px)"></span></div>
+          <div class="palette-name">Prefiro ver as opções</div>
+          <div class="palette-desc">Reagir quando aplicado ao logo</div>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Tipografia -->
+  <section class="q" id="sec4">
+    <p class="num">04</p>
+    <h2>Tipografia</h2>
+
+    <div class="q-item">
+      <label class="qtext">Veja abaixo exemplos reais de estilo — qual conversa mais com você?</label>
+      <div class="opt-grid narrow" data-group="fonte" data-radio="true">
+        <label class="opt font-opt">
+          <input type="radio" name="fonte" value="Serifada clássica (ex: Cormorant Garamond)">
+          <div class="font-preview" style="font-family:'Cormorant Garamond',serif;font-weight:600;">Dra. Priscila Nasser</div>
+          <div class="font-label">Serifada clássica</div>
+        </label>
+        <label class="opt font-opt">
+          <input type="radio" name="fonte" value="Sans-serif moderna (ex: Montserrat)">
+          <div class="font-preview" style="font-family:'Montserrat',sans-serif;font-weight:700;">Dra. Priscila Nasser</div>
+          <div class="font-label">Sans-serif moderna</div>
+        </label>
+        <label class="opt font-opt">
+          <input type="radio" name="fonte" value="Manuscrita/pessoal (ex: Parisienne), como assinatura">
+          <div class="font-preview" style="font-family:'Parisienne',cursive;font-size:30px;">Priscila Nasser</div>
+          <div class="font-label">Manuscrita (assinatura)</div>
+        </label>
+        <label class="opt font-opt font-combo">
+          <input type="radio" name="fonte" value="Combinação: título serifado + texto sans-serif (ex: Fraunces + Inter)">
+          <div class="font-preview">
+            <span>Priscila Nasser</span>
+            <span>Cardiologista</span>
+          </div>
+          <div class="font-label">Combinação (título + texto)</div>
+        </label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext">Prefere seu nome grafado por extenso ou uma versão reduzida?</label>
+      <div class="opt-grid narrow" data-group="nomeversao" data-radio="true">
+        <label class="opt"><input type="radio" name="nomeversao" value="Nome completo: Dra. Priscila Nasser"><span>Dra. Priscila Nasser</span></label>
+        <label class="opt"><input type="radio" name="nomeversao" value="Versão reduzida: Dra. Priscila"><span>Dra. Priscila</span></label>
+        <label class="opt"><input type="radio" name="nomeversao" value="Iniciais: PN"><span>Iniciais: PN</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Referências -->
+  <section class="q" id="sec5">
+    <p class="num">05</p>
+    <h2>Referências</h2>
+
+    <div class="q-item">
+      <label class="qtext" for="r51">Cite 2 a 3 marcas/logotipos que você admira (de médicos, clínicas ou outros segmentos) e por quê.</label>
+      <textarea id="r51" data-field="r51"></textarea>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext" for="r52">Cite 1 a 2 marcas ou estilos que você <strong>não gostaria</strong> que a sua se parecesse.</label>
+      <textarea id="r52" data-field="r52"></textarea>
+    </div>
+  </section>
+
+  <!-- 6. Público -->
+  <section class="q" id="sec6">
+    <p class="num">06</p>
+    <h2>Público e posicionamento</h2>
+
+    <div class="q-item">
+      <label class="qtext" for="a61">Como você descreveria seu paciente ideal (perfil, faixa etária, expectativas)?</label>
+      <textarea id="a61" data-field="a61"></textarea>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext">Onde essa marca vai aparecer com mais frequência?
+        <span class="hint">Selecione todas que se aplicam</span>
+      </label>
+      <div class="pill-list" data-group="aplicacao">
+        <label class="pill"><input type="checkbox" value="Instagram"><span>Instagram</span></label>
+        <label class="pill"><input type="checkbox" value="Cartão de visita"><span>Cartão de visita</span></label>
+        <label class="pill"><input type="checkbox" value="Jaleco"><span>Jaleco</span></label>
+        <label class="pill"><input type="checkbox" value="Fachada do consultório"><span>Fachada do consultório</span></label>
+        <label class="pill"><input type="checkbox" value="Prontuário/receituário"><span>Prontuário/receituário</span></label>
+        <label class="pill"><input type="checkbox" value="Site"><span>Site</span></label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext" for="a63">Existe algum concorrente ou referência de mercado que você quer se diferenciar visualmente?</label>
+      <textarea id="a63" data-field="a63"></textarea>
+    </div>
+  </section>
+
+  <!-- 7. Restrições -->
+  <section class="q" id="sec7">
+    <p class="num">07</p>
+    <h2>Restrições e observações finais</h2>
+
+    <div class="q-item">
+      <label class="qtext" for="z71">Existe algum elemento, símbolo, fonte ou cor com significado pessoal negativo (evitar por qualquer motivo)?</label>
+      <textarea id="z71" data-field="z71"></textarea>
+    </div>
+
+    <div class="q-item">
+      <label class="qtext" for="z72">Alguma observação, sonho ou "não sei explicar mas gostaria de algo assim" que queira registrar?</label>
+      <textarea id="z72" data-field="z72"></textarea>
+    </div>
+  </section>
+
+  <div class="submit-zone">
+    <div class="btn-row">
+      <button class="btn btn-primary" id="submitBtn">Enviar respostas pelo WhatsApp</button>
+      <button class="btn btn-ghost" id="copyBtn">Copiar texto</button>
+      <button class="btn btn-ghost" id="clearBtn">Limpar respostas</button>
+    </div>
+    <p class="autosave-note" id="autosaveNote">Suas respostas são salvas automaticamente neste dispositivo enquanto você preenche.</p>
+
+    <div class="preview-box" id="previewBox">
+      <p class="preview-title">Prévia da mensagem</p>
+      <pre id="previewText"></pre>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'briefing-priscila-nasser:respostas';
+  const WHATSAPP_NUMBER = '5511965572558';
+
+  const fieldEls = Array.from(document.querySelectorAll('[data-field]'));
+  const groupBlocks = Array.from(document.querySelectorAll('[data-group]'));
+
+  let saveTimer = null;
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._hideTimer);
+    t._hideTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+  }
+
+  function collectAnswers(){
+    const data = {};
+    fieldEls.forEach(el => data[el.dataset.field] = el.value.trim());
+
+    groupBlocks.forEach(block => {
+      const name = block.dataset.group;
+      const isRadio = block.dataset.radio === 'true';
+      const checked = Array.from(block.querySelectorAll('input:checked')).map(i => i.value);
+      data[name] = isRadio ? (checked[0] || '') : checked;
+    });
+    return data;
+  }
+
+  function applyAnswers(data){
+    if(!data) return;
+    fieldEls.forEach(el => { if(data[el.dataset.field]) el.value = data[el.dataset.field]; });
+
+    groupBlocks.forEach(block => {
+      const name = block.dataset.group;
+      const val = data[name];
+      if(!val) return;
+      const inputs = block.querySelectorAll('input');
+      inputs.forEach(input => {
+        const shouldCheck = Array.isArray(val) ? val.includes(input.value) : val === input.value;
+        input.checked = shouldCheck;
+        toggleOptClass(input);
+      });
+    });
+    updateProgress();
+  }
+
+  function toggleOptClass(input){
+    const wrapper = input.closest('.opt, .pill');
+    if(!wrapper) return;
+    if(input.type === 'radio'){
+      const groupName = input.name;
+      document.querySelectorAll('input[name="'+groupName+'"]').forEach(r=>{
+        r.closest('.opt, .pill') && r.closest('.opt, .pill').classList.toggle('checked', r.checked);
+      });
+    } else {
+      wrapper.classList.toggle('checked', input.checked);
+    }
+  }
+
+  // limit enforcement (persona max 3)
+  document.querySelectorAll('[data-limit]').forEach(block=>{
+    const limit = parseInt(block.dataset.limit, 10);
+    block.addEventListener('change', (e)=>{
+      if(e.target.type !== 'checkbox') return;
+      const checked = block.querySelectorAll('input:checked');
+      if(checked.length > limit){
+        e.target.checked = false;
+        showToast('Escolha no máximo ' + limit + ' opções');
+      }
+      toggleOptClass(e.target);
+    });
+  });
+
+  document.querySelectorAll('.opt input, .pill input').forEach(input=>{
+    input.addEventListener('change', ()=>toggleOptClass(input));
+  });
+
+  function totalFieldCount(){
+    return fieldEls.length + groupBlocks.length;
+  }
+
+  function filledFieldCount(data){
+    let count = 0;
+    fieldEls.forEach(el => { if(data[el.dataset.field]) count++; });
+    groupBlocks.forEach(block=>{
+      const val = data[block.dataset.group];
+      if(Array.isArray(val) ? val.length > 0 : !!val) count++;
+    });
+    return count;
+  }
+
+  function updateProgress(){
+    const data = collectAnswers();
+    const total = totalFieldCount();
+    const filled = filledFieldCount(data);
+    const pct = Math.round((filled/total) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
+
+  async function saveDraft(){
+    try{
+      const data = collectAnswers();
+      await window.storage.set(STORAGE_KEY, JSON.stringify(data), false);
+      document.getElementById('statusLabel').textContent = 'Rascunho salvo';
+    }catch(err){
+      document.getElementById('statusLabel').textContent = 'Não foi possível salvar';
+      console.error('Erro ao salvar rascunho:', err);
+    }
+    updateProgress();
+  }
+
+  function scheduleSave(){
+    document.getElementById('statusLabel').textContent = 'Salvando...';
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveDraft, 600);
+  }
+
+  async function loadDraft(){
+    try{
+      const result = await window.storage.get(STORAGE_KEY, false);
+      if(result && result.value){
+        applyAnswers(JSON.parse(result.value));
+        document.getElementById('statusLabel').textContent = 'Rascunho carregado';
+        showToast('Rascunho anterior carregado');
+      }
+    }catch(err){
+      // chave ainda não existe — sem problema, é o primeiro preenchimento
+      updateProgress();
+    }
+  }
+
+  document.querySelectorAll('input, textarea').forEach(el=>{
+    el.addEventListener('input', scheduleSave);
+    el.addEventListener('change', scheduleSave);
+  });
+
+  document.getElementById('clearBtn').addEventListener('click', async ()=>{
+    if(!confirm('Tem certeza que deseja apagar todas as respostas salvas?')) return;
+    document.querySelectorAll('textarea, input[type="text"]').forEach(el => el.value = '');
+    document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el=>{
+      el.checked = false;
+      toggleOptClass(el);
+    });
+    try{
+      await window.storage.delete(STORAGE_KEY, false);
+    }catch(err){ /* ok se a chave não existir */ }
+    document.getElementById('statusLabel').textContent = 'Respostas apagadas';
+    document.getElementById('previewBox').classList.remove('show');
+    updateProgress();
+    showToast('Respostas apagadas');
+  });
+
+  function buildMessage(){
+    const d = collectAnswers();
+    const lines = [];
+    lines.push('*BRIEFING DE MARCA — DRA. PRISCILA NASSER*');
+    lines.push('_Cardiologista_');
+    lines.push('');
+    lines.push('*1. Personalidade da marca*');
+    lines.push('Palavras: ' + (d.persona.length ? d.persona.join(', ') : '—'));
+    lines.push('Experiência desejada: ' + (d.p12 || '—'));
+    lines.push('Posicionamento: ' + (d.posicionamento || '—'));
+    lines.push('');
+    lines.push('*2. Estilo visual*');
+    lines.push('Estilo: ' + (d.estilo || '—'));
+    lines.push('Símbolo: ' + (d.simbolo || '—'));
+    lines.push('Observações sobre símbolo: ' + (d.s23 || '—'));
+    lines.push('');
+    lines.push('*3. Cores*');
+    lines.push('Cor(es) desejada(s): ' + (d.c31 || '—'));
+    lines.push('Cor(es) a evitar: ' + (d.c32 || '—'));
+    lines.push('Paleta preferida: ' + (d.paleta || '—'));
+    lines.push('');
+    lines.push('*4. Tipografia*');
+    lines.push('Estilo de fonte: ' + (d.fonte || '—'));
+    lines.push('Versão do nome: ' + (d.nomeversao || '—'));
+    lines.push('');
+    lines.push('*5. Referências*');
+    lines.push('Gosta: ' + (d.r51 || '—'));
+    lines.push('Não gosta: ' + (d.r52 || '—'));
+    lines.push('');
+    lines.push('*6. Público e posicionamento*');
+    lines.push('Paciente ideal: ' + (d.a61 || '—'));
+    lines.push('Aplicações: ' + (d.aplicacao.length ? d.aplicacao.join(', ') : '—'));
+    lines.push('Diferenciação de concorrentes: ' + (d.a63 || '—'));
+    lines.push('');
+    lines.push('*7. Restrições e observações*');
+    lines.push('O que evitar: ' + (d.z71 || '—'));
+    lines.push('Observações livres: ' + (d.z72 || '—'));
+    return lines.join('\n');
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', async ()=>{
+    await saveDraft();
+    const message = buildMessage();
+    document.getElementById('previewText').textContent = message;
+    document.getElementById('previewBox').classList.add('show');
+    const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+    window.open(url, '_blank');
+    showToast('Abrindo WhatsApp — confira e toque em enviar');
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', async ()=>{
+    const message = buildMessage();
+    document.getElementById('previewText').textContent = message;
+    document.getElementById('previewBox').classList.add('show');
+    try{
+      await navigator.clipboard.writeText(message);
+      showToast('Texto copiado para a área de transferência');
+    }catch(err){
+      showToast('Não foi possível copiar automaticamente — selecione o texto manualmente');
+    }
+  });
+
+  loadDraft();
+  updateProgress();
+})();
+</script>
+</body>
+</html>
