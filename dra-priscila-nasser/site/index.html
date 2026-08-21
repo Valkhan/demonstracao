@@ -379,6 +379,29 @@
   .section-head .lede { color: var(--muted); font-size: 18px; }
 
   .bg-cream { background: var(--offwhite); }
+
+  #localizacao {
+    position: relative;
+    isolation: isolate;
+  }
+  #localizacao::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/dra-priscila-nasser-cardiologia-escritorio.png');
+    background-size: cover;
+    background-position: center 35%;
+    opacity: 0.28;
+    filter: grayscale(30%);
+    z-index: -2;
+  }
+  #localizacao::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(246,241,241,0.72);
+    z-index: -1;
+  }
   .bg-wine { background: var(--wine-dark); color: var(--cream); position: relative; overflow: hidden; }
   .bg-wine h2, .bg-wine h3 { color: var(--white); }
   .bg-wine .muted { color: var(--rose); }
