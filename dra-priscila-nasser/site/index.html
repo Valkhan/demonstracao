@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dra. Priscila Nasser — Cardiologia em São Paulo</title>
 <meta name="description" content="Cardiologia com atenção e acolhimento. Consultas sem pressa, acompanhamento próximo e cuidado especial para pacientes mais idosos, na Essência Saúde — Jardim Paulista, São Paulo.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="Dra. Priscila Nasser de Carvalho">
+<link rel="canonical" href="https://priscilanasser.com.br/">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- SEO local / GEO (posicionamento geográfico) -->
+<meta name="geo.region" content="BR-SP">
+<meta name="geo.placename" content="São Paulo, Jardim Paulista">
+<meta name="geo.position" content="-23.5623;-46.6614">
+<meta name="ICBM" content="-23.5623, -46.6614">
 
 <!-- Favicons (gerados a partir do ícone de coração da marca) -->
 <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -23,6 +33,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://priscilanasser.com.br/">
+<meta property="og:site_name" content="Dra. Priscila Nasser — Cardiologia">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Dra. Priscila Nasser — Cardiologia em São Paulo">
 <meta name="twitter:description" content="Cardiologia com atenção e acolhimento, e cuidado especial para pacientes mais idosos.">
@@ -37,9 +49,12 @@
 {
   "@context": "https://schema.org",
   "@type": "Physician",
+  "@id": "https://priscilanasser.com.br/#physician",
   "name": "Dra. Priscila Nasser de Carvalho",
-  "medicalSpecialty": "Cardiology",
+  "medicalSpecialty": "Cardiovascular",
   "telephone": "+5511945855039",
+  "email": "essentia.saude@gmail.com",
+  "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Rua Guarará, 529, cj 61",
@@ -47,8 +62,25 @@
     "addressRegion": "SP",
     "addressCountry": "BR"
   },
-  "url": "https://www.drapriscilanasser.com.br",
-  "image": "assets/og-image.jpg"
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -23.5623,
+    "longitude": -46.6614
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "São Paulo"
+  },
+  "url": "https://priscilanasser.com.br/",
+  "image": "https://priscilanasser.com.br/assets/og-image.jpg",
+  "sameAs": [
+    "https://www.instagram.com/dra_priscila_nasser"
+  ],
+  "identifier": {
+    "@type": "PropertyValue",
+    "name": "CRM-SP",
+    "value": "125996"
+  }
 }
 </script>
 <script type="application/ld+json">
@@ -189,29 +221,22 @@
     html { scroll-behavior: auto; }
   }
 
-  /* ---------- Heartbeat divider (signature motif) ---------- */
+  /* ---------- Heartbeat divider (signature motif) — soft, infinite wave ---------- */
   .pulse-divider {
     display: block;
     width: 100%;
     height: 40px;
     margin: 0;
+    overflow: hidden;
   }
   .pulse-divider path {
     fill: none;
     stroke: var(--rose);
-    stroke-width: 2;
+    stroke-width: 2.5;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-dasharray: 620;
-    stroke-dashoffset: 0;
-    transition: stroke-dashoffset 1.4s var(--ease);
   }
-  .pulse-divider.reveal-armed path { stroke-dashoffset: 620; }
-  .pulse-divider.reveal-armed.is-visible path { stroke-dashoffset: 0; }
   .pulse-divider.on-dark path { stroke: var(--wine-med); }
-  @media (prefers-reduced-motion: reduce) {
-    .pulse-divider path { stroke-dashoffset: 0 !important; transition: none; }
-  }
 
   /* ---------- Skip link ---------- */
   .skip-link {
@@ -232,50 +257,42 @@
   }
 
   /* ================= HEADER ================= */
-  .topbar {
-    background: var(--wine-dark);
-    color: var(--cream);
-    font-size: 14.5px;
-  }
-  .topbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .topbar a { text-decoration: none; color: var(--cream); }
-  .topbar a:hover { color: var(--white); }
-  .topbar-phone { display: flex; align-items: center; gap: 8px; font-weight: 700; }
-  .topbar-links { display: flex; gap: 20px; }
-
   header.site-header {
     background: var(--white);
     border-bottom: 1px solid var(--cream);
     position: sticky;
     top: 0;
     z-index: 40;
+    transition: padding 0.35s var(--ease);
   }
   .site-header .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 34px;
+    padding-bottom: 34px;
     gap: 20px;
+    transition: padding 0.35s var(--ease);
+    max-width: none;
+    width: 90vw;
   }
-  .brand img { height: 46px; width: auto; }
+  .brand img { height: 92px; width: auto; transition: height 0.35s var(--ease); }
+
+  header.site-header.is-scrolled .container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  header.site-header.is-scrolled .brand img { height: 42px; }
   nav.main-nav { display: flex; align-items: center; gap: 28px; }
   nav.main-nav a {
     text-decoration: none;
-    color: var(--ink);
+    color: var(--rose);
     font-weight: 700;
     font-size: 15.5px;
     position: relative;
     padding: 4px 0;
   }
+  nav.main-nav a:hover { color: var(--wine); }
   nav.main-nav a::after {
     content: "";
     position: absolute;
@@ -298,10 +315,10 @@
       flex-direction: column; gap: 5px; padding: 8px;
     }
     .nav-toggle span { width: 24px; height: 2px; background: var(--ink); }
-    .topbar-links { display: none; }
   }
   @media (max-width: 480px) {
-    .brand img { height: 38px; }
+    .brand img { height: 56px; }
+    header.site-header.is-scrolled .brand img { height: 34px; }
     .nav-cta .btn { padding: 10px 16px; font-size: 14px; white-space: nowrap; }
     .site-header .container { gap: 10px; }
   }
@@ -314,13 +331,30 @@
   }
   .hero-bg {
     position: absolute; inset: 0;
+  }
+  .hero-bg-slide {
+    position: absolute; inset: 0;
     background-size: cover;
     background-position: center 30%;
+    opacity: 0;
+    animation: hero-crossfade 24s ease-in-out infinite;
+  }
+  .hero-bg-slide:nth-child(1) { animation-delay: 0s; }
+  .hero-bg-slide:nth-child(2) { animation-delay: 8s; }
+  .hero-bg-slide:nth-child(3) { animation-delay: 16s; }
+  @keyframes hero-crossfade {
+    0%, 4% { opacity: 0; }
+    12%, 29% { opacity: 1; }
+    37%, 100% { opacity: 0; }
   }
   .hero-bg::after {
     content: "";
     position: absolute; inset: 0;
     background: linear-gradient(100deg, rgba(82,55,75,0.94) 0%, rgba(82,55,75,0.86) 38%, rgba(163,49,87,0.55) 100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-slide { animation: none; opacity: 0; }
+    .hero-bg-slide:first-child { opacity: 1; }
   }
   .hero-inner {
     position: relative;
@@ -329,7 +363,7 @@
   }
   .hero h1 {
     color: var(--white);
-    font-size: clamp(2.3rem, 4.4vw, 3.4rem);
+    font-size: clamp(2rem, 3.6vw, 2.8rem);
     margin-bottom: 0.4em;
   }
   .hero .lede {
@@ -338,23 +372,13 @@
     max-width: 52ch;
   }
   .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 30px; }
-  .hero-trust {
-    margin-top: 46px;
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-    font-size: 14.5px;
-    color: var(--rose);
-  }
-  .hero-trust span { display: flex; align-items: center; gap: 8px; }
-  .hero-trust svg { width: 18px; height: 18px; flex: none; }
 
   /* ================= SECTION SCAFFOLD ================= */
   section { padding: 88px 0; }
   section.tight { padding: 72px 0; }
   .section-head { max-width: 640px; margin-bottom: 48px; }
   .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
-  .section-head h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .section-head h2 { font-size: clamp(1.5rem, 2.4vw, 1.95rem); }
   .section-head .lede { color: var(--muted); font-size: 18px; }
 
   .bg-cream { background: var(--offwhite); }
@@ -629,8 +653,19 @@
     padding-bottom: 40px;
     border-bottom: 1px solid rgba(201,140,160,0.25);
   }
-  .footer-grid img { height: 40px; margin-bottom: 14px; }
+  .footer-logo-wrap {
+    grid-column: 1 / -1;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .footer-logo-wrap img { width: 50%; max-width: 100%; height: auto; margin: 0 auto; }
   .footer-grid p { color: var(--rose); font-size: 15px; max-width: 34ch; }
+  .footer-grid > .footer-col:first-child p { max-width: 40ch; }
+  .footer-grid > .footer-col:first-child p strong { color: var(--white); font-weight: 700; }
+  @media (max-width: 700px) {
+    .footer-grid > .footer-col:first-child p br { display: none; }
+  }
   .footer-col h4 {
     color: var(--white);
     font-family: var(--f-body);
@@ -647,9 +682,10 @@
     flex-wrap: wrap; gap: 10px;
     padding-top: 24px;
     font-size: 13.5px;
-    color: var(--wine-med);
+    color: var(--rose);
   }
-  .footer-bottom a { color: var(--wine-med); }
+  .footer-bottom a { color: var(--rose); text-decoration: underline; text-underline-offset: 3px; }
+  .footer-bottom a:hover { color: var(--white); }
 
   @media (max-width: 860px) {
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -676,20 +712,6 @@
 
 <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
-<div class="topbar">
-  <div class="container">
-    <a class="topbar-phone" href="tel:+5511945855039">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .36 1.98.68 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.16-1.27a2 2 0 0 1 2.11-.45c.94.32 1.92.55 2.92.68A2 2 0 0 1 22 16.92z"/></svg>
-      11 94585-5039
-    </a>
-    <div class="topbar-links">
-      <a href="#localizacao">Endereço</a>
-      <a href="#essencia">Essência Saúde</a>
-      <a href="https://www.instagram.com/dra_priscila_nasser" target="_blank" rel="noopener">Instagram</a>
-    </div>
-  </div>
-</div>
-
 <header class="site-header">
   <div class="container">
     <a href="#topo" class="brand"><img src="assets/logo-cor.png" alt="Dra. Priscila Nasser — Cardiologia"></a>
@@ -713,7 +735,11 @@
 
   <!-- ================= HERO ================= -->
   <section class="hero" id="topo">
-    <div class="hero-bg" style="background-image:url('https://images.unsplash.com/photo-1708698750460-ecacf75a9d9a?auto=format&fit=crop&w=1800&q=80');"></div>
+    <div class="hero-bg">
+      <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1708698750460-ecacf75a9d9a?auto=format&fit=crop&w=1800&q=80');"></div>
+      <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1666214280165-b6b1e6ce7b1c?auto=format&fit=crop&w=1800&q=80');"></div>
+      <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1666887360555-3a0dbd403e39?auto=format&fit=crop&w=1800&q=80');"></div>
+    </div>
     <div class="container">
       <div class="hero-inner">
         <span class="eyebrow on-dark">Cardiologia · São Paulo</span>
@@ -725,11 +751,6 @@
             Agendar consulta
           </a>
           <a class="btn btn-ghost" href="#sobre" style="color:var(--white); border-color:rgba(255,255,255,0.6);">Conhecer a Dra. Priscila</a>
-        </div>
-        <div class="hero-trust">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.8 5.5 21l2-7.5L2 9h7z"/></svg>CRM 125996-SP · RQE 99010</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Consultas com tempo dedicado</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Atendimento na Essência Saúde</span>
         </div>
       </div>
     </div>
@@ -758,8 +779,11 @@
     </div>
   </section>
 
-  <svg class="pulse-divider reveal" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 20 H240 L262 6 L284 34 L306 20 H620"/>
+  <svg class="pulse-divider" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
+    <g class="wave-track">
+      <path d="M-310 20 L-270 20 Q-258 12 -245 20 L-215 20 L-198 24 L-190 4 L-183 36 L-175 20 L-132 20 Q-118 10 -104 20 L40 20 Q52 12 65 20 L95 20 L112 24 L120 4 L127 36 L135 20 L178 20 Q192 10 206 20 L350 20 Q362 12 375 20 L405 20 L422 24 L430 4 L437 36 L445 20 L488 20 Q502 10 516 20 L660 20 Q672 12 685 20 L715 20 L732 24 L740 4 L747 36 L755 20 L798 20 Q812 10 826 20 L930 20"/>
+      <animateTransform class="wave-move" attributeName="transform" type="translate" values="0 0; -310 0" dur="4s" repeatCount="indefinite" calcMode="linear"/>
+    </g>
   </svg>
 
   <!-- ================= ESPECIALIDADES ================= -->
@@ -826,8 +850,11 @@
     </div>
   </section>
 
-  <svg class="pulse-divider reveal" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 20 H240 L262 6 L284 34 L306 20 H620"/>
+  <svg class="pulse-divider" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
+    <g class="wave-track">
+      <path d="M-310 20 L-270 20 Q-258 12 -245 20 L-215 20 L-198 24 L-190 4 L-183 36 L-175 20 L-132 20 Q-118 10 -104 20 L40 20 Q52 12 65 20 L95 20 L112 24 L120 4 L127 36 L135 20 L178 20 Q192 10 206 20 L350 20 Q362 12 375 20 L405 20 L422 24 L430 4 L437 36 L445 20 L488 20 Q502 10 516 20 L660 20 Q672 12 685 20 L715 20 L732 24 L740 4 L747 36 L755 20 L798 20 Q812 10 826 20 L930 20"/>
+      <animateTransform class="wave-move" attributeName="transform" type="translate" values="0 0; -310 0" dur="4s" repeatCount="indefinite" calcMode="linear"/>
+    </g>
   </svg>
 
   <!-- ================= QUANDO PROCURAR (FAQ) ================= -->
@@ -920,8 +947,11 @@
     </div>
   </section>
 
-  <svg class="pulse-divider reveal" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 20 H240 L262 6 L284 34 L306 20 H620"/>
+  <svg class="pulse-divider" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
+    <g class="wave-track">
+      <path d="M-310 20 L-270 20 Q-258 12 -245 20 L-215 20 L-198 24 L-190 4 L-183 36 L-175 20 L-132 20 Q-118 10 -104 20 L40 20 Q52 12 65 20 L95 20 L112 24 L120 4 L127 36 L135 20 L178 20 Q192 10 206 20 L350 20 Q362 12 375 20 L405 20 L422 24 L430 4 L437 36 L445 20 L488 20 Q502 10 516 20 L660 20 Q672 12 685 20 L715 20 L732 24 L740 4 L747 36 L755 20 L798 20 Q812 10 826 20 L930 20"/>
+      <animateTransform class="wave-move" attributeName="transform" type="translate" values="0 0; -310 0" dur="4s" repeatCount="indefinite" calcMode="linear"/>
+    </g>
   </svg>
 
   <!-- ================= LOCALIZAÇÃO & AGENDAMENTO ================= -->
@@ -1009,10 +1039,19 @@
 
 <footer class="site-footer">
   <div class="container">
+    <div class="footer-logo-wrap">
+      <img src="assets/logo-branco.png" alt="Dra. Priscila Nasser — Cardiologia">
+    </div>
     <div class="footer-grid">
-      <div>
-        <img src="assets/logo-branco.png" alt="Dra. Priscila Nasser — Cardiologia">
-        <p>Cardiologia com atenção e acolhimento — consultas com tempo para ouvir e acompanhamento próximo, em cada fase da vida.</p>
+      <div class="footer-col">
+        <h4>Cardiologia humanizada</h4>
+        <p>Consultas de <strong>cardiologia</strong> com escuta atenta e sem pressa,<br>
+        acompanhamento próximo de <strong>hipertensão</strong> e <strong>arritmias cardíacas</strong>,<br>
+        <strong>check-up cardiológico</strong> preventivo em cada fase da vida,<br>
+        atenção redobrada para pacientes mais idosos e suas famílias,<br>
+        explicações claras, sem jargões, para tirar todas as dúvidas,<br>
+        e a certeza de ser bem recebido em cada visita —<br>
+        em São Paulo, cuidando de coração em coração.</p>
       </div>
       <div class="footer-col">
         <h4>Navegação</h4>
@@ -1051,8 +1090,11 @@
   // state here, right before observing, so a JS failure never leaves
   // content permanently invisible.
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    document.querySelectorAll('.wave-move').forEach(el => el.remove());
+  }
   if ('IntersectionObserver' in window && !prefersReducedMotion) {
-    const revealEls = document.querySelectorAll('.reveal, .pulse-divider');
+    const revealEls = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -1083,6 +1125,34 @@
       nav.style.padding = '20px 24px';
       nav.style.borderTop = '1px solid #E1D5D5';
     });
+  }
+
+  // Header: large on load, shrinks once the page has scrolled.
+  // Uses two different thresholds (hysteresis) so hovering scrollY around a
+  // single value can't flip the class back and forth — the shrink itself
+  // changes the sticky header's height, which nudges scrollY, so a single
+  // threshold causes a feedback-loop flicker on slow scrolls.
+  const siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    const SHRINK_AT = 60;
+    const GROW_AT = 20;
+    let ticking = false;
+    const applyHeaderScrollState = () => {
+      ticking = false;
+      const y = window.scrollY;
+      if (!siteHeader.classList.contains('is-scrolled') && y > SHRINK_AT) {
+        siteHeader.classList.add('is-scrolled');
+      } else if (siteHeader.classList.contains('is-scrolled') && y < GROW_AT) {
+        siteHeader.classList.remove('is-scrolled');
+      }
+    };
+    applyHeaderScrollState();
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(applyHeaderScrollState);
+      }
+    }, { passive: true });
   }
 </script>
 
