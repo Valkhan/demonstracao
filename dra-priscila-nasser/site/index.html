@@ -221,22 +221,27 @@
     html { scroll-behavior: auto; }
   }
 
-  /* ---------- Heartbeat divider (signature motif) — soft, infinite wave ---------- */
-  .pulse-divider {
+  /* ---------- Heartbeat divider (signature motif) — centered ECG trace ---------- */
+  .ecg-divider {
     display: block;
-    width: 100%;
-    height: 40px;
-    margin: 0;
+    width: min(640px, 78%);
+    height: 52px;
+    margin: 0 auto;
     overflow: hidden;
+    pointer-events: none;
   }
-  .pulse-divider path {
+  .ecg-divider svg { display: block; width: 100%; height: 100%; }
+  .ecg-divider .ecg-line {
     fill: none;
-    stroke: var(--rose);
-    stroke-width: 2.5;
+    stroke: var(--wine-med);
+    stroke-width: 1.5;
+    opacity: 0.4;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-  .pulse-divider.on-dark path { stroke: var(--wine-med); }
+  @media (max-width: 640px) {
+    .ecg-divider { width: 88%; height: 40px; }
+  }
 
   /* ---------- Skip link ---------- */
   .skip-link {
@@ -263,26 +268,19 @@
     position: sticky;
     top: 0;
     z-index: 40;
-    transition: padding 0.35s var(--ease);
   }
   .site-header .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 34px;
-    padding-bottom: 34px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     gap: 20px;
-    transition: padding 0.35s var(--ease);
     max-width: none;
     width: 90vw;
   }
-  .brand img { height: 92px; width: auto; transition: height 0.35s var(--ease); }
+  .brand img { height: 42px; width: auto; }
 
-  header.site-header.is-scrolled .container {
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-  header.site-header.is-scrolled .brand img { height: 42px; }
   nav.main-nav { display: flex; align-items: center; gap: 28px; }
   nav.main-nav a {
     text-decoration: none;
@@ -317,8 +315,7 @@
     .nav-toggle span { width: 24px; height: 2px; background: var(--ink); }
   }
   @media (max-width: 480px) {
-    .brand img { height: 56px; }
-    header.site-header.is-scrolled .brand img { height: 34px; }
+    .brand img { height: 34px; }
     .nav-cta .btn { padding: 10px 16px; font-size: 14px; white-space: nowrap; }
     .site-header .container { gap: 10px; }
   }
@@ -382,9 +379,46 @@
   .section-head .lede { color: var(--muted); font-size: 18px; }
 
   .bg-cream { background: var(--offwhite); }
-  .bg-wine { background: var(--wine-dark); color: var(--cream); }
+  .bg-wine { background: var(--wine-dark); color: var(--cream); position: relative; overflow: hidden; }
   .bg-wine h2, .bg-wine h3 { color: var(--white); }
   .bg-wine .muted { color: var(--rose); }
+
+  .stethoscope-mark {
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    width: clamp(140px, 18vw, 16vw);
+    height: auto;
+    color: #FFFFF0;
+    opacity: 0.14;
+    pointer-events: none;
+    transform: rotate(-8deg);
+  }
+  @media (max-width: 600px) {
+    .stethoscope-mark { width: 110px; }
+  }
+
+  #especialidades { position: relative; overflow: hidden; }
+  .heart-mark {
+    position: absolute;
+    top: 2rem;
+    right: 0.5rem;
+    width: clamp(140px, 16vw, 220px);
+    height: auto;
+    opacity: 0.16;
+    pointer-events: none;
+    animation: heart-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes heart-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.16; }
+    50% { transform: scale(1.06); opacity: 0.24; }
+  }
+  @media (max-width: 600px) {
+    .heart-mark { width: 100px; top: 8px; right: -20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .heart-mark { animation: none; }
+  }
 
   /* ---------- Sobre ---------- */
   .sobre-grid {
@@ -737,8 +771,8 @@
   <section class="hero" id="topo">
     <div class="hero-bg">
       <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1708698750460-ecacf75a9d9a?auto=format&fit=crop&w=1800&q=80');"></div>
-      <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1666214280165-b6b1e6ce7b1c?auto=format&fit=crop&w=1800&q=80');"></div>
-      <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1666887360555-3a0dbd403e39?auto=format&fit=crop&w=1800&q=80');"></div>
+      <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1800&q=80');"></div>
+      <div class="hero-bg-slide" style="background-image:url('https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?auto=format&fit=crop&w=1800&q=80');"></div>
     </div>
     <div class="container">
       <div class="hero-inner">
@@ -761,7 +795,7 @@
     <div class="container">
       <div class="sobre-grid">
         <div class="sobre-photo reveal">
-          <img src="https://images.unsplash.com/photo-1758691462651-611d730c5272?auto=format&fit=crop&w=900&q=80" alt="Dra. Priscila Nasser em seu consultório">
+          <img src="assets/dra-priscila-nasser.png" alt="Dra. Priscila Nasser sorrindo, com jaleco branco e estetoscópio no pescoço, em consultório de cardiologia">
         </div>
         <div class="reveal">
           <span class="eyebrow">Sobre a Dra. Priscila</span>
@@ -779,15 +813,13 @@
     </div>
   </section>
 
-  <svg class="pulse-divider" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
-    <g class="wave-track">
-      <path d="M-310 20 L-270 20 Q-258 12 -245 20 L-215 20 L-198 24 L-190 4 L-183 36 L-175 20 L-132 20 Q-118 10 -104 20 L40 20 Q52 12 65 20 L95 20 L112 24 L120 4 L127 36 L135 20 L178 20 Q192 10 206 20 L350 20 Q362 12 375 20 L405 20 L422 24 L430 4 L437 36 L445 20 L488 20 Q502 10 516 20 L660 20 Q672 12 685 20 L715 20 L732 24 L740 4 L747 36 L755 20 L798 20 Q812 10 826 20 L930 20"/>
-      <animateTransform class="wave-move" attributeName="transform" type="translate" values="0 0; -310 0" dur="4s" repeatCount="indefinite" calcMode="linear"/>
-    </g>
-  </svg>
+  <div class="ecg-divider">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path class="ecg-line"></path></svg>
+  </div>
 
   <!-- ================= ESPECIALIDADES ================= -->
   <section class="bg-cream" id="especialidades">
+    <img class="heart-mark" src="assets/heart-icon.png" alt="" aria-hidden="true">
     <div class="container">
       <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
         <span class="eyebrow">Especialidades</span>
@@ -850,12 +882,9 @@
     </div>
   </section>
 
-  <svg class="pulse-divider" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
-    <g class="wave-track">
-      <path d="M-310 20 L-270 20 Q-258 12 -245 20 L-215 20 L-198 24 L-190 4 L-183 36 L-175 20 L-132 20 Q-118 10 -104 20 L40 20 Q52 12 65 20 L95 20 L112 24 L120 4 L127 36 L135 20 L178 20 Q192 10 206 20 L350 20 Q362 12 375 20 L405 20 L422 24 L430 4 L437 36 L445 20 L488 20 Q502 10 516 20 L660 20 Q672 12 685 20 L715 20 L732 24 L740 4 L747 36 L755 20 L798 20 Q812 10 826 20 L930 20"/>
-      <animateTransform class="wave-move" attributeName="transform" type="translate" values="0 0; -310 0" dur="4s" repeatCount="indefinite" calcMode="linear"/>
-    </g>
-  </svg>
+  <div class="ecg-divider">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path class="ecg-line"></path></svg>
+  </div>
 
   <!-- ================= QUANDO PROCURAR (FAQ) ================= -->
   <section class="bg-cream" id="quando-procurar">
@@ -901,6 +930,14 @@
 
   <!-- ================= ACOMPANHAMENTO ================= -->
   <section class="bg-wine" id="acompanhamento">
+    <!-- Ícone "stethoscope" — Tabler Icons (MIT), https://tabler.io/icons -->
+    <svg class="stethoscope-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 4h-1a2 2 0 0 0 -2 2v3.5a5.5 5.5 0 0 0 11 0v-3.5a2 2 0 0 0 -2 -2h-1" />
+      <path d="M8 15a6 6 0 1 0 12 0v-3" />
+      <path d="M11 3v2" />
+      <path d="M6 3v2" />
+      <path d="M18 10a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+    </svg>
     <div class="container accomp-wrap reveal">
       <span class="eyebrow on-dark">A importância do acompanhamento próximo</span>
       <h2>Uma consulta isolada raramente conta a história inteira</h2>
@@ -947,12 +984,9 @@
     </div>
   </section>
 
-  <svg class="pulse-divider" viewBox="0 0 620 40" preserveAspectRatio="none" aria-hidden="true">
-    <g class="wave-track">
-      <path d="M-310 20 L-270 20 Q-258 12 -245 20 L-215 20 L-198 24 L-190 4 L-183 36 L-175 20 L-132 20 Q-118 10 -104 20 L40 20 Q52 12 65 20 L95 20 L112 24 L120 4 L127 36 L135 20 L178 20 Q192 10 206 20 L350 20 Q362 12 375 20 L405 20 L422 24 L430 4 L437 36 L445 20 L488 20 Q502 10 516 20 L660 20 Q672 12 685 20 L715 20 L732 24 L740 4 L747 36 L755 20 L798 20 Q812 10 826 20 L930 20"/>
-      <animateTransform class="wave-move" attributeName="transform" type="translate" values="0 0; -310 0" dur="4s" repeatCount="indefinite" calcMode="linear"/>
-    </g>
-  </svg>
+  <div class="ecg-divider">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path class="ecg-line"></path></svg>
+  </div>
 
   <!-- ================= LOCALIZAÇÃO & AGENDAMENTO ================= -->
   <section class="bg-cream" id="localizacao">
@@ -1045,12 +1079,12 @@
     <div class="footer-grid">
       <div class="footer-col">
         <h4>Cardiologia humanizada</h4>
-        <p>Consultas de <strong>cardiologia</strong> com escuta atenta e sem pressa,<br>
-        acompanhamento próximo de <strong>hipertensão</strong> e <strong>arritmias cardíacas</strong>,<br>
-        <strong>check-up cardiológico</strong> preventivo em cada fase da vida,<br>
-        atenção redobrada para pacientes mais idosos e suas famílias,<br>
-        explicações claras, sem jargões, para tirar todas as dúvidas,<br>
-        e a certeza de ser bem recebido em cada visita —<br>
+        <p>Consultas de <strong>cardiologia</strong> com escuta atenta e sem pressa, 
+        acompanhamento próximo de <strong>hipertensão</strong> e <strong>arritmias cardíacas</strong>,
+        <strong>check-up cardiológico</strong> preventivo em cada fase da vida,
+        atenção redobrada para pacientes mais idosos e suas famílias,
+        explicações claras, sem jargões, para tirar todas as dúvidas,
+        e a certeza de ser bem recebido em cada visita
         em São Paulo, cuidando de coração em coração.</p>
       </div>
       <div class="footer-col">
@@ -1075,7 +1109,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Dra. Priscila Nasser. Todos os direitos reservados.</span>
-      <a href="https://valkhan.com.br" target="_blank" rel="noopener">Desenvolvido por Valkhan Tech</a>
+      <a href="https://valkhan.com.br?utm_source=priscilanasser.com.br" target="_blank" rel="noopener">Desenvolvido por Valkhan Tech</a>
     </div>
   </div>
 </footer>
@@ -1090,9 +1124,38 @@
   // state here, right before observing, so a JS failure never leaves
   // content permanently invisible.
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    document.querySelectorAll('.wave-move').forEach(el => el.remove());
-  }
+
+  // ECG section dividers — generate an organic heartbeat trace per instance
+  // (each divider gets its own random path so they don't look identical).
+  document.querySelectorAll('.ecg-line').forEach((path) => {
+    const width = 1200;
+    const center = 60;
+    let d = `M 0 ${center}`;
+    let x = 0;
+    while (x < width) {
+      const baselineLength = 35 + Math.random() * 45;
+      for (let i = 0; i < baselineLength; i += 5) {
+        const y = center + (Math.random() - 0.5) * 2;
+        d += ` L ${x + i} ${y}`;
+      }
+      x += baselineLength;
+      if (Math.random() > 0.45) {
+        d += ` L ${x + 8} ${center} L ${x + 15} ${center - 8} L ${x + 22} ${center + 4} L ${x + 29} ${center - 42} L ${x + 36} ${center + 28} L ${x + 45} ${center} `;
+        x += 45;
+      }
+    }
+    path.setAttribute('d', d);
+    if (!prefersReducedMotion) {
+      const length = path.getTotalLength();
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+      path.animate(
+        [{ strokeDashoffset: length }, { strokeDashoffset: 0 }],
+        { duration: 12000, iterations: Infinity, easing: 'linear' }
+      );
+    }
+  });
+
   if ('IntersectionObserver' in window && !prefersReducedMotion) {
     const revealEls = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
@@ -1127,33 +1190,6 @@
     });
   }
 
-  // Header: large on load, shrinks once the page has scrolled.
-  // Uses two different thresholds (hysteresis) so hovering scrollY around a
-  // single value can't flip the class back and forth — the shrink itself
-  // changes the sticky header's height, which nudges scrollY, so a single
-  // threshold causes a feedback-loop flicker on slow scrolls.
-  const siteHeader = document.querySelector('.site-header');
-  if (siteHeader) {
-    const SHRINK_AT = 60;
-    const GROW_AT = 20;
-    let ticking = false;
-    const applyHeaderScrollState = () => {
-      ticking = false;
-      const y = window.scrollY;
-      if (!siteHeader.classList.contains('is-scrolled') && y > SHRINK_AT) {
-        siteHeader.classList.add('is-scrolled');
-      } else if (siteHeader.classList.contains('is-scrolled') && y < GROW_AT) {
-        siteHeader.classList.remove('is-scrolled');
-      }
-    };
-    applyHeaderScrollState();
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(applyHeaderScrollState);
-      }
-    }, { passive: true });
-  }
 </script>
 
 </body>
