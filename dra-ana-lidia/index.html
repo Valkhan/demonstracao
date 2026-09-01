@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing de Site — Dra. Ana Lídia Meloncini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5F0E8;
+    --cream-deep:#EBE3D6;
+    --brown:#876B55;
+    --brown-deep:#5C4835;
+    --ink:#3A2E24;
+    --white:#FFFFFF;
+    --line:rgba(135,107,85,0.25);
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .serif{font-family:'Cormorant Garamond',serif;}
+
+  /* progress bar */
+  #progress-track{
+    position:fixed;top:0;left:0;right:0;height:3px;
+    background:var(--cream-deep);z-index:100;
+  }
+  #progress-fill{
+    height:100%;width:0%;background:var(--brown);
+    transition:width .35s ease;
+  }
+  #progress-label{
+    position:fixed;top:10px;right:18px;z-index:100;
+    font-size:11px;letter-spacing:.08em;color:var(--brown-deep);
+    background:var(--cream);padding:3px 10px;border:1px solid var(--line);
+    border-radius:20px;
+  }
+  #save-note{
+    position:fixed;top:10px;left:18px;z-index:100;
+    font-size:11px;color:var(--brown);opacity:.8;
+  }
+
+  .wrap{max-width:640px;margin:0 auto;padding:64px 24px 120px;}
+
+  header.hero{text-align:center;margin-bottom:56px;}
+  header.hero .eyebrow{
+    font-size:12px;letter-spacing:.14em;color:var(--brown);
+    text-transform:uppercase;margin-bottom:18px;
+  }
+  header.hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;
+    font-size:44px;
+    margin:0 0 6px;
+    color:var(--brown-deep);
+    letter-spacing:.01em;
+  }
+  header.hero .role{
+    font-size:14px;color:var(--brown);font-style:italic;
+    font-family:'Cormorant Garamond',serif;
+    margin-bottom:28px;
+  }
+  header.hero p{
+    max-width:440px;margin:0 auto;font-size:14.5px;color:var(--ink);opacity:.85;
+  }
+
+  /* style-capture intro block */
+  .style-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:36px 32px;
+    margin-bottom:64px;
+  }
+  .style-card h2{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;font-size:24px;margin:0 0 14px;color:var(--brown-deep);
+  }
+  .style-card p{font-size:14px;margin:0 0 24px;color:var(--ink);opacity:.9;}
+  .swatches{display:flex;gap:14px;margin-bottom:24px;flex-wrap:wrap;}
+  .swatch{flex:1;min-width:120px;}
+  .swatch .box{height:64px;border:1px solid var(--line);margin-bottom:6px;}
+  .swatch .hex{font-size:11px;letter-spacing:.05em;color:var(--brown);}
+  .swatch .name{font-size:11px;color:var(--ink);opacity:.7;}
+  .font-preview{
+    border-top:1px solid var(--line);padding-top:20px;margin-top:20px;
+  }
+  .font-preview .big{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--brown-deep);}
+  .font-preview .small{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--brown);margin-top:2px;}
+  .font-preview .caption{font-size:10.5px;color:var(--ink);opacity:.55;margin-top:10px;}
+  .style-note{
+    font-size:12.5px;color:var(--brown-deep);background:var(--cream-deep);
+    padding:12px 16px;margin-top:22px;border-left:2px solid var(--brown);
+  }
+
+  section.q-section{margin-bottom:64px;}
+  .q-section .section-head{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:28px;
+    border-bottom:1px solid var(--line);padding-bottom:14px;
+  }
+  .q-section .num{
+    font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--brown);
+  }
+  .q-section h2{
+    font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:23px;margin:0;color:var(--brown-deep);
+  }
+
+  .question{margin-bottom:30px;}
+  .question label.q-label{
+    display:block;font-size:14.5px;color:var(--ink);margin-bottom:12px;font-weight:400;
+  }
+  .question .q-hint{display:block;font-size:12px;color:var(--brown);opacity:.85;margin-top:-8px;margin-bottom:12px;}
+
+  textarea{
+    width:100%;min-height:76px;padding:12px 14px;
+    background:var(--white);border:1px solid var(--line);
+    font-family:'Montserrat',sans-serif;font-size:13.5px;color:var(--ink);
+    resize:vertical;
+  }
+  textarea:focus{outline:none;border-color:var(--brown);}
+
+  .pill-group{display:flex;flex-wrap:wrap;gap:8px;}
+  .pill{
+    padding:9px 16px;border:1px solid var(--line);background:var(--white);
+    font-size:13px;color:var(--ink);cursor:pointer;user-select:none;
+    transition:all .15s ease;
+  }
+  .pill:hover{border-color:var(--brown);}
+  .pill.selected{background:var(--brown);border-color:var(--brown);color:var(--white);}
+  .pill .sub{display:block;font-size:10.5px;opacity:.75;margin-top:2px;}
+
+  footer.actions{
+    border-top:1px solid var(--line);padding-top:36px;text-align:center;
+  }
+  .btn{
+    display:inline-block;padding:14px 30px;font-size:13px;letter-spacing:.04em;
+    border:1px solid var(--brown);cursor:pointer;background:none;
+    font-family:'Montserrat',sans-serif;margin:0 6px 10px;
+  }
+  .btn-primary{background:var(--brown);color:var(--white);}
+  .btn-primary:hover{background:var(--brown-deep);border-color:var(--brown-deep);}
+  .btn-ghost{color:var(--brown-deep);}
+  .btn-ghost:hover{background:var(--cream-deep);}
+  footer.actions .save-msg{font-size:11.5px;color:var(--brown);opacity:.75;margin-top:18px;}
+
+  #toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--brown-deep);color:var(--white);padding:10px 20px;font-size:12.5px;
+    opacity:0;pointer-events:none;transition:all .3s ease;z-index:200;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:480px){
+    header.hero h1{font-size:32px;}
+    .wrap{padding:52px 16px 100px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+<div id="progress-label"><span id="progress-pct">0</span>% preenchido</div>
+<div id="save-note">Rascunho salvo automaticamente</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Briefing · Site institucional</div>
+    <h1>Dra. Ana Lídia Meloncini</h1>
+    <div class="role">Cirurgia Plástica</div>
+    <p>Suas respostas vão orientar a criação da primeira versão do seu site. Sua marca já está definida — aqui o foco é conteúdo, posicionamento e a experiência de quem visita a página.</p>
+  </header>
+
+  <div class="style-card">
+    <h2>Estilo capturado do seu manual de marca</h2>
+    <p>Minimalista, sofisticado e atemporal — tons terrosos que remetem a conforto e naturalidade, com tipografia refinada que transmite exclusividade sem exagero. É esse estilo que vamos carregar para o site: menos elementos, mais respiro, e uma experiência que parece cuidada em cada detalhe.</p>
+
+    <div class="swatches">
+      <div class="swatch">
+        <div class="box" style="background:#F5F0E8;"></div>
+        <div class="hex">#F5F0E8</div>
+        <div class="name">Creme — base</div>
+      </div>
+      <div class="swatch">
+        <div class="box" style="background:#876B55;"></div>
+        <div class="hex">#876B55</div>
+        <div class="name">Marrom — identidade</div>
+      </div>
+    </div>
+
+    <div class="font-preview">
+      <div class="big">Ana Lídia Meloncini</div>
+      <div class="small">Cirurgia Plástica</div>
+      <div class="caption">Golden (display) + Montserrat (apoio) — conforme manual da marca</div>
+    </div>
+
+    <div class="style-note">Não vamos perguntar sobre marca, cores ou tipografia — isso já está definido no seu manual. Este questionário é só sobre o site.</div>
+
+    <div class="question" style="margin-top:26px;margin-bottom:0;">
+      <label class="q-label">Esse estilo faz sentido pra você pro site?</label>
+      <div class="pill-group" data-mode="single" data-id="estilo_validacao">
+        <div class="pill" data-value="Sim, é exatamente isso">Sim, é exatamente isso</div>
+        <div class="pill" data-value="Sim, mas com ajustes">Sim, mas com ajustes</div>
+      </div>
+      <textarea data-id="estilo_validacao_obs" placeholder="Se quiser ajustar algo, descreva aqui (opcional)" style="margin-top:12px;min-height:50px;"></textarea>
+    </div>
+  </div>
+
+  <!-- 01 -->
+  <section class="q-section">
+    <div class="section-head"><span class="num">01</span><h2>Posicionamento e público</h2></div>
+
+    <div class="question">
+      <label class="q-label">Como você descreveria sua paciente ideal? (perfil, faixa etária, o que ela busca ao te procurar)</label>
+      <textarea data-id="publico_perfil" placeholder="Escreva livremente"></textarea>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Em uma frase: o que você quer que uma paciente sinta ao visitar seu site?</label>
+      <textarea data-id="publico_sensacao" placeholder="Ex.: segurança, acolhimento, exclusividade..."></textarea>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Você prefere transmitir a imagem de...</label>
+      <div class="pill-group" data-mode="single" data-id="publico_posicionamento">
+        <div class="pill" data-value="Clínica de alto padrão">Clínica de alto padrão</div>
+        <div class="pill" data-value="Cuidado próximo e humanizado">Cuidado próximo e humanizado</div>
+        <div class="pill" data-value="Equilíbrio entre as duas">Equilíbrio entre as duas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="q-section">
+    <div class="section-head"><span class="num">02</span><h2>Procedimentos e prioridades</h2></div>
+
+    <div class="question">
+      <label class="q-label">Das categorias do seu manual, quais devem ter mais destaque no site? Escolha quantas fizerem sentido</label>
+      <div class="pill-group" data-mode="multi" data-id="proc_categorias">
+        <div class="pill" data-value="Face">Face</div>
+        <div class="pill" data-value="Mama">Mama</div>
+        <div class="pill" data-value="Abdômen">Abdômen</div>
+        <div class="pill" data-value="Estética">Estética</div>
+        <div class="pill" data-value="Lipoescultura">Lipoescultura</div>
+        <div class="pill" data-value="Tecnologias">Tecnologias</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Existe um procedimento "carro-chefe" — o que mais te procuram, ou o que você mais quer atrair?</label>
+      <textarea data-id="proc_carro_chefe" placeholder="Escreva livremente"></textarea>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Como prefere apresentar os procedimentos no site?</label>
+      <div class="pill-group" data-mode="single" data-id="proc_profundidade">
+        <div class="pill" data-value="Resumo por categoria">Resumo por categoria</div>
+        <div class="pill" data-value="Detalhar cada procedimento">Detalhar cada procedimento</div>
+        <div class="pill" data-value="Não sei, quero sugestão">Não sei, quero sugestão</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section class="q-section">
+    <div class="section-head"><span class="num">03</span><h2>Prova social e credibilidade</h2></div>
+
+    <div class="question">
+      <label class="q-label">Você tem depoimentos de pacientes que podemos usar no site?</label>
+      <div class="pill-group" data-mode="single" data-id="prova_depoimentos">
+        <div class="pill" data-value="Sim, tenho prontos">Sim, tenho prontos</div>
+        <div class="pill" data-value="Preciso reunir alguns">Preciso reunir alguns</div>
+        <div class="pill" data-value="Prefiro não usar depoimentos">Prefiro não usar depoimentos</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Sobre fotos de antes/depois: o CFM tem regras específicas para divulgação de resultados estéticos. Como você lida com isso hoje?</label>
+      <span class="q-hint">Ex.: só mostra em consulta, tem banco de imagens autorizado, prefere não usar no site público, etc.</span>
+      <textarea data-id="prova_antes_depois" placeholder="Escreva livremente"></textarea>
+    </div>
+
+    <div class="question">
+      <label class="q-label">O que você tem de credibilidade pra destacar? (formação, especializações, tempo de atuação, congressos, artigos, mídia)</label>
+      <textarea data-id="prova_credibilidade" placeholder="Escreva livremente"></textarea>
+    </div>
+  </section>
+
+  <!-- 04 -->
+  <section class="q-section">
+    <div class="section-head"><span class="num">04</span><h2>Tom de voz e conteúdo</h2></div>
+
+    <div class="question">
+      <label class="q-label">Qual tom combina mais com você?</label>
+      <div class="pill-group" data-mode="single" data-id="tom_estilo">
+        <div class="pill" data-value="Técnico e institucional">Técnico e institucional</div>
+        <div class="pill" data-value="Acolhedor e próximo">Acolhedor e próximo</div>
+        <div class="pill" data-value="Direto e objetivo">Direto e objetivo</div>
+        <div class="pill" data-value="Educativo, com conteúdo explicativo">Educativo, com conteúdo explicativo</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Pretende manter blog ou conteúdo educativo no site?</label>
+      <div class="pill-group" data-mode="single" data-id="tom_conteudo">
+        <div class="pill" data-value="Sim">Sim</div>
+        <div class="pill" data-value="Não, só institucional">Não, só institucional</div>
+        <div class="pill" data-value="Talvez no futuro">Talvez no futuro</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="q-section">
+    <div class="section-head"><span class="num">05</span><h2>Estrutura e conversão</h2></div>
+
+    <div class="question">
+      <label class="q-label">Quais blocos você imagina na página? Escolha os que fazem sentido</label>
+      <div class="pill-group" data-mode="multi" data-id="estrutura_blocos">
+        <div class="pill" data-value="Abertura/hero">Abertura/hero</div>
+        <div class="pill" data-value="Sobre a doutora">Sobre a doutora</div>
+        <div class="pill" data-value="Procedimentos/categorias">Procedimentos/categorias</div>
+        <div class="pill" data-value="Diferenciais da clínica">Diferenciais da clínica</div>
+        <div class="pill" data-value="Depoimentos">Depoimentos</div>
+        <div class="pill" data-value="Antes e depois (com as devidas normas)">Antes e depois (com as devidas normas)</div>
+        <div class="pill" data-value="Localização da clínica">Localização da clínica</div>
+        <div class="pill" data-value="Perguntas frequentes">Perguntas frequentes</div>
+        <div class="pill" data-value="Instagram/redes sociais">Instagram/redes sociais</div>
+        <div class="pill" data-value="Contato/agendamento">Contato/agendamento</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Qual é a ação principal que você quer que a paciente tome ao visitar o site?</label>
+      <div class="pill-group" data-mode="single" data-id="estrutura_cta">
+        <div class="pill" data-value="Agendar consulta por WhatsApp">Agendar consulta por WhatsApp</div>
+        <div class="pill" data-value="Preencher formulário de contato">Preencher formulário de contato</div>
+        <div class="pill" data-value="Ligar para a clínica">Ligar para a clínica</div>
+        <div class="pill" data-value="Seguir no Instagram">Seguir no Instagram</div>
+      </div>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Endereço da clínica, WhatsApp e Instagram que já podemos usar</label>
+      <textarea data-id="estrutura_dados" placeholder="Escreva livremente"></textarea>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="q-section">
+    <div class="section-head"><span class="num">06</span><h2>Restrições e observações finais</h2></div>
+
+    <div class="question">
+      <label class="q-label">Existe algo que você definitivamente NÃO quer no site?</label>
+      <textarea data-id="final_restricoes" placeholder="Escreva livremente"></textarea>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Sites de outras clínicas (do segmento ou não) que você admira ou quer usar de referência para a experiência — não para a marca</label>
+      <textarea data-id="final_referencias" placeholder="Escreva livremente"></textarea>
+    </div>
+
+    <div class="question">
+      <label class="q-label">Alguma observação final?</label>
+      <textarea data-id="final_obs" placeholder="Escreva livremente"></textarea>
+    </div>
+  </section>
+
+  <footer class="actions">
+    <button class="btn btn-primary" id="btn-send">Enviar respostas pelo WhatsApp</button>
+    <button class="btn btn-ghost" id="btn-copy">Copiar texto</button>
+    <button class="btn btn-ghost" id="btn-clear">Limpar respostas</button>
+    <div class="save-msg">Suas respostas são salvas automaticamente neste dispositivo enquanto você preenche.</div>
+  </footer>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+(function(){
+  var STORAGE_KEY = "briefing-ana-lidia-meloncini";
+  var WHATSAPP_NUMBER = "55XXXXXXXXXXX"; // TODO: confirmar número (mesmo usado no briefing da Dra. Priscila)
+
+  var QUESTIONS = [
+    {id:"estilo_validacao", label:"Estilo do manual faz sentido pro site?"},
+    {id:"estilo_validacao_obs", label:"Ajustes no estilo"},
+    {id:"publico_perfil", label:"Paciente ideal"},
+    {id:"publico_sensacao", label:"Sensação desejada no site"},
+    {id:"publico_posicionamento", label:"Posicionamento"},
+    {id:"proc_categorias", label:"Categorias em destaque"},
+    {id:"proc_carro_chefe", label:"Procedimento carro-chefe"},
+    {id:"proc_profundidade", label:"Profundidade dos procedimentos"},
+    {id:"prova_depoimentos", label:"Depoimentos disponíveis"},
+    {id:"prova_antes_depois", label:"Antes/depois"},
+    {id:"prova_credibilidade", label:"Credibilidade a destacar"},
+    {id:"tom_estilo", label:"Tom de voz"},
+    {id:"tom_conteudo", label:"Blog/conteúdo educativo"},
+    {id:"estrutura_blocos", label:"Blocos da página"},
+    {id:"estrutura_cta", label:"Ação principal (CTA)"},
+    {id:"estrutura_dados", label:"Endereço/WhatsApp/Instagram"},
+    {id:"final_restricoes", label:"O que evitar"},
+    {id:"final_referencias", label:"Referências de experiência"},
+    {id:"final_obs", label:"Observações finais"}
+  ];
+
+  var REQUIRED = ["estilo_validacao","publico_perfil","publico_posicionamento","proc_categorias","proc_carro_chefe","prova_depoimentos","tom_estilo","estrutura_blocos","estrutura_cta"];
+
+  var answers = {};
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) answers = JSON.parse(raw);
+    }catch(e){ answers = {}; }
+
+    document.querySelectorAll("textarea[data-id]").forEach(function(el){
+      var id = el.getAttribute("data-id");
+      if(answers[id]) el.value = answers[id];
+      el.addEventListener("input", function(){
+        answers[id] = el.value;
+        save();
+      });
+    });
+
+    document.querySelectorAll(".pill-group").forEach(function(group){
+      var id = group.getAttribute("data-id");
+      var mode = group.getAttribute("data-mode");
+      var saved = answers[id];
+      var pills = group.querySelectorAll(".pill");
+      pills.forEach(function(pill){
+        var val = pill.getAttribute("data-value");
+        if(mode === "multi" && Array.isArray(saved) && saved.indexOf(val) !== -1){
+          pill.classList.add("selected");
+        } else if(mode === "single" && saved === val){
+          pill.classList.add("selected");
+        }
+        pill.addEventListener("click", function(){
+          if(mode === "single"){
+            pills.forEach(function(p){ p.classList.remove("selected"); });
+            pill.classList.add("selected");
+            answers[id] = val;
+          } else {
+            pill.classList.toggle("selected");
+            var current = Array.isArray(answers[id]) ? answers[id].slice() : [];
+            var idx = current.indexOf(val);
+            if(pill.classList.contains("selected")){
+              if(idx === -1) current.push(val);
+            } else {
+              if(idx !== -1) current.splice(idx,1);
+            }
+            answers[id] = current;
+          }
+          save();
+        });
+      });
+    });
+
+    updateProgress();
+  }
+
+  function save(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(answers)); }catch(e){}
+    updateProgress();
+  }
+
+  function isFilled(val){
+    if(Array.isArray(val)) return val.length > 0;
+    return typeof val === "string" && val.trim().length > 0;
+  }
+
+  function updateProgress(){
+    var filled = 0;
+    REQUIRED.forEach(function(id){ if(isFilled(answers[id])) filled++; });
+    var pct = Math.round((filled / REQUIRED.length) * 100);
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("progress-pct").textContent = pct;
+  }
+
+  function buildMessage(){
+    var lines = ["*Briefing de Site — Dra. Ana Lídia Meloncini*",""];
+    QUESTIONS.forEach(function(q){
+      var val = answers[q.id];
+      if(!isFilled(val)) return;
+      var text = Array.isArray(val) ? val.join(", ") : val;
+      lines.push("*" + q.label + "*");
+      lines.push(text);
+      lines.push("");
+    });
+    return lines.join("\n");
+  }
+
+  function showToast(msg){
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function(){ t.classList.remove("show"); }, 2400);
+  }
+
+  document.getElementById("btn-send").addEventListener("click", function(){
+    var msg = buildMessage();
+    var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+    window.open(url, "_blank");
+  });
+
+  document.getElementById("btn-copy").addEventListener("click", function(){
+    var msg = buildMessage();
+    navigator.clipboard.writeText(msg).then(function(){
+      showToast("Texto copiado");
+    }).catch(function(){
+      showToast("Não foi possível copiar");
+    });
+  });
+
+  document.getElementById("btn-clear").addEventListener("click", function(){
+    if(!confirm("Tem certeza que quer limpar todas as respostas?")) return;
+    answers = {};
+    localStorage.removeItem(STORAGE_KEY);
+    document.querySelectorAll("textarea[data-id]").forEach(function(el){ el.value = ""; });
+    document.querySelectorAll(".pill.selected").forEach(function(p){ p.classList.remove("selected"); });
+    updateProgress();
+    showToast("Respostas limpas");
+  });
+
+  load();
+})();
+</script>
+
+</body>
+</html>
