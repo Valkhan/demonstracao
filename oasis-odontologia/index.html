@@ -19,7 +19,11 @@
   --gold:#B08D4F;
   --gold-soft:#D7C29A;
   --olive:#5C6B4C;
+  --card:#FFFDFA;
   --line:rgba(74,52,35,0.16);
+  --shadow:0 30px 70px -28px rgba(58,44,32,0.38);
+  --shadow-hover:0 44px 90px -34px rgba(58,44,32,0.45);
+  --radius-organic:0.6rem 3rem;
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -55,15 +59,8 @@ header{
   border-bottom:1px solid var(--line);
 }
 nav.wrap{display:flex; align-items:center; justify-content:space-between; padding:20px 32px;}
-.brand{
-  display:flex; align-items:center; gap:12px;
-  font-family:'Cormorant Garamond', serif; font-size:1.5rem;
-  letter-spacing:0.16em; color:var(--brown);
-}
-.brand .mark{
-  width:34px; height:34px; border-radius:50%; border:1px solid var(--gold);
-  display:flex; align-items:center; justify-content:center; font-size:0.95rem;
-}
+.brand{display:flex; align-items:center;}
+.brand img{width:64px; height:64px; border-radius:50%; object-fit:cover;}
 .nav-links{display:flex; gap:38px; font-size:0.9rem; color:var(--ink-soft); letter-spacing:0.03em;}
 .nav-links a{position:relative; padding-bottom:4px;}
 .nav-links a::after{
@@ -72,10 +69,11 @@ nav.wrap{display:flex; align-items:center; justify-content:space-between; paddin
 }
 .nav-links a:hover::after{transform:scaleX(1);}
 .nav-cta{
-  border:1px solid var(--brown); padding:11px 24px; font-size:0.82rem;
-  letter-spacing:0.06em; text-transform:uppercase; white-space:nowrap;
-  transition:background .3s ease, color .3s ease;
+  border:1px solid var(--brown); padding:12px 26px; font-size:0.78rem; border-radius:40px;
+  letter-spacing:0.08em; text-transform:uppercase; white-space:nowrap;
+  transition:background .3s ease, color .3s ease, transform .3s ease;
 }
+.nav-cta:hover{transform:translateY(-2px);}
 .nav-cta:hover{background:var(--brown); color:var(--cream);}
 
 /* ---------- HERO ---------- */
@@ -102,33 +100,40 @@ nav.wrap{display:flex; align-items:center; justify-content:space-between; paddin
 .hero p.sub{max-width:520px; margin-bottom:40px; font-size:1.08rem; color:rgba(249,245,236,0.86);}
 .hero-actions{display:flex; gap:18px; flex-wrap:wrap;}
 
-.btn-primary{
-  display:inline-block; background:var(--gold); color:var(--brown-deep);
-  padding:16px 40px; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;
-  border:1px solid var(--gold); transition:background .3s ease, color .3s ease;
+.btn-primary,.btn-ghost,.btn-outline{
+  display:inline-block; padding:16px 38px; font-size:0.78rem; letter-spacing:0.1em;
+  text-transform:uppercase; border-radius:40px; border:1px solid transparent;
+  transition:background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;
 }
-.btn-primary:hover{background:transparent; color:var(--cream-warm);}
-.btn-ghost{
-  display:inline-block; padding:16px 34px; font-size:0.82rem; letter-spacing:0.08em;
-  text-transform:uppercase; border:1px solid rgba(249,245,236,0.5); color:var(--cream-warm);
-  transition:background .3s ease, color .3s ease, border-color .3s ease;
-}
-.btn-ghost:hover{background:var(--cream-warm); color:var(--brown-deep); border-color:var(--cream-warm);}
-.btn-outline{
-  display:inline-block; padding:16px 36px; font-size:0.82rem; letter-spacing:0.08em;
-  text-transform:uppercase; border:1px solid var(--brown); color:var(--brown);
-  transition:background .3s ease, color .3s ease;
-}
-.btn-outline:hover{background:var(--brown); color:var(--cream);}
+.btn-primary{background:var(--gold); color:var(--brown-deep); border-color:var(--gold);}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 30px -16px rgba(58,44,32,0.55);}
+.btn-ghost{border-color:rgba(249,245,236,0.55); color:var(--cream-warm);}
+.btn-ghost:hover{background:var(--cream-warm); color:var(--brown-deep); border-color:var(--cream-warm); transform:translateY(-2px);}
+.btn-outline{border-color:var(--brown); color:var(--brown);}
+.btn-outline:hover{background:var(--brown); color:var(--cream); transform:translateY(-2px);}
 
-.trust-strip{
-  background:var(--brown-deep); color:var(--gold-soft);
-  display:flex; justify-content:center; gap:0; flex-wrap:wrap; text-align:center;
+.oasis-marks{
+  background:var(--cream-warm);
+  padding:88px 32px;
+  display:flex; justify-content:center; align-items:flex-start;
+  gap:clamp(28px,6vw,88px); flex-wrap:wrap; text-align:center;
 }
-.trust-strip div{padding:26px 44px; border-right:1px solid rgba(215,194,154,0.16);}
-.trust-strip div:last-child{border-right:none;}
-.trust-strip .num{font-family:'Cormorant Garamond', serif; font-size:1.9rem; color:var(--cream);}
-.trust-strip .label{font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase; opacity:0.75;}
+.oasis-mark{max-width:220px; display:flex; flex-direction:column; align-items:center;}
+.oasis-mark .pebble{
+  width:118px; height:118px; margin-bottom:22px;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 32% 28%, var(--cream) 0%, var(--cream-deep) 100%);
+  border:1px solid var(--gold-soft);
+  color:var(--olive); font-size:1.5rem;
+  border-radius:63% 37% 58% 42% / 52% 63% 37% 48%;
+  transition:transform .5s ease, border-radius .8s ease;
+}
+.oasis-mark:nth-child(2) .pebble{border-radius:44% 56% 41% 59% / 63% 45% 55% 37%;}
+.oasis-mark:nth-child(3) .pebble{border-radius:57% 43% 63% 37% / 41% 58% 42% 59%;}
+.oasis-mark:hover .pebble{transform:translateY(-6px) rotate(-4deg);}
+.oasis-mark .num{font-family:'Cormorant Garamond', serif; font-size:1.9rem; color:var(--brown); line-height:1.1;}
+.oasis-mark .label{font-size:0.82rem; color:var(--ink-soft); margin-top:4px;}
+.oasis-mark .stem{width:1px; height:26px; background:var(--gold-soft); margin-top:16px;}
 
 /* ---------- SECTION SHARED ---------- */
 section{padding:120px 0;}
@@ -145,12 +150,17 @@ section{padding:120px 0;}
 
 /* ---------- SOBRE / INTRO SPLIT ---------- */
 .split{display:grid; grid-template-columns:1.05fr 1fr; gap:80px; align-items:center;}
-.split .media{position:relative;}
-.split .media img{aspect-ratio:4/5; object-fit:cover; width:100%; border:1px solid var(--line);}
+.split .media{position:relative; z-index:0;}
+.split .media img{aspect-ratio:4/5; object-fit:cover; width:100%; border-radius:var(--radius-organic); box-shadow:var(--shadow);}
+.split .media::before{
+  content:""; position:absolute; left:-22px; top:-22px; right:34px; bottom:34px;
+  border:1px solid var(--gold); border-radius:var(--radius-organic); z-index:-1;
+}
 .split .media .frame-tag{
-  position:absolute; bottom:-24px; left:-24px; background:var(--cream); border:1px solid var(--line);
-  padding:18px 26px; font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--brown);
-  font-size:1.05rem; max-width:220px;
+  position:absolute; bottom:-28px; left:-28px; background:var(--card); border-radius:0.4rem 1.6rem;
+  box-shadow:var(--shadow); padding:20px 28px;
+  font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--brown);
+  font-size:1.05rem; max-width:230px;
 }
 .split .copy p{color:var(--ink-soft); margin-bottom:18px;}
 .split .copy .sig{
@@ -163,6 +173,8 @@ section{padding:120px 0;}
 .philosophy .kicker{color:var(--gold-soft);}
 .philo-quote{
   max-width:760px; margin:0 auto; text-align:center;
+  background:var(--brown-deep); border-radius:0.6rem 3rem; padding:clamp(38px,5vw,64px);
+  box-shadow:var(--shadow);
   font-family:'Cormorant Garamond', serif; font-style:italic;
   font-size:clamp(1.5rem, 3vw, 2.2rem); line-height:1.5; color:var(--cream);
 }
@@ -170,22 +182,30 @@ section{padding:120px 0;}
 .philo-sub{text-align:center; max-width:560px; margin:28px auto 0; color:var(--gold-soft); font-size:0.98rem;}
 
 /* ---------- TRATAMENTOS (CARDS) ---------- */
-.treat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:30px;}
-.treat-card{background:var(--cream-warm); border:1px solid var(--line); overflow:hidden; transition:transform .4s ease;}
-.treat-card:hover{transform:translateY(-6px);}
+.treat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px 30px;}
+.treat-card{
+  background:var(--card); border-radius:10px; overflow:hidden;
+  box-shadow:var(--shadow); transition:transform .4s ease, box-shadow .4s ease;
+}
+.treat-card:hover{transform:translateY(-8px); box-shadow:var(--shadow-hover);}
 .treat-card .ph{aspect-ratio:3/2; overflow:hidden;}
 .treat-card .ph img{width:100%; height:100%; object-fit:cover; filter:saturate(0.95); transition:transform .7s ease;}
 .treat-card:hover .ph img{transform:scale(1.06);}
-.treat-card .body{padding:26px 26px 30px;}
+.treat-card .body{padding:28px 28px 32px;}
 .treat-card h3{font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.45rem; color:var(--brown); margin-bottom:8px;}
 .treat-card p{font-size:0.9rem; color:var(--ink-soft);}
 
 /* ---------- PROCESSO 01-04 ---------- */
 .process{background:var(--cream-deep);}
-.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:30px;}
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:34px; position:relative;}
+.steps::before{content:""; position:absolute; top:34px; left:6%; right:6%; height:1px; background:var(--line);}
+.step{position:relative;}
 .step .n{
-  font-family:'Cormorant Garamond', serif; font-size:2.6rem; color:var(--gold);
-  line-height:1; margin-bottom:14px; border-bottom:1px solid var(--line); padding-bottom:16px;
+  width:68px; height:68px; border-radius:50%;
+  background:var(--card); box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond', serif; font-size:1.5rem; color:var(--gold);
+  line-height:1; margin-bottom:22px;
 }
 .step h3{font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.25rem; color:var(--brown); margin-bottom:8px;}
 .step p{font-size:0.88rem; color:var(--ink-soft);}
@@ -204,7 +224,8 @@ section{padding:120px 0;}
 .results .kicker{color:var(--gold-soft);}
 .results .section-head h2{color:var(--cream);}
 .results-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:34px; max-width:1000px; margin:0 auto;}
-.result-frame{aspect-ratio:4/5; overflow:hidden; border:1px solid rgba(215,194,154,0.2); background:var(--brown);}
+.result-frame{aspect-ratio:4/5; overflow:hidden; border-radius:var(--radius-organic); box-shadow:var(--shadow); background:var(--brown);}
+.results-grid .result-card:nth-child(even) .result-frame{border-radius:3rem 0.6rem;}
 .result-frame img{width:100%; height:100%; object-fit:cover; transition:transform .6s ease;}
 .result-card:hover .result-frame img{transform:scale(1.05);}
 .result-card figcaption{margin-top:16px; text-align:center;}
@@ -213,14 +234,18 @@ section{padding:120px 0;}
 
 /* ---------- DEPOIMENTO ---------- */
 .testimonial{background:var(--cream-deep);}
-.testimonial .wrap{display:flex; align-items:center; gap:72px;}
-.test-photo{flex:0 0 300px;}
-.test-photo img{aspect-ratio:3/4; object-fit:cover; width:100%; border:1px solid var(--line);}
+.testimonial .wrap{display:flex; align-items:center; gap:80px;}
+.test-photo{flex:0 0 300px; position:relative; z-index:0;}
+.test-photo::before{
+  content:""; position:absolute; left:-22px; top:-22px; right:26px; bottom:26px;
+  border:1px solid var(--gold); border-radius:var(--radius-organic); z-index:-1;
+}
+.test-photo img{width:100%; border-radius:var(--radius-organic); box-shadow:var(--shadow);}
 .test-copy blockquote{font-family:'Cormorant Garamond', serif; font-style:italic; font-size:clamp(1.4rem,2.6vw,1.8rem); color:var(--brown); line-height:1.5; margin-bottom:20px;}
 .test-copy cite{font-style:normal; font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft);}
 
 /* ---------- CTA FINAL ---------- */
-.final-cta{position:relative; text-align:center; color:var(--cream-warm); overflow:hidden;}
+.final-cta{position:relative; text-align:center; color:var(--cream-warm); overflow:hidden; max-width:1180px; margin:0 auto; border-radius:3.5rem 0.6rem;}
 .final-cta .bg{position:absolute; inset:0; z-index:0;}
 .final-cta .bg img{width:100%; height:100%; object-fit:cover;}
 .final-cta .bg::after{content:""; position:absolute; inset:0; background:rgba(58,40,26,0.78);}
@@ -253,12 +278,13 @@ footer .fine{color:rgba(215,194,154,0.55); margin-top:18px;}
   .split{grid-template-columns:1fr; gap:56px;}
   .split .media .frame-tag{left:16px; bottom:-20px;}
   .treat-grid{grid-template-columns:1fr;}
-  .steps{grid-template-columns:1fr 1fr; gap:36px 26px;}
+  .steps{grid-template-columns:1fr 1fr; gap:40px 26px;}
+  .steps::before{display:none;}
   .diff-grid{grid-template-columns:1fr; gap:40px;}
   .results-grid{grid-template-columns:1fr; max-width:340px;}
-  .testimonial .wrap{flex-direction:column; text-align:center; gap:40px;}
-  .test-photo{flex:0 0 auto; max-width:280px;}
-  .trust-strip div{padding:22px 30px;}
+  .testimonial .wrap{flex-direction:column; text-align:center; gap:48px;}
+  .test-photo{flex:0 0 auto !important; max-width:320px;}
+  .oasis-marks{padding:64px 24px; gap:44px;}
 }
 @media (max-width:520px){
   .steps{grid-template-columns:1fr;}
@@ -269,9 +295,9 @@ footer .fine{color:rgba(215,194,154,0.55); margin-top:18px;}
 </head>
 <body>
 
-<header>
+<header id="top">
   <nav class="wrap">
-    <div class="brand"><span class="mark serif">✦</span>OÁSIS</div>
+    <a class="brand" href="#top"><img src="img/logo.jpg" alt="Oásis Odontologia Humanizada"></a>
     <div class="nav-links">
       <a href="#sobre">Sobre</a>
       <a href="#tratamentos">Tratamentos</a>
@@ -298,11 +324,6 @@ footer .fine{color:rgba(215,194,154,0.55); margin-top:18px;}
   </div>
 </section>
 
-<div class="trust-strip">
-  <div><div class="num serif">5.251</div><div class="label">pacientes e seguidores</div></div>
-  <div><div class="num serif">Pirituba</div><div class="label">São Paulo — SP</div></div>
-  <div><div class="num serif">100%</div><div class="label">atendimento humanizado</div></div>
-</div>
 
 <section id="sobre">
   <div class="wrap">
@@ -436,8 +457,8 @@ footer .fine{color:rgba(215,194,154,0.55); margin-top:18px;}
 
 <section class="testimonial" id="protese">
   <div class="wrap">
-    <div class="test-photo reveal" style="flex-basis:380px;">
-      <img src="img/2026-08-01-protese.png" alt="Infográfico: prótese protocolo sobre implantes — mais estabilidade, conforto e qualidade de vida" style="aspect-ratio:auto; height:auto; border:1px solid var(--line);">
+    <div class="test-photo reveal" style="flex-basis:400px;">
+      <img src="img/2026-08-01-protese.png" alt="Infográfico: prótese protocolo sobre implantes — mais estabilidade, conforto e qualidade de vida">
     </div>
     <div class="test-copy reveal">
       <p class="kicker">Prótese protocolo sobre implantes</p>
@@ -469,7 +490,7 @@ footer .fine{color:rgba(215,194,154,0.55); margin-top:18px;}
 
 <footer>
   <div class="wrap">
-    <div class="brand-foot">OÁSIS</div>
+    <img src="img/logo.jpg" alt="Oásis Odontologia Humanizada" style="width:88px; height:88px; border-radius:50%; margin:0 auto 16px; object-fit:cover;">
     <div>Odontologia Humanizada · Reabilitação Oral</div>
     <div class="fine">Implantes · Estética Dental · Ortodontia · Prótese · Alinhadores Invisíveis</div>
   </div>
