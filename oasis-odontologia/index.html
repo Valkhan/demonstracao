@@ -23,7 +23,7 @@
   --line:rgba(74,52,35,0.16);
   --shadow:0 30px 70px -28px rgba(58,44,32,0.38);
   --shadow-hover:0 44px 90px -34px rgba(58,44,32,0.45);
-  --radius-organic:0.6rem 3rem;
+  --radius-organic:0.6rem;
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -61,7 +61,7 @@ header{
 nav.wrap{display:flex; align-items:center; justify-content:space-between; padding:20px 32px;}
 .brand{display:flex; align-items:center;}
 .brand img{width:64px; height:64px; border-radius:50%; object-fit:cover;}
-.nav-links{display:flex; gap:38px; font-size:0.9rem; color:var(--ink-soft); letter-spacing:0.03em;}
+.nav-links{display:flex; gap:38px; font-size:0.95rem; color:var(--ink-soft); letter-spacing:0.03em;}
 .nav-links a{position:relative; padding-bottom:4px;}
 .nav-links a::after{
   content:""; position:absolute; left:0; right:0; bottom:0; height:1px;
@@ -132,7 +132,7 @@ nav.wrap{display:flex; align-items:center; justify-content:space-between; paddin
 .oasis-mark:nth-child(3) .pebble{border-radius:57% 43% 63% 37% / 41% 58% 42% 59%;}
 .oasis-mark:hover .pebble{transform:translateY(-6px) rotate(-4deg);}
 .oasis-mark .num{font-family:'Cormorant Garamond', serif; font-size:1.9rem; color:var(--brown); line-height:1.1;}
-.oasis-mark .label{font-size:0.82rem; color:var(--ink-soft); margin-top:4px;}
+.oasis-mark .label{font-size:1rem; color:var(--ink-soft); margin-top:6px;}
 .oasis-mark .stem{width:1px; height:26px; background:var(--gold-soft); margin-top:16px;}
 
 /* ---------- SECTION SHARED ---------- */
@@ -179,7 +179,7 @@ section{padding:120px 0;}
   font-size:clamp(1.5rem, 3vw, 2.2rem); line-height:1.5; color:var(--cream);
 }
 .philo-quote span{color:var(--gold-soft);}
-.philo-sub{text-align:center; max-width:560px; margin:28px auto 0; color:var(--gold-soft); font-size:0.98rem;}
+.philo-sub{text-align:center; max-width:560px; margin:28px auto 0; color:var(--gold-soft); font-size:1.05rem;}
 
 /* ---------- TRATAMENTOS (CARDS) ---------- */
 .treat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px 30px;}
@@ -193,7 +193,7 @@ section{padding:120px 0;}
 .treat-card:hover .ph img{transform:scale(1.06);}
 .treat-card .body{padding:28px 28px 32px;}
 .treat-card h3{font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.45rem; color:var(--brown); margin-bottom:8px;}
-.treat-card p{font-size:0.9rem; color:var(--ink-soft);}
+.treat-card p{font-size:1rem; color:var(--ink-soft);}
 
 /* ---------- PROCESSO 01-04 ---------- */
 .process{background:var(--cream-deep);}
@@ -208,7 +208,7 @@ section{padding:120px 0;}
   line-height:1; margin-bottom:22px;
 }
 .step h3{font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.25rem; color:var(--brown); margin-bottom:8px;}
-.step p{font-size:0.88rem; color:var(--ink-soft);}
+.step p{font-size:1rem; color:var(--ink-soft);}
 
 /* ---------- DIFERENCIAIS ---------- */
 .diff-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:52px 44px;}
@@ -217,7 +217,7 @@ section{padding:120px 0;}
   display:flex; align-items:center; justify-content:center; color:var(--olive); font-size:1rem;
 }
 .diff-item h3{font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.35rem; color:var(--brown); margin-bottom:10px;}
-.diff-item p{font-size:0.9rem; color:var(--ink-soft);}
+.diff-item p{font-size:1rem; color:var(--ink-soft);}
 
 /* ---------- RESULTADOS ---------- */
 .results{background:var(--brown-deep); color:var(--cream-deep);}
@@ -258,7 +258,7 @@ section{padding:120px 0;}
 .location-line .dot{width:4px; height:4px; border-radius:50%; background:var(--gold-soft);}
 
 /* ---------- FOOTER ---------- */
-footer{background:var(--brown); color:var(--gold-soft); padding:52px 0 34px; text-align:center; font-size:0.82rem;}
+footer{background:var(--brown); color:var(--gold-soft); padding:52px 0 34px; text-align:center; font-size:0.95rem;}
 footer .brand-foot{font-family:'Cormorant Garamond', serif; font-size:1.4rem; letter-spacing:0.16em; color:var(--cream); margin-bottom:10px;}
 footer .fine{color:rgba(215,194,154,0.55); margin-top:18px;}
 
@@ -474,19 +474,6 @@ footer .fine{color:rgba(215,194,154,0.55); margin-top:18px;}
   </div>
 </section>
 
-<section class="final-cta" id="contato">
-  <div class="bg"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1900&q=80" alt="Ambiente calmo"></div>
-  <div class="wrap">
-    <h2>Seu sorriso merece esse cuidado</h2>
-    <p>Agende uma avaliação e conheça de perto a odontologia humanizada da Oásis.</p>
-    <a class="btn-outline" href="https://wa.me/message/A3UHKXU6DEWHE1" target="_blank" rel="noopener">Falar no WhatsApp</a>
-    <div class="location-line">
-      <span>Pirituba — São Paulo, SP</span>
-      <span class="dot"></span>
-      <span>@oasisodontologia</span>
-    </div>
-  </div>
-</section>
 
 <footer>
   <div class="wrap">
